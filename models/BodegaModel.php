@@ -32,6 +32,7 @@
             }
         }
 
+        /* Validar si la bodega no tiene inventario */
         public static function eliminarBodega($id){
             try{
 

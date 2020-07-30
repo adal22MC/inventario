@@ -42,12 +42,12 @@
                         </a>
                     </li>
 
-                    <!-- USUARIOS -->
+                    <!-- SOLICITUDES -->
                     <li class="nav-item">
-                        <a href="usuarios.php" class="nav-link">
+                        <a href="solicitudes_p.php" class="nav-link">
                             <i class="nav-icon fas fa-id-badge"></i>
                             <p>
-                                USUARIOS
+                                SOLICITUDES
                             </p>
                         </a>
                     </li>
