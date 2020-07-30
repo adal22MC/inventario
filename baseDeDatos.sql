@@ -95,7 +95,7 @@ CREATE OR REPLACE TABLE orden_trabajo(
     n_trabajador VARCHAR(255) COLLATE utf8_spanish_ci NOT NULL,
     cedula VARCHAR(100) COLLATE utf8_spanish_ci NOT NULL,
     tel VARCHAR(50) COLLATE utf8_spanish_ci NOT NULL,
-    descr TEXT COLLATE utf8_spanish_ci NOT NULL,
+    obser TEXT COLLATE utf8_spanish_ci NOT NULL,
     PRIMARY KEY (num_orden)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -194,7 +194,7 @@ CREATE OR REPLACE TABLE inventario(
 
 CREATE OR REPLACE TABLE detalle_inventario (
 
-    cns INT NOT NULL,
+    cns INT NOT NULL AUTO_INCREMENT,
     dispo INT NOT NULL, -- disponible
     p_compra FLOAT NOT NULL,
     stock INT NOT NULL,

@@ -52,65 +52,23 @@
                         </a>
                     </li>
 
-                    <!-- CATEGORIAS -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fab fa-cuttlefish"></i>
-                            <p>
-                                CATEGORIAS
-                            </p>
-                        </a>
-                    </li>
-
-                    <!-- PRODUCTOS -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fab fa-product-hunt"></i>
-                            <p>
-                                PRODUCTOS
-                            </p>
-                        </a>
-                    </li>
-
-                     <!-- TRASLADOS -->
+                    <!-- DESPACHOS -->
                     <li class="nav-item has-treeview menu-close">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-money-check-alt"></i>
                             <p>
-                                TRASLADOS
+                                DESPACHOS
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="despacho.php" class="nav-link">
                                 <i class="fas fa-minus-3x nav-icon"></i>
-                                <p>Vender Productos</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                <i class="fas fa-minus-3x nav-icon"></i>
-                                <p>Historial de ventas</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                <i class="fas fa-minus-3x nav-icon"></i>
-                                <p>Historial de cierres</p>
+                                <p>Generar Despacho</p>
                                 </a>
                             </li>
                         </ul>
-                    </li>
-
-                    <!-- CIERRE DE DIA -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-hand-holding-usd"></i>
-                            <p>
-                                CIERRE DE DIA
-                            </p>
-                        </a>
                     </li>
 
                 </ul>
