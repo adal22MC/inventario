@@ -93,19 +93,22 @@ $(document).on('submit', "#formDatosDespacho", (e) => {
         $.ajax({
             url : "../controllers/DespachoController.php",
             type : "POST",
-            data : JSON.parse(json_send)
-        }).done(function(data){
-            console.log(data)
-        }).fail(function(data){
-            console.log(data)
-        }).always(function(data){
-            console.log("complete")
+            data : JSON.parse(json_send),
+            //dataType : 'json',
+            success : function(respuesta){
+                /*
+                if(respuesta.respuesta == "OK"){
+                    notificacionExitosa('Despacho realizado con exito!');
+                }else{
+                    notificarError(respuesta.respuesta);
+                }
+                */
+                console.log(respuesta)
+            },
+            error : function(xhr, status){
+                notificarError('Ha ocurrido un error');
+            }
         })
-        
-        
-        
-
-        
         
         
     } catch (error) {
@@ -234,9 +237,8 @@ function notificacionExitosa(mensaje){
         '',
         'success'
     ).then(result => {
-        formaddBodega.reset();
-        document.getElementById('closeAdd').click();
-        document.getElementById('closeEdit').click();
+        //document.getElementById('closeAdd').click();
+        //document.getElementById('closeEdit').click();
     });
 }
 
