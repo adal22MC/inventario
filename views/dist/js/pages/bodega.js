@@ -23,6 +23,8 @@ function init(){
             {"data" : "nombre"},
             {"data" : "correo"},
             {"data" : "tel"},
+            {"data" : "username"},
+            {"data" : "pass"},
             {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-info btn-sm btnEditar'><i class='fas fa-edit'></i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='fas fa-trash-alt'></i></button></div></div>"}
         ]
     })
@@ -98,11 +100,11 @@ $(document).on("click", ".btnEditar", function(){
 
     /* Cargamos los datos obtenidos al modal editar */
     idBodega = data[0];
-    $("#nomBodega").val(data[2]);
-    $("#correoBodega").val(data[3]);
-    $("#numBodega").val(data[4]);
-    $("#userBodega").val("username");
-    $("#passBodega").val("pass");
+    $("#nomBodega").val(data[4]);
+    $("#correoBodega").val(data[2]);
+    $("#numBodega").val(data[3]);
+    $("#userBodega").val(data[5]);
+    $("#passBodega").val(data[6]);
    
     /* Hacemos visible el modal */
     $('#modalEditarBodega').modal('show');		   

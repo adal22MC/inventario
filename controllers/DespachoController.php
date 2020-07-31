@@ -1,10 +1,17 @@
 <?php
 
-    
+    require_once "../models/DespachoModel.php";
+
+    /* ===========================================
+        CUANDO UNA BODEGA HIJA GENERA UN DESPACHO
+     ============================================= */    
     if( isset($_POST['generarDespacho']) ){
 
         $datos = $_POST['generarDespacho'];
-        echo json_encode(['respuesta'=>$datos[1]['cantidad']]);
+
+        DespachoModelo::registrarDespacho($datos);
+
+        echo json_encode(['respuesta'=>'OK']);
 
     }else{
         echo json_encode(['respuesta'=>'NO']);

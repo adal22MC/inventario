@@ -2,25 +2,25 @@
 
     require_once "conexion.php";
 
-    class BodegaModelo {
+    class CategoriaModelo {
 
-        private static $INSERT_BODEGA = "INSERT INTO bodegas (correo,tel,nombre,username,pass) values (?, ?, ?, ?, ?)";
+        private static $INSERT_CATEGORIA = "INSERT INTO categorias (descr) values (?)";
 
-        private static $SELECT_ALL = "SELECT id_b,f_creacion,correo,tel,nombre,username,pass FROM bodegas";
+        private static $SELECT_ALL = "SELECT * FROM categorias";
 
-        private static $UPDATE = "UPDATE bodegas set nombre=?,correo=?,tel=?,username=?,pass=? WHERE id_b = ?";
+        private static $UPDATE = "UPDATE categorias set descr = ? WHERE id_c = ?";
 
-        private static $DELETE = "DELETE FROM bodegas WHERE id_b = ?";
+        private static $DELETE = "DELETE FROM categorias WHERE id_c = ?";
 
-        public static function agregarMaterial($bodega){
+        public static function agregarCategoria($categoria){
             try{
-
+                
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
 
-                $pst = $conn->prepare(self::$INSERT_BODEGA);
-
-                $pst->execute([$bodega['correo'], $bodega['tel'], $bodega['nombre'], $bodega['usuario'], $bodega['pass']]);
+                $pst = $conn->prepare(self::$INSERT_CATEGORIA);
+                
+                $pst->execute([$categoria]);
 
                 $conn = null;
                 $conexion->closeConexion();
@@ -32,8 +32,7 @@
             }
         }
 
-        /* Validar si la bodega no tiene inventario */
-        public static function eliminarBodega($id){
+        public static function eliminarCategoria($id){
             try{
 
                 $conexion = new Conexion();
@@ -53,7 +52,7 @@
             }
         }
 
-        public static function editarBodega($bodega){
+        public static function editarCategoria($categoria){
             try{
 
                 $conexion = new Conexion();
@@ -61,7 +60,7 @@
 
                 $pst = $conn->prepare(self::$UPDATE);
 
-                $pst->execute([$bodega['nombre'], $bodega['correo'], $bodega['tel'], $bodega['usuario'], $bodega['pass'], $bodega['id']]);
+                $pst->execute([$categoria['descr'], $categoria['id']]);
 
                 $conn = null;
                 $conexion->closeConexion();
@@ -73,23 +72,21 @@
             }
         }
 
-        public static function obtenerBodegas(){
-            try{
-
+        public static function obtenerCategorias(){
+            try {
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
 
                 $pst = $conn->prepare(self::$SELECT_ALL);
 
-                $pst->execute();
-                $bodegas = $pst->fetchAll();
+                $pst ->execute();
+                $categoria = $pst->fetchAll();
 
                 $conn = null;
                 $conexion->closeConexion();
 
-                return $bodegas;
-
-            }catch(PDOException $e){
+                return $categoria;
+            } catch (PDOException $e) {
                 return $e->getMessage();
             }
         }

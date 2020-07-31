@@ -51,6 +51,7 @@ $(document).on("click", ".btnAgregarASolicitud", function(){
             let ban = validarMaterialRepetido(idProducto);
             if(ban == true ){
 
+
                 $('.listaSolicitud').find('tbody').append(`
                     <tr>
                         <td>
@@ -77,8 +78,8 @@ $(document).on("click", ".btnAgregarASolicitud", function(){
 
 });
 
+
 $(document).on('click', '.btnEliminar', (e) => {
-    console.log('Eliminando ...');
 
     let pos = 0;
     
@@ -98,8 +99,9 @@ $(document).on('click', '.btnEliminar', (e) => {
 
 $(document).on('click', '#procesarVenta', (e) => {
     let contador = 0;
+
     // Validamos si por lo menos hay un producto en la lista
-    for(item of productosSolicitud){
+    for(let item of productosSolicitud){
         if(item == undefined){}
         else{
             contador = contador + 1;

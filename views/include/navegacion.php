@@ -71,6 +71,36 @@
                         </ul>
                     </li>
 
+                    <!-- CATEGORIAS -->
+                    <li class="nav-item">
+                        <a href="categorias.php" class="nav-link">
+                            <i class="nav-icon fas fa-hotel"></i>
+                            <p>
+                                CATEGORIAS
+                            </p>
+                        </a>
+                    </li>
+
+                    <!-- MATERIALES -->
+                    <li class="nav-item">
+                        <a href="materiales.php" class="nav-link">
+                            <i class="nav-icon fas fa-hotel"></i>
+                            <p>
+                                MATERIALES
+                            </p>
+                        </a>
+                    </li>
+
+                    <!-- USUAERIOS -->
+                    <li class="nav-item">
+                        <a href="usuarios.php" class="nav-link">
+                            <i class="nav-icon fas fa-hotel"></i>
+                            <p>
+                                USUARIOS
+                            </p>
+                        </a>
+                    </li>
+
                 </ul>
 
             </nav>

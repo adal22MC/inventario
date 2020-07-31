@@ -18,7 +18,7 @@ function initTablaMateriales(){
             {"data" : "id"},
             {"data" : "nombre"},
             {"data" : function test(stock){
-            return `<button class="btn btn-primary btn-sm">${stock.stock}</button>`
+                return `<button class="btn btn-primary btn-sm">${stock.stock}</button>`
             }},
             {"data" : "categoria"},
             {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-info btn-sm btnAddListDespacho'><i class='fas fa-reply'></i></button></div></div>"}
@@ -38,7 +38,7 @@ $(document).on('submit', "#formDatosDespacho", (e) => {
         let listaDepachoLimpia = [];
 
         // Limpiamos la lista de ventas de los undefined
-        for(item of productosDespacho){
+        for(let item of productosDespacho){
             if(item == undefined){}
             else{
                 listaDepachoLimpia.push({
@@ -60,9 +60,9 @@ $(document).on('submit', "#formDatosDespacho", (e) => {
 
         let ban = 0;
 
-        for(item of listaDepachoLimpia){
+        for(let item of listaDepachoLimpia){
             if(ban != 0){
-                if(item == undefined){}
+                if(item == undefined){}                        
                 else{
 
                     json_send = json_send + ",";
@@ -94,15 +94,15 @@ $(document).on('submit', "#formDatosDespacho", (e) => {
             url : "../controllers/DespachoController.php",
             type : "POST",
             data : JSON.parse(json_send),
-            //dataType : 'json',
+            dataType : 'json',
             success : function(respuesta){
-                /*
+                
                 if(respuesta.respuesta == "OK"){
                     notificacionExitosa('Despacho realizado con exito!');
                 }else{
                     notificarError(respuesta.respuesta);
                 }
-                */
+                
                 console.log(respuesta)
             },
             error : function(xhr, status){
@@ -209,7 +209,7 @@ $(document).on('click', '#procesarVenta', (e) => {
 
 
     if(contador == 0){
-        notificarError('No has agregado productos a lista');
+        notificarError('No has agregado materiales a lista');
     }else{
         $('#modalProcesarDespacho').modal('show');
     }

@@ -31,11 +31,13 @@
                                 <table id="bodega" class="table table-bordered table-striped tablaModulos">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
+                                            <th>ID</th>
                                             <th>F. Creacion</th>
                                             <th>Nombre</th>
                                             <th>Correo</th>
                                             <th>Telefono</th>
+                                            <th>Username</th>
+                                            <th>Contraseña</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
