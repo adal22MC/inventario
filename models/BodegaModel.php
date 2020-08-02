@@ -12,7 +12,7 @@
 
         private static $DELETE = "DELETE FROM bodegas WHERE id_b = ?";
 
-        public static function agregarMaterial($bodega){
+        public static function agregarBodeja($bodega){
             try{
 
                 $conexion = new Conexion();

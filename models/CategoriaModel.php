@@ -80,6 +80,7 @@
                 $pst = $conn->prepare(self::$SELECT_ALL);
 
                 $pst ->execute();
+                
                 $categoria = $pst->fetchAll();
 
                 $conn = null;
@@ -90,4 +91,5 @@
                 return $e->getMessage();
             }
         }
+       
     }

@@ -62,6 +62,6 @@
             $respuesta = CategoriaModelo::eliminarCategoria($_POST['idCategoria']);
             echo json_encode(['respuesta'=>$respuesta]);
         }else{
-            echo json_encode(['respuesta'=>'Error con el ID de la bodega']);
+            echo json_encode(['respuesta'=>'Error con el ID de la categoria']);
         }
     }
