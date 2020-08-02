@@ -91,5 +91,25 @@
                 return $e->getMessage();
             }
         }
+
+        public static function evaluarTM($id){
+            try {
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT id_c_m AS id FROM material WHERE id_c_m = ?");
+
+                $pst->execute([$id]);
+                $material = $pst->fetchAll();
+
+                $conn = null;
+                $conexion->closeConexion();
+
+                return $material;
+
+            } catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
        
     }

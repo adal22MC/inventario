@@ -41,26 +41,29 @@ async function obtenerSelect() {
         });
 
         var resjson = await peticion.json();
-
-        for (let item of resjson) {
-            var option = document.createElement("option");
-
-            option.setAttribute("id", item.id_c);
-            option.setAttribute("value", item.id_c);
-            $(option).html(item.descr);
-            $(option).appendTo("#selectCategoria");
-
+        
+        if (resjson != null) {
+            for (let item of resjson) {
+                var option = document.createElement("option");
+    
+                option.setAttribute("id", item.id_c);
+                option.setAttribute("value", item.id_c);
+                $(option).html(item.descr);
+                $(option).appendTo("#selectCategoria");
+    
+            }
+    
+            for (let item of resjson) {
+                var option = document.createElement("option");
+    
+                option.setAttribute("id", item.id_c);
+                option.setAttribute("value", item.id_c);
+                $(option).html(item.descr);
+                $(option).appendTo("#selectEditCategoria");
+    
+            }
         }
-
-        for (let item of resjson) {
-            var option = document.createElement("option");
-
-            option.setAttribute("id", item.id_c);
-            option.setAttribute("value", item.id_c);
-            $(option).html(item.descr);
-            $(option).appendTo("#selectEditCategoria");
-
-        }
+        
     } catch (error) {
         console.log(error);
     }
@@ -131,13 +134,14 @@ $(document).on("click", ".btnEditar", async function () {
 
     /* Cargamos los datos obtenidos al modal editar */
     idMaterial = data[0];
+    $("#idM").val(idMaterial);
     $("#desMaterial").val(data[1]);
     $("#SerialMaterial").val(data[3]);
     /* Hacemos visible el modal */
     $('#modalEditarMaterial').modal('show');
 
     try {   /* Obtenemos el ID de la categoria  */
-
+        
         var id = new FormData(); //obtenemos el formulario y creamos un objeto
         id.append('idM', idMaterial);
         id.append('IdMCategoria', 'Ok');
@@ -148,14 +152,15 @@ $(document).on("click", ".btnEditar", async function () {
         });
 
         var resjson = await peticion.json();
+        
         var selec = document.getElementById('selectEditCategoria');
-        let item = resjson;
+        var id = resjson.id;
 
         for (let i = 0; i < selec.length; i++) {
             var element = selec[i];
 
-            if (element.value == item.id) {
-                $("#selectEditCategoria").val(item.id);
+            if (element.value == id) {
+                $("#selectEditCategoria").val(element.value);
                 break;
             }
         }
