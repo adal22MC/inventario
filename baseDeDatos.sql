@@ -16,8 +16,8 @@ create or replace table material(
     primary key(id_m)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
-
+insert into material(id_m,descr,id_c_m) values('tenis39','Marca Nike',1);
+insert into material values('teek','Adidas','f43',1);
 create or replace table entrada_material(
 
     id int NOT NULL AUTO_INCREMENT,

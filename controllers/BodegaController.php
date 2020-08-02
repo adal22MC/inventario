@@ -27,7 +27,7 @@
 
             
 
-            $respuesta = BodegaModelo::agregarMaterial($bodega);
+            $respuesta = BodegaModelo::agregarBodeja($bodega);
             echo json_encode(['respuesta'=>$respuesta]);
 
         }else{
