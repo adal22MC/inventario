@@ -53,6 +53,7 @@
                 return $e->getMessage();
             }
         }
+
         public static function obtenerMateriales(){
             try{
 
@@ -73,6 +74,7 @@
                 return $e->getMessage();
             }
         }
+
         public static function agregarMaterial($material){
             try{
 
@@ -92,6 +94,7 @@
                 return $e->getMessage();
             }
         }
+
         public static function obtenerIdCategoria($material){
             try {
                 $conexion = new Conexion();
@@ -110,6 +113,7 @@
                 return $e->getMessage();
             }
         }
+
         public static function editarMaterial($material){
             try {
                 $conexion = new Conexion();
@@ -126,6 +130,7 @@
                 return $e->getMessage();
             }
         }
+
         public static function eliminarMaterial($id){
             try {
                 
@@ -144,4 +149,5 @@
                 return $e->getMessage();
             }
         }
+        
     }

@@ -16,8 +16,8 @@ create or replace table material(
     primary key(id_m)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-insert into material(id_m,descr,id_c_m) values('tenis39','Marca Nike',1);
-insert into material values('teek','Adidas','f43',1);
+
+
 create or replace table entrada_material(
 
     id int NOT NULL AUTO_INCREMENT,
@@ -37,7 +37,7 @@ create or replace table detalle_entrada(
     p_compra float NOT NULL, -- precio compra
     te_producto float NOT NULL, -- total efectivo -  cant * p_compra
     id_m_de varchar(50) NOT NULL,
-    foreign key (id_m_de) references material(id_m),
+    foreign key (id_m_de) references material(id_m) ON UPDATE CASCADE,
     foreign key (id_em) references entrada_material(id),
     primary key( cns, id_em, id_m_de)
 
@@ -82,7 +82,7 @@ CREATE OR REPLACE TABLE bod_usu(
     id_b_bu INT NOT NULL,
     username_bu VARCHAR(60) COLLATE utf8_spanish_ci NOT NULL,
     FOREIGN KEY ( id_b_bu ) REFERENCES bodegas ( id_b ),
-    FOREIGN KEY ( username_bu ) REFERENCES usuarios ( username ),
+    FOREIGN KEY ( username_bu ) REFERENCES usuarios ( username ) ON UPDATE CASCADE,
     PRIMARY KEY ( id_b_bu, username_bu )
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -108,7 +108,7 @@ CREATE OR REPLACE TABLE detalle_orden(
     num_orden_do INT NOT NULL,
     id_m_do varchar(50) COLLATE utf8_spanish_ci NOT NULL,
     FOREIGN KEY (num_orden_do) REFERENCES orden_trabajo(num_orden),
-    FOREIGN KEY (id_m_do) REFERENCES material (id_m),
+    FOREIGN KEY (id_m_do) REFERENCES material (id_m) ON UPDATE CASCADE,
     PRIMARY KEY (cns, num_orden_do, id_m_do)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -131,7 +131,7 @@ CREATE OR REPLACE TABLE detalle_solicitud(
     id_s_ds INT NOT NULL,
     id_m_ds varchar(50) COLLATE utf8_spanish_ci NOT NULL,
     FOREIGN KEY (id_s_ds) REFERENCES solicitud_p (id_s),
-    FOREIGN KEY (id_m_ds) REFERENCES material (id_m),
+    FOREIGN KEY (id_m_ds) REFERENCES material (id_m) ON UPDATE CASCADE,
     PRIMARY KEY (id_s_ds, id_m_ds)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -160,7 +160,7 @@ CREATE OR REPLACE TABLE material_traslado(
     id_t_mt INT NOT NULL,
     id_m_mt VARCHAR(50) COLLATE utf8_spanish_ci NOT NULL,
     FOREIGN KEY (id_t_mt) REFERENCES traslados (id_t),
-    FOREIGN KEY (id_m_mt) REFERENCES material (id_m),
+    FOREIGN KEY (id_m_mt) REFERENCES material (id_m) ON UPDATE CASCADE,
     PRIMARY KEY ( id_m_mt, id_t_mt)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -173,7 +173,7 @@ CREATE OR REPLACE TABLE detalle_traslado(
     cant INT NOT NULL,
     id_t_dt INT NOT NULL,
     id_m_dt VARCHAR(50) COLLATE utf8_spanish_ci NOT NULL,
-    FOREIGN KEY ( id_m_dt, id_t_dt) REFERENCES material_traslado (id_m_mt, id_t_mt),
+    FOREIGN KEY ( id_m_dt, id_t_dt) REFERENCES material_traslado (id_m_mt, id_t_mt) ON UPDATE CASCADE,
     PRIMARY KEY ( cns, id_m_dt, id_t_dt )
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -187,7 +187,7 @@ CREATE OR REPLACE TABLE inventario(
     id_b_i INT NOT NULL,
     id_m_i VARCHAR(50) COLLATE utf8_spanish_ci NOT NULL,
     FOREIGN KEY ( id_b_i ) REFERENCES bodegas (id_b),
-    FOREIGN KEY ( id_m_i ) REFERENCES material (id_m),
+    FOREIGN KEY ( id_m_i ) REFERENCES material (id_m) ON UPDATE CASCADE,
     PRIMARY KEY ( id_b_i, id_m_i )
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -201,7 +201,7 @@ CREATE OR REPLACE TABLE detalle_inventario (
     fecha DATE DEFAULT CURRENT_DATE NOT NULL,
     id_b_di INT NOT NULL,
     id_m_di VARCHAR(50) COLLATE utf8_spanish_ci NOT NULL,
-    FOREIGN KEY ( id_b_di, id_m_di ) REFERENCES inventario ( id_b_i, id_m_i ),
+    FOREIGN KEY ( id_b_di, id_m_di ) REFERENCES inventario ( id_b_i, id_m_i ) ON UPDATE CASCADE,
     PRIMARY KEY ( cns, id_b_di, id_m_di )
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;

@@ -49,8 +49,9 @@ $(document).on("click", ".btnAgregarASolicitud", function(){
     }).then( cantidad => {
         if(cantidad.value){
             let ban = validarMaterialRepetido(idProducto);
-            if(ban == true ){
-
+            if(cantidad.value <= 0){
+                notificarError('Ingresa un cantidad mayor a 0');
+            }else if(ban == true ){
 
                 $('.listaSolicitud').find('tbody').append(`
                     <tr>

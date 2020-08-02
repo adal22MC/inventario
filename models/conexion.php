@@ -5,7 +5,7 @@ class Conexion{
     private $servername = "localhost"; 
     private $username = "root";
     private $password = ""; 
-	private $bd_name = "Formulario"; 
+	private $bd_name = "inventario"; 
 	private $conn;
 
 	public function __construct(){
