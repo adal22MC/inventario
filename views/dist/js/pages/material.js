@@ -27,7 +27,9 @@ function init() {
     })
 
 }
+
 init();
+
 /*  Funcion generada solo una vez desde el body*/
 async function obtenerSelect() {
 
@@ -68,33 +70,40 @@ async function obtenerSelect() {
         console.log(error);
     }
 }
+
 formaddMaterial.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    try {
+    if(document.getElementById('selectCategoria').value == "show"){
+        notificarError("¡ Selecciona una categoria para el material !")
+    }else{
 
-        var datosMaterial = new FormData(formaddMaterial); //obtenemos el formulario y creamos un objeto
-        datosMaterial.append('agregarMaterial', 'OK');
+        try {
+
+            var datosMaterial = new FormData(formaddMaterial); //obtenemos el formulario y creamos un objeto
+            datosMaterial.append('agregarMaterial', 'OK');
 
 
-        var peticion = await fetch('../controllers/MaterialController.php', {
-            method: 'POST',
-            body: datosMaterial
-        });
+            var peticion = await fetch('../controllers/MaterialController.php', {
+                method: 'POST',
+                body: datosMaterial
+            });
 
-        var resjson = await peticion.json();
+            var resjson = await peticion.json();
 
-        if (resjson.respuesta == "OK") {
-            notificacionExitosa('¡Alta de material exitosa!');
-            tablaMaterial.ajax.reload(null, false);
-        } else {
-            notificarError(resjson.respuesta);
+            if (resjson.respuesta == "OK") {
+                notificacionExitosa('¡Alta de material exitosa!');
+                tablaMaterial.ajax.reload(null, false);
+            } else {
+                notificarError(resjson.respuesta);
+            }
+
+        } catch (error) {
+            console.log(error);
         }
-
-    } catch (error) {
-        console.log(error);
     }
 })
+
 formEditMaterial.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -217,6 +226,7 @@ $(document).on('click', ".btnBorrar", async function () {
     }
 
 })
+
 function notificacionExitosa(mensaje) {
     Swal.fire(
         mensaje,
