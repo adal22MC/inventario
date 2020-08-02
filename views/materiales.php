@@ -183,6 +183,16 @@
 
                         <div class="modal-body">
 
+                            <!-- ENTRADA PARA EL ID DE LA MATERIAL -->
+                            <div class="input-group pt-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" name="idM" id ="idM" placeholder="ID Material" required>
+                            </div>
+
                             <!-- ENTRADA PARA LA DESCRIPCION DEL MATERIAL -->
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">

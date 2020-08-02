@@ -59,8 +59,16 @@
         if(
             preg_match('/^[()\-0-9 ]+$/', $_POST['idCategoria'])
         ){
-            $respuesta = CategoriaModelo::eliminarCategoria($_POST['idCategoria']);
-            echo json_encode(['respuesta'=>$respuesta]);
+            $existe = CategoriaModelo::evaluarTM($_POST['idCategoria']);
+            if ($existe != null) {
+                echo json_encode(['respuesta'=>"Error, Existen materiales con esta Categoria"]);
+               
+            } else {
+                $respuesta = CategoriaModelo::eliminarCategoria($_POST['idCategoria']);
+                echo json_encode(['respuesta'=>$respuesta]);
+            }
+            
+           
         }else{
             echo json_encode(['respuesta'=>'Error con el ID de la categoria']);
         }

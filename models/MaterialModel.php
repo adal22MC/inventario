@@ -6,7 +6,7 @@
 
         private static $INSERT_MATERIAL = "INSERT INTO material  values (?, ?, ?, ?)";
 
-        private static $UPDATE_MATERIAL = "UPDATE material set descr = ?, serial = ?, id_c_m = ? WHERE id_m = ?";
+        private static $UPDATE_MATERIAL = "UPDATE material set id_m = ?,descr = ?, serial = ?, id_c_m = ? WHERE id_m = ?";
 
         private static $DELETE_MATERIAL = "DELETE FROM material WHERE id_m = ?";
 
@@ -120,7 +120,7 @@
                 $conn = $conexion->getConexion();
 
                 $pst = $conn->prepare(self::$UPDATE_MATERIAL);
-                $pst->execute([$material['descr'],$material['serial'],$material['id_c'],$material['id']] );
+                $pst->execute([$material['idNew'],$material['descr'],$material['serial'],$material['id_c'],$material['id']] );
 
                 $conn = null;
                 $conexion->closeConexion();

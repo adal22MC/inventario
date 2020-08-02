@@ -65,10 +65,11 @@
      ============================================================ */
      if ( isset($_POST['IdMCategoria']) ){
         if (
-            preg_match('/^[()\-0-9 ]+$/', $_POST['idM'])
+            preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_ ]+$/', $_POST['idM'])
         ){
             $respuesta = MaterialModelo::obtenerIdCategoria($_POST['idM']);
-            echo json_encode($respuesta);
+            echo json_encode(['id'=>$respuesta[0]["id"]]);
+            
         }else{
             echo json_encode(['respuesta'=>'Error en caracteres.']);
         }
@@ -82,6 +83,7 @@
         if(
 
             preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_ ]+$/', $_POST['idMaterial']) &&
+            preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_ ]+$/', $_POST['idM']) &&
             preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ.,_ ]+$/', $_POST['desMaterial']) &&
             preg_match('/^[()\-0-9 ]+$/', $_POST['categoria']) 
 
@@ -94,6 +96,7 @@
             
             $Material = array(
                 "id" => $_POST['idMaterial'],
+                "idNew" => $_POST['idM'],
                 "descr" => $_POST['desMaterial'],
                 "serial" => $_POST['serialMaterial'],
                 "id_c" => $_POST['categoria']
