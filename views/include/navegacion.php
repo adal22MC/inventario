@@ -10,7 +10,7 @@
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="btn btn-info btn-sm ml-4" href="salir.php">Salir del sistema</a>
+                <a class="btn btn-primary btn-sm ml-4" href="salir.php">Salir del sistema</a>
             </li>
         </ul>
     </nav>
