@@ -104,7 +104,6 @@ CREATE OR REPLACE TABLE detalle_orden(
 
     cns INT NOT NULL AUTO_INCREMENT,
     cant INT NOT NULL,
-    p_compra FLOAT NOT NULL,
     num_orden_do INT NOT NULL,
     id_m_do varchar(50) COLLATE utf8_spanish_ci NOT NULL,
     FOREIGN KEY (num_orden_do) REFERENCES orden_trabajo(num_orden),
