@@ -1,4 +1,4 @@
-    <!-- Navbar -->
+   <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
         <!-- Left navbar links -->
         <ul class="navbar-nav">
@@ -10,7 +10,7 @@
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="btn btn-info btn-sm ml-4" href="salir.php">Salir del sistema</a>
+                <a class="btn btn-primary btn-sm ml-4" href="salir.php">Salir del sistema</a>
             </li>
         </ul>
     </nav>
@@ -21,7 +21,13 @@
         <!-- Brand Logo -->
         <a href="admin.php" class="brand-link">
             <img src="dist/img/avatar5.png" alt="Inventario Logo" class="brand-image img-circle elevation-3">
-            <span class="brand-text font-weight-light"><b>Inventario</b></span>
+            <span class="brand-text font-weight-light">
+                <b>
+                    <?php 
+                        echo $_SESSION['nombre_bodega']; 
+                    ?>
+                </b>
+            </span>
         </a>
 
         <!-- Sidebar -->
@@ -32,24 +38,43 @@
 
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-                    <!-- BODEGAS -->
-                    <li class="nav-item">
-                        <a href="bodegas.php" class="nav-link">
-                            <i class="nav-icon fas fa-hotel"></i>
-                            <p>
-                                BODEGAS
-                            </p>
-                        </a>
-                    </li>
+                    <?php if($_SESSION['tipo_usuario'] == "administrador"){ ?>
+                                <!-- BODEGAS -->
+                                <li class="nav-item">
+                                    <a href="bodegas.php" class="nav-link">
+                                        <i class="nav-icon fas fa-hotel"></i>
+                                        <p>
+                                            BODEGAS
+                                        </p>
+                                    </a>
+                                </li>
+                    <?php } ?>
 
                     <!-- SOLICITUDES -->
-                    <li class="nav-item">
-                        <a href="solicitudes_p.php" class="nav-link">
-                            <i class="nav-icon fas fa-id-badge"></i>
+                    <li class="nav-item has-treeview menu-close">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-money-check-alt"></i>
                             <p>
                                 SOLICITUDES
+                                <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="solicitudes_p.php" class="nav-link">
+                                <i class="fas fa-minus-3x nav-icon"></i>
+                                <p>Generar solicitud</p>
+                                </a>
+                            </li>
+                            <!--
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                <i class="fas fa-minus-3x nav-icon"></i>
+                                <p>Historial de solicitudes</p>
+                                </a>
+                            </li>
+                            -->
+                        </ul>
                     </li>
 
                     <!-- DESPACHOS -->
@@ -71,15 +96,17 @@
                         </ul>
                     </li>
 
-                    <!-- CATEGORIAS -->
-                    <li class="nav-item">
-                        <a href="categorias.php" class="nav-link">
-                            <i class="nav-icon fas fa-hotel"></i>
-                            <p>
-                                CATEGORIAS
-                            </p>
-                        </a>
-                    </li>
+                    <?php if($_SESSION['tipo_usuario'] == "administrador"){ ?>
+                            <!-- CATEGORIAS -->
+                            <li class="nav-item">
+                                <a href="categorias.php" class="nav-link">
+                                    <i class="nav-icon fas fa-hotel"></i>
+                                    <p>
+                                        CATEGORIAS
+                                    </p>
+                                </a>
+                            </li>
+                    <?php } ?>
 
                     <!-- MATERIALES -->
                     <li class="nav-item">
@@ -91,15 +118,17 @@
                         </a>
                     </li>
 
-                    <!-- USUAERIOS -->
-                    <li class="nav-item">
-                        <a href="usuarios.php" class="nav-link">
-                            <i class="nav-icon fas fa-hotel"></i>
-                            <p>
-                                USUARIOS
-                            </p>
-                        </a>
-                    </li>
+                    <?php if($_SESSION['tipo_usuario'] == "administrador"){ ?>
+                            <!-- USUAERIOS -->
+                            <li class="nav-item">
+                                <a href="usuarios.php" class="nav-link">
+                                    <i class="nav-icon fas fa-hotel"></i>
+                                    <p>
+                                        USUARIOS
+                                    </p>
+                                </a>
+                            </li>
+                    <?php } ?>
 
                 </ul>
 
