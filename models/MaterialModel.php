@@ -54,21 +54,53 @@
             }
         }
 
-        public static function obtenerMateriales(){
+        public static function obtenerMateriales($id_bodega){
             try{
 
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
 
-                $pst = $conn->prepare("SELECT id_m , m.descr as nom, c.descr as des, serial FROM material m, categorias c WHERE c.id_c = m.id_c_m");
+                $pst = $conn->prepare("SELECT m.serial,i.s_total, i.s_min, i.s_max, m.id_m , m.descr as nom, c.descr as des, serial FROM material m, categorias c, inventario i WHERE c.id_c = m.id_c_m and i.id_m_i = m.id_m and i.id_b_i = ?");
 
-                $pst->execute();
+                $pst->execute([$id_bodega]);
                 $materiales = $pst->fetchAll();
+
+                foreach($materiales as $material){
+                    echo '
+                        <tr>
+                            <td>'.$material['id_m'].'</td>
+                            <td>'.$material['nom'].'</td>
+                        ';
+
+                        if($material['s_total'] <= $material['s_min']){
+                            echo '<td class="text-center">
+                                    <button class="btn btn-sm btn-danger">'.$material['s_total'].'</button>  
+                                  </td>';
+                        }else if($material['s_total'] == $material['s_max']){
+                            echo '<td class="text-center">
+                                    <button class="btn btn-sm btn-success">'.$material['s_total'].'</button>  
+                                  </td>';
+                        }else{
+                            echo '<td class="text-center">
+                                    <button class="btn btn-sm btn-info">'.$material['s_total'].'</button>  
+                                  </td>';
+                        }
+
+                    echo '
+                            <td>'.$material['s_min'].'</td>
+                            <td>'.$material['s_max'].'</td>
+                            <td>'.$material['des'].'</td>
+                            <td>'.$material['serial'].'</td>
+                            <td><div class="text-center"><div class="btn-group"><button class="btn btn-info btn-sm btnEditar"><i class="fas fa-edit"></i></button></div></div></td>
+                        </tr>
+                    ';
+
+                }
 
                 $conn = null;
                 $conexion->closeConexion();
 
-                return $materiales;
+                //return $materiales;
 
             }catch(PDOException $e){
                 return $e->getMessage();
@@ -145,6 +177,64 @@
                 $conexion->closeConexion();
 
                 return "OK";
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
+        /* ============================================================
+            MODIFICA EL STOCK MIN Y MAX DE UNA SUCURSAL EN UN MATERIAL
+          ============================================================= */
+        public static function modificarStock($s_min, $s_max, $id_b, $id_m){
+            try {
+
+                if($s_max > $s_min && $s_max > 0 && $s_min > 0){
+                
+                    $conexion = new Conexion();
+                    $conn = $conexion->getConexion();
+
+                    // Validamos que el stock maximo sea igual o mayor al stock disponible
+                    $ban = self::validarParametrosStock($id_m,$id_b,$s_max);
+                    
+                    if(!$ban){
+                        return "El Stock maximo no puede ser menor al Stock";
+                    }
+
+                    $pst = $conn->prepare("UPDATE inventario set s_min = ?, s_max = ? WHERE id_b_i = ? and id_m_i = ?");
+
+                    $pst->execute([$s_min,$s_max,$id_b,$id_m]);
+                    
+                    $conn = null;
+                    $conexion->closeConexion();
+
+                    return "OK";
+                }
+                return "Lo sentimos, parametros no aceptados!";
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
+        public static function validarParametrosStock($id_m,$id_b,$s_max){
+            try {
+                
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT s_total FROM inventario WHERE id_b_i = ? and id_m_i = ?");
+
+                $pst->execute([$id_b,$id_m]);
+
+                $datos = $pst->fetch();
+                
+                if(! ($s_max >= $datos['s_total']) ){
+                    return false;
+                }
+
+                $conn = null;
+                $conexion->closeConexion();
+
+                return true;
             }catch(PDOException $e){
                 return $e->getMessage();
             }

@@ -20,15 +20,25 @@
 
                 // Si no existe el usuario en las bodegas
                 if(!$datosUsuario){
-                    return "Usuario y contraseña incorrectos!";
+                    $pst = $conn->prepare("SELECT * FROM usuarios WHERE username=? and pass = ?");
+                    $pst->execute([$user,$pass]);
+                    $datosUsuario = $pst->fetch();
+                    // Si tampoco existe en la tabla usuarios
+                    if(!$datosUsuario){
+                        return "¡Usuario o contraseña incorrectos!";
+                    }
+                    // Si existe en la tabla usuario;
+
                 }
 
                 session_start();
                 $_SESSION['username'] = $datosUsuario['username'];
+                $_SESSION['id_bodega'] = $datosUsuario['id_b'];
+                $_SESSION['nombre_bodega'] = $datosUsuario['nombre'];
                 if ($datosUsuario['tipo'] == 0){
-                    $_SESSION['tipo_usuario'] = 'administrador'; 
+                    $_SESSION['tipo_usuario'] = 'almacenista_unidad'; 
                 }else{
-                    $_SESSION['tipo_usuario'] = 'almacenista_unidad';
+                    $_SESSION['tipo_usuario'] = 'administrador';
                 }
 
                 return "OK";

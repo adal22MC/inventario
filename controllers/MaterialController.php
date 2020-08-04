@@ -1,6 +1,7 @@
 <?php
 
     require_once "../models/MaterialModel.php";
+    session_start();
 
     /* ===========================
         AGREGAR MATERIAL
@@ -35,6 +36,7 @@
         }
         
     }
+
     /* =========================================================
         RETORNA LA LISTA DE MATERIALES QUE TIENE LA BODEGA MADRE
      ============================================================ */
@@ -44,22 +46,15 @@
         echo json_encode($materiales);
 
     }
-    /* =========================================================
-    RETORNA LA LISTA DE MATERIALES QUE TIENE LA BODEGA MADRE CON EL CAMPO SERIAL
-     ============================================================ */
-     if ( isset($_POST['obtenerMateriales']) ){
 
-        $materiales = MaterialModelo::obtenerMateriales();
-        echo json_encode($materiales);
-
-    }
     /* =========================================================
       RETORNA LA LISTA DE MATERIALES DE UNA BODEGA HIJA
      ============================================================ */
     if ( isset($_POST['getMaterialHijas']) ){
-        $materiales = MaterialModelo::obtenerMaterialesHijas(13);
+        $materiales = MaterialModelo::obtenerMaterialesHijas($_SESSION['id_bodega']);
         echo json_encode($materiales);
     }
+
     /* =========================================================
       RETORNA ID DE LA CATEDORIA
      ============================================================ */
@@ -75,6 +70,7 @@
         }
 
     }
+
     /* ===========================
         EDITAR MATERIAL
      ============================= */
@@ -109,6 +105,7 @@
         }
         
     }
+
      /* ===========================
         ELIMINAR CATEGORIA
      =============================*/
@@ -122,4 +119,20 @@
             echo json_encode(['respuesta'=>'Error con el ID del material']);
         }
     }
+
+    /* ========================================================
+        MODIFICA EL STOCK MINIMO Y MAXIMO DE UN MATERIAL DE LAS
+        BODEGAS HIJAS
+     ==========================================================*/
+     if( isset($_POST['modificarStock'])){
+        if(
+            preg_match('/^[()\-0-9 ]+$/', $_POST['s_min']) &&
+            preg_match('/^[()\-0-9 ]+$/', $_POST['s_max'])
+        ){
+            $respuesta = MaterialModelo::modificarStock($_POST['s_min'],$_POST['s_max'], $_SESSION['id_bodega'], $_POST['idMaterial']);
+            echo json_encode(['respuesta'=>$respuesta]);
+        }else{
+            echo json_encode(['respuesta'=>'Caracteres no admitidos']);
+        }
+     }
 

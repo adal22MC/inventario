@@ -5,27 +5,10 @@ var tablaMaterial;
 var idMaterial;
 
 function init() {
-
     tablaMaterial = $("#material").DataTable({
         "responsive": true,
-        "autoWidth": false,
-        "ajax": {
-            "url": "../controllers/MaterialController.php",
-            "type": "POST",
-            "data": {
-                "obtenerMateriales": "OK"
-            },
-            "dataSrc": ""
-        },
-        "columns": [
-            { "data": "id_m" },
-            { "data": "nom" },
-            { "data": "des" },
-            { "data": "serial" },
-            { "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-info btn-sm btnEditar'><i class='fas fa-edit'></i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='fas fa-trash-alt'></i></button></div></div>" }
-        ]
+        "autoWidth": false
     })
-
 }
 
 init();

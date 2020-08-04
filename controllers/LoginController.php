@@ -9,6 +9,7 @@
             preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_., ]+$/', $_POST['pass'])
         ){
             $respuesta = LoginModel::validarUsuarioBodega($_POST['usuario'], $_POST['pass']);
+            
             echo json_encode(['respuesta'=>$respuesta]);
         }else{
             echo json_encode(['respuesta'=>'Caracteres no admitidos']);
