@@ -237,8 +237,7 @@ function notificacionExitosa(mensaje){
         '',
         'success'
     ).then(result => {
-        //document.getElementById('closeAdd').click();
-        //document.getElementById('closeEdit').click();
+        //window.location = "despacho.php";
     });
 }
 
