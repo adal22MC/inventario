@@ -237,7 +237,7 @@ function notificacionExitosa(mensaje){
         '',
         'success'
     ).then(result => {
-        //window.location = "despacho.php";
+        window.location = "despacho.php";
     });
 }
 
