@@ -4,6 +4,8 @@
       header('Location: login.php');
   }
 
+  require_once "../models/MaterialModel.php";
+
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +28,7 @@
                 <div class="container-fluid pt-4">
                     <div class="row">
 
-                        <div class="col-md-6">
+                        <div class="col-md-5">
 
                             <!-- TABLE: SOLICITUD -->
                             <div class="card">
@@ -66,10 +68,11 @@
                                 <!-- /.card-footer -->
                             </div>
                             <!-- /.card -->
+
                         </div>
 
 
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             <!-- TABLA MATERIALES -->
                             <div class="container-fluid">
                                 <div class="row">
@@ -86,13 +89,18 @@
                                                         <tr>       
                                                             <th>ID Material</th>
                                                             <th>Nombre</th>
+                                                            <th>Stock</th>
+                                                            <th>Stock Maximo</th>
+                                                            <th>Stock Minimo</th>
                                                             <th>Categoria</th>
                                                             <th>Acciones</th>
                                                         </tr>
                                                     </thead>
 
                                                     <tbody>
-                                                       
+                                                       <?php
+                                                            MaterialModelo::getMaterialesHija($_SESSION['id_bodega']);
+                                                       ?>
                                                     </tbody>
 
                                                 </table>

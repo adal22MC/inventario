@@ -10,16 +10,49 @@
 
         private static $DELETE_MATERIAL = "DELETE FROM material WHERE id_m = ?";
 
-        public static function obtenerMaterialesMadre(){
+        public static function getMaterialesHija($id_bodega){
             try{
 
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
 
-                $pst = $conn->prepare("SELECT id_m , m.descr as nom, c.descr as des FROM material m, categorias c WHERE c.id_c = m.id_c_m");
+                $pst = $conn->prepare("SELECT id_m , m.descr as nom, c.descr as des, i.s_total, i.s_max, i.s_min FROM material m, categorias c, inventario i WHERE c.id_c = m.id_c_m and i.id_m_i = m.id_m and i.id_b_i = ?");
 
-                $pst->execute();
+                $pst->execute([$id_bodega]);
                 $materiales = $pst->fetchAll();
+
+                foreach($materiales as $material){
+                    echo '
+                        <tr>
+                            <td>'.$material['id_m'].'</td>
+                            <td>'.$material['nom'].'</td>';
+                    
+                    if($material['s_total'] == $material['s_max']){
+                       echo '<td class="text-center">
+                                <button class="btn btn-sm btn-success btnStock">'.$material['s_total'].'</button>
+                            </td>';
+                    }else if($material['s_total'] > $material['s_min']){
+                        echo '<td class="text-center">
+                                <button class="btn btn-sm btn-info btnStock">'.$material['s_total'].'</button>
+                            </td>';
+                    }else{
+                        echo '<td class="text-center">
+                                <button value="122" class="btn btn-sm btn-danger btnStock">'.$material['s_total'].'</button>
+                            </td>';
+                    }
+
+                    echo '
+                            <td class="text-center">
+                                <button class="btn btn-sm btn-success">'.$material['s_max'].'</button>
+                            </td>
+                            <td class="text-center">
+                                <button class="btn btn-sm btn-danger">'.$material['s_min'].'</button>
+                            </td>
+                            <td>'.$material['des'].'</td>
+                            <td><div class="text-center"><div class="btn-group"><button class="btn btn-info btn-sm btnAgregarASolicitud"><i class="fas fa-reply"></i></button></div></div></td>
+                        </tr>
+                    ';
+                }
 
                 $conn = null;
                 $conexion->closeConexion();
@@ -31,6 +64,7 @@
             }
         }
 
+        /* Retorna id material, nombre, stock, categoria */
         public static function obtenerMaterialesHijas($idBodegaHja){
             try{
 
@@ -43,6 +77,28 @@
 
                 $pst->execute([$idBodegaHja]);
                 $materiales = $pst->fetchAll();
+
+                $conn = null;
+                $conexion->closeConexion();
+
+                return $materiales;
+
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
+        /* Retorna id material, nombre, stock, s_max, s_min, categoria */
+        public static function obtenerMaterialesHijas_solicitud($id_bodega, $id_material){
+            try{
+
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT id_m , m.descr as nom, c.descr as des, i.s_total, i.s_max, i.s_min FROM material m, categorias c, inventario i WHERE c.id_c = m.id_c_m and i.id_m_i = m.id_m and i.id_b_i = ? and i.id_m_i = ?");
+
+                $pst->execute([$id_bodega, $id_material]);
+                $materiales = $pst->fetch();
 
                 $conn = null;
                 $conexion->closeConexion();
@@ -235,6 +291,53 @@
                 $conexion->closeConexion();
 
                 return true;
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
+        public static function insertarSolicitudMaterial($solicitud, $id_b){
+            try{
+
+                /**
+                 * Estatus
+                 * 1 -> pendiente
+                 * 2 -> ya aceptada
+                 */
+
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                // Insertamos en la tabla solicitud_p
+                $pst = $conn->prepare("INSERT INTO solicitud_p (resp,status,id_b_sp) VALUES (?,?,?)");
+                $pst->execute([$_SESSION['username'],1,$id_b]);
+
+                // Obtenemos el id de la soliciitud que acabamos de insertar
+                $pst = $conn->prepare("SELECT MAX(id_s) as id_s FROM solicitud_p");
+                $pst->execute();
+                $id_s = $pst->fetch();
+                
+                self::insertarDetalleSolicitud($solicitud, $id_s['id_s']);
+
+                return "OK";
+
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
+        public static function insertarDetalleSolicitud($solicitud, $id_s){
+            try{
+
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                foreach($solicitud as $item){
+                    $pst = $conn->prepare("INSERT INTO detalle_solicitud (id_s_ds,id_m_ds,cant) VALUES (?,?,?)");
+                    $pst->execute([$id_s,$item['id_material'],$item['cantidad']]);
+                }
+
+
             }catch(PDOException $e){
                 return $e->getMessage();
             }

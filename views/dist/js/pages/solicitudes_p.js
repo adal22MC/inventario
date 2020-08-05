@@ -5,21 +5,7 @@ function initTablaMateriales(){
    
     tablaMateriales =  $("#tablaMateriales").DataTable({
         "responsive": true,
-        "autoWidth" : false,
-        "ajax" : {
-            "url" : "../controllers/MaterialController.php",
-            "type": "POST",
-            "data": {
-                "obtenerMaterialesMadre" : "OK"
-            },
-            "dataSrc":""
-        },
-        "columns" :[
-            {"data" : "id_m"},
-            {"data" : "nom"},
-            {"data" : "des"},
-            {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-info btn-sm btnAgregarASolicitud'><i class='fas fa-reply'></i></button></div></div>"}
-        ]
+        "autoWidth" : false
     })
 
 }
@@ -27,7 +13,7 @@ function initTablaMateriales(){
 initTablaMateriales();
 
 /* Cuando se presiona el boton para agregar a la lista de solicitud */
-$(document).on("click", ".btnAgregarASolicitud", function(){
+$(document).on("click", ".btnAgregarASolicitud", async function(){
     
     if(tablaMateriales.row(this).child.isShown()){
         var data = tablaMateriales.row(this).data();
@@ -38,7 +24,8 @@ $(document).on("click", ".btnAgregarASolicitud", function(){
     let idProducto = data[0];
     let nomProducto = data[1];
     
-    Swal.fire({
+    
+    cantidad = await Swal.fire({
         title: 'Ingresa la cantidad a solicitar',
         input: 'number',
         inputAttributes: {
@@ -46,11 +33,33 @@ $(document).on("click", ".btnAgregarASolicitud", function(){
         },
         showCancelButton: true,
         confirmButtonText: 'Confirmar',
-    }).then( cantidad => {
-        if(cantidad.value){
+    })
+
+    if(cantidad.value){
+
+        try {
+
+            var material = new FormData();
+            material.append('getMaterialBodegaHija_solicitud', 'OK');
+            material.append('id_material', idProducto);
+            
+            let peticion = await fetch('../controllers/MaterialController.php', {
+                method : 'POST',
+                body : material
+            })
+    
+            let resjson = await peticion.json();
+
+            let stock_max = parseInt( resjson['s_max'] );
+            let stock_disp = parseInt( resjson['s_total'] );
+            let stock_sum = parseInt(cantidad.value) + stock_disp;
+        
             let ban = validarMaterialRepetido(idProducto);
+
             if(cantidad.value <= 0){
                 notificarError('Ingresa un cantidad mayor a 0');
+            }else if( stock_sum > stock_max ){
+                notificarError('El stock disponible mas la suma de lo que solicita sobrepasa el stock maximo!')
             }else if(ban == true ){
 
                 $('.listaSolicitud').find('tbody').append(`
@@ -69,13 +78,16 @@ $(document).on("click", ".btnAgregarASolicitud", function(){
                     cantidad : cantidad.value
                 });
 
-                console.log(productosSolicitud);
+                //console.log(productosSolicitud);
 
             }else{
                 notificarError('¡Este producto ya esta agregado, si desea agregar más eliminado y agregalo de nuevo!');
             }
+        
+        } catch (error) {
+            console.log(error);
         }
-    });
+    }
 
 });
 
@@ -113,7 +125,68 @@ $(document).on('click', '#procesarVenta', (e) => {
     if(contador == 0){
         notificarError('No has agregado productos a lista');
     }else{
-        console.log('Procesando solicitud')
+        var materialesSolicitud = [];
+
+        // Limpiamos el json para quitar los empty
+        for(let item of productosSolicitud){
+            if(!(item == undefined)){
+                materialesSolicitud.push({
+                    id_material : item.id,
+                    cantidad : item.cantidad
+                })
+            }
+        }
+
+        try {
+            
+            // Creamos el JSON que se enviara
+            var json_send = ` { "generarSolicitud" : [ `;
+            let ban = 0;
+            for(let item of materialesSolicitud){  
+                if(ban != 0){
+                    json_send = json_send + ",";
+                }
+                if(!(item == undefined)){                     
+                    
+
+                    json_send = json_send + `
+                        {
+                            "id_material" : "${item.id_material}",
+                            "cantidad" : "${item.cantidad}"
+                        }
+                    `;
+                }
+                ban = 1;
+            }
+            json_send = json_send + "]}";
+            
+            console.log(JSON.parse(json_send))
+
+            $.ajax({
+                url : "../controllers/MaterialController.php",
+                type : "POST",
+                data : JSON.parse(json_send),
+                dataType : 'json',
+                success : function(respuesta){
+                    
+                    if(respuesta.respuesta == "OK"){
+                        notificacionExitosa('Solicitud realizada con exito!');
+                    }else{
+                        notificarError(respuesta.respuesta);
+                    }
+                    
+                    console.log(respuesta)
+                },
+                error : function(xhr, status){
+                    notificarError('Ha ocurrido un error');
+                }
+            })
+
+        } catch (error) {
+            console.log(error)
+        }
+
+        
     }
 });
 
@@ -139,9 +212,7 @@ function notificacionExitosa(mensaje){
         '',
         'success'
     ).then(result => {
-        formaddBodega.reset();
-        document.getElementById('closeAdd').click();
-        document.getElementById('closeEdit').click();
+        window.location = "solicitudes_p.php";
     });
 }
 

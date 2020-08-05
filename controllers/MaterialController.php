@@ -37,21 +37,21 @@
         
     }
 
-    /* =========================================================
-        RETORNA LA LISTA DE MATERIALES QUE TIENE LA BODEGA MADRE
-     ============================================================ */
-    if ( isset($_POST['obtenerMaterialesMadre']) ){
-
-        $materiales = MaterialModelo::obtenerMaterialesMadre();
-        echo json_encode($materiales);
-
-    }
-
+    
     /* =========================================================
       RETORNA LA LISTA DE MATERIALES DE UNA BODEGA HIJA
      ============================================================ */
     if ( isset($_POST['getMaterialHijas']) ){
         $materiales = MaterialModelo::obtenerMaterialesHijas($_SESSION['id_bodega']);
+        echo json_encode($materiales);
+    }
+
+    /* ===============================================================
+        Retorna id material, nombre, stock, s_max, s_min, categoria
+        Unicamente bodegas hijas (Recibe el id de la bodega)
+     =================================================================*/
+    if( isset($_POST['getMaterialBodegaHija_solicitud'])){
+        $materiales = MaterialModelo::obtenerMaterialesHijas_solicitud($_SESSION['id_bodega'], $_POST['id_material']);
         echo json_encode($materiales);
     }
 
@@ -107,7 +107,7 @@
     }
 
      /* ===========================
-        ELIMINAR CATEGORIA
+        ELIMINAR MATERIAL
      =============================*/
      if(isset($_POST['eliminarMaterial'])){
         if(
@@ -134,5 +134,17 @@
         }else{
             echo json_encode(['respuesta'=>'Caracteres no admitidos']);
         }
+     }
+
+     /* ================================================================
+        GENERA LA SOLICITUD DE MATERIALES QUE HACENS LAS BODEGAS HIJAS
+        (RECIBE JSON DE SOLICITUD)
+     ====================================================================*/
+     if( isset($_POST['generarSolicitud'])){
+
+        $solicitud = $_POST['generarSolicitud'];
+        $respuesta = MaterialModelo::insertarSolicitudMaterial($solicitud,$_SESSION['id_bodega']);
+
+        echo json_encode(['respuesta'=>$respuesta]);
      }
 
