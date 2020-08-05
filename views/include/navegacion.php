@@ -53,7 +53,7 @@
                     <!-- SOLICITUDES -->
                     <li class="nav-item has-treeview menu-close">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-money-check-alt"></i>
+                        <i class="nav-icon fas fa-shipping-fast"></i>
                             <p>
                                 SOLICITUDES
                                 <i class="right fas fa-angle-left"></i>
@@ -80,7 +80,7 @@
                     <!-- DESPACHOS -->
                     <li class="nav-item has-treeview menu-close">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-money-check-alt"></i>
+                            <i class="nav-icon fas fa-address-card"></i>
                             <p>
                                 DESPACHOS
                                 <i class="right fas fa-angle-left"></i>
