@@ -93,4 +93,66 @@
                 return $e->getMessage();
             }
         }
+
+        /* Metodo que imprime las notificaciones de stock bajo */
+        public static function printStockBajoBodega(){
+            try{
+
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT descr FROM material, inventario WHERE s_total <= s_min and id_b_i = ? and id_m_i = id_m");
+
+                $pst->execute([$_SESSION['id_bodega']]);
+                $materiales = $pst->fetchAll();
+
+                $ban = 0;
+                $total_materiales_bajos = count($materiales);
+                foreach($materiales as $material){
+                    if($ban == 0){
+                        echo '
+                        <a class="nav-link" data-toggle="dropdown" href="#">
+                            <i class="far fa-bell"></i>
+                            <span class="badge badge-info navbar-badge">'.$total_materiales_bajos.'</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <span class="dropdown-item dropdown-header">Notificaciones</span>
+                        ';
+                    }
+                    
+                    echo '    
+                        <div class="dropdown-divider"></div>
+                        <a href="materiales.php" class="dropdown-item">
+                            <i class="fas fa-envelope mr-2"></i> '.$material['descr'].'
+                            <span class="float-right text-muted text-sm">bajo en stock</span>
+                        </a>
+                    ';
+                    $ban = 1;
+                }
+
+                if($ban == 0){
+                    echo '
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-bell"></i>
+                        <span class="badge badge-info navbar-badge">0</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <span class="dropdown-item dropdown-header">Sin Notificaciones</span>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            
+                        </a>
+                    </div>
+                    ';
+                }else{
+                    echo '</div>';
+                }
+
+                $conn = null;
+                $conexion->closeConexion();
+
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
     }
