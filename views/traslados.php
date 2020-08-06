@@ -1,10 +1,10 @@
 <?php
-  session_start();
-  if (!isset($_SESSION['username']) ){
-      header('Location: login.php');
-  }
+session_start();
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
+}
 
-  require_once "../models/MaterialModel.php";
+require_once "../models/MaterialModel.php";
 
 ?>
 
@@ -30,10 +30,10 @@
 
                         <div class="col-md-5">
 
-                            <!-- TABLE: SOLICITUD -->
+                            <!-- TABLE: TRASLADO -->
                             <div class="card">
                                 <div class="card-header border-transparent">
-                                    <h3 id="totalApagar" class="card-title">Lista de productos a solicitar</h3>
+                                    <h3 id="totalApagar" class="card-title">Lista de productos a trasladar</h3>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-minus"></i>
@@ -63,7 +63,7 @@
 
                                 <div class="card-footer clearfix">
                                     <a href="solicitudes_p.php" class="btn btn-sm btn-danger float-left">Cancelar todo</a>
-                                    <button id="procesarVenta" class="btn btn-sm btn-info float-right">Procesar solicitud</button>
+                                    <button id="procesarVenta" class="btn btn-sm btn-info float-right">Procesar tralado</button>
                                 </div>
                                 <!-- /.card-footer -->
                             </div>
@@ -80,26 +80,39 @@
 
                                         <div class="card">
                                             <div class="card-header">
+                                                <div class="input-group pt-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fab fa-cuttlefish"></i>
+                                                        </span>
+                                                    </div>
+                                                    <select class="form-control" id="selectSucursales">
+                                                        <option value="default" selected>Seleccione una sucursal</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="card">
+                                            <div class="card-header">
                                                 <h2 class="card-title">Lista de todos los Materiales</h2>
                                             </div>
                                             <!-- /.card-header -->
                                             <div class="card-body">
                                                 <table id="tablaMateriales" class="table table-bordered table-striped">
                                                     <thead>
-                                                        <tr>     
-                                                            <th>Acciones</th>  
+                                                        <tr>
                                                             <th>ID Material</th>
                                                             <th>Nombre</th>
                                                             <th>Stock</th>
-                                                            <th>Stock Maximo</th>
                                                             <th>Categoria</th>
+                                                            <th>Acciones</th>
                                                         </tr>
                                                     </thead>
 
                                                     <tbody>
-                                                       <?php
-                                                            MaterialModelo::getMaterialesHija($_SESSION['id_bodega']);
-                                                       ?>
+
                                                     </tbody>
 
                                                 </table>
@@ -129,7 +142,7 @@
     <!-- ./wrapper -->
 
     <?php include('include/scripts.php'); ?>
-    <script src="dist/js/pages/solicitudes_p.js"></script>
+    <script src="dist/js/pages/traslados.js"></script>
 
 </body>
 

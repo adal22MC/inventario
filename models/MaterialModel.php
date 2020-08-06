@@ -10,6 +10,7 @@
 
         private static $DELETE_MATERIAL = "DELETE FROM material WHERE id_m = ?";
 
+        // Imprime directamente
         public static function getMaterialesHija($id_bodega){
             try{
 
@@ -24,6 +25,7 @@
                 foreach($materiales as $material){
                     echo '
                         <tr>
+                            <td><div class="text-center"><div class="btn-group"><button class="btn btn-info btn-sm btnAgregarASolicitud"><i class="fas fa-reply"></i></button></div></div></td>
                             <td>'.$material['id_m'].'</td>
                             <td>'.$material['nom'].'</td>';
                     
@@ -45,11 +47,7 @@
                             <td class="text-center">
                                 <button class="btn btn-sm btn-success">'.$material['s_max'].'</button>
                             </td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-danger">'.$material['s_min'].'</button>
-                            </td>
                             <td>'.$material['des'].'</td>
-                            <td><div class="text-center"><div class="btn-group"><button class="btn btn-info btn-sm btnAgregarASolicitud"><i class="fas fa-reply"></i></button></div></div></td>
                         </tr>
                     ';
                 }

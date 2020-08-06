@@ -10,8 +10,8 @@
 
         $datos = $_POST['generarDespacho'];
 
-        DespachoModelo::registrarDespacho($datos, $_SESSION['id_bodega']);
+        $respuesta = DespachoModelo::registrarDespacho($datos, $_SESSION['id_bodega']);
 
-        echo json_encode(['respuesta'=>'OK']);
+        echo json_encode(['respuesta'=>$respuesta]);
 
     }

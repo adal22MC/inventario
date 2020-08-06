@@ -49,6 +49,7 @@ $(document).on('submit', "#formDatosDespacho", (e) => {
         }
         
         listaDepachoLimpia.unshift({
+            num_orden : document.getElementById('num_orden').value,
             nombre : document.getElementById('nomTrabajador').value,
             telefono : document.getElementById('telefono').value,
             cedula : document.getElementById('cedula').value,
@@ -77,6 +78,7 @@ $(document).on('submit', "#formDatosDespacho", (e) => {
             }else{
                 json_send = json_send + `
                     {
+                        "num_orden" : "${item.num_orden}",
                         "nombre" : "${item.nombre}",
                         "telefono" : "${item.telefono}",
                         "cedula" : "${item.cedula}",

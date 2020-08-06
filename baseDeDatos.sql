@@ -89,13 +89,15 @@ CREATE OR REPLACE TABLE bod_usu(
 
 CREATE OR REPLACE TABLE orden_trabajo(
 
-    num_orden INT NOT NULL AUTO_INCREMENT,
+    num_orden VARCHAR(255) COLLATE utf8_spanish_ci NOT NULL,
     fecha DATE DEFAULT CURRENT_DATE NOT NULL,
     hora TIME DEFAULT CURRENT_TIME NOT NULL,
     n_trabajador VARCHAR(255) COLLATE utf8_spanish_ci NOT NULL,
     cedula VARCHAR(100) COLLATE utf8_spanish_ci NOT NULL,
     tel VARCHAR(50) COLLATE utf8_spanish_ci NOT NULL,
     obser TEXT COLLATE utf8_spanish_ci NOT NULL,
+    id_b_ot INT NOT NULL,
+    FOREIGN KEY (id_b_ot) REFERENCES bodegas (id_b),
     PRIMARY KEY (num_orden)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -104,7 +106,7 @@ CREATE OR REPLACE TABLE detalle_orden(
 
     cns INT NOT NULL AUTO_INCREMENT,
     cant INT NOT NULL,
-    num_orden_do INT NOT NULL,
+    num_orden_do VARCHAR(255) COLLATE utf8_spanish_ci NOT NULL,
     id_m_do varchar(50) COLLATE utf8_spanish_ci NOT NULL,
     FOREIGN KEY (num_orden_do) REFERENCES orden_trabajo(num_orden),
     FOREIGN KEY (id_m_do) REFERENCES material (id_m) ON UPDATE CASCADE,
@@ -145,6 +147,8 @@ CREATE OR REPLACE TABLE traslados(
     salio_de INT NOT NULL,
     t_materiales INT NOT NULL, -- cantidad de materiales
     te_traslado FLOAT NOT NULL, -- total efectivo
+    resp VARCHAR(60) COLLATE utf8_spanish_ci NOT NULL,
+    FOREIGN KEY (resp) REFERENCES usuarios (username),
     FOREIGN KEY (llego_a) REFERENCES bodegas(id_b),
     FOREIGN KEY (salio_de) REFERENCES bodegas (id_b),
     PRIMARY KEY (id_t)

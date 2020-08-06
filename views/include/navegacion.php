@@ -9,13 +9,13 @@
 
        <!-- Right navbar links -->
        <ul class="navbar-nav ml-auto">
-           
+
            <!-- Notifications Dropdown Menu -->
            <li class="nav-item dropdown">
-               <?php 
-                    require_once "../models/BodegaModel.php";
-                    BodegaModelo::printStockBajoBodega(); 
-               ?>
+               <?php
+                require_once "../models/BodegaModel.php";
+                BodegaModelo::printStockBajoBodega();
+                ?>
            </li>
            <li class="nav-item">
                <a class="btn btn-primary btn-sm ml-4 mt-1" href="salir.php">Salir</a>
@@ -74,14 +74,12 @@
                                    <p>Generar solicitud</p>
                                </a>
                            </li>
-                           <!--
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                <i class="fas fa-minus-3x nav-icon"></i>
-                                <p>Historial de solicitudes</p>
-                                </a>
-                            </li>
-                            -->
+                           <li class="nav-item">
+                               <a href="#" class="nav-link">
+                                   <i class="fas fa-minus-3x nav-icon"></i>
+                                   <p>Generar reporte</p>
+                               </a>
+                           </li>
                        </ul>
                    </li>
 
@@ -99,6 +97,12 @@
                                <a href="despacho.php" class="nav-link">
                                    <i class="fas fa-minus-3x nav-icon"></i>
                                    <p>Generar Despacho</p>
+                               </a>
+                           </li>
+                           <li class="nav-item">
+                               <a href="#" class="nav-link">
+                                   <i class="fas fa-minus-3x nav-icon"></i>
+                                   <p>Generar reporte</p>
                                </a>
                            </li>
                        </ul>
@@ -126,8 +130,35 @@
                        </a>
                    </li>
 
+                   <!-- TRASLADOS -->
+                   <li class="nav-item">
+                       <a href="#" class="nav-link">
+                           <i class="nav-icon fas fa-address-card"></i>
+                           <p>
+                               TRASLADOS
+                               <i class="right fas fa-angle-left"></i>
+                           </p>
+                       </a>
+                       <ul class="nav nav-treeview">
+                           <li class="nav-item">
+                               <a href="traslados.php" class="nav-link">
+                                   <i class="fas fa-minus-3x nav-icon"></i>
+                                   <p>Generar Traslado</p>
+                               </a>
+                           </li>
+                           <li class="nav-item">
+                               <a href="#" class="nav-link">
+                                   <i class="fas fa-minus-3x nav-icon"></i>
+                                   <p>Generar reporte</p>
+                               </a>
+                           </li>
+                       </ul>
+                   </li>
+
+
+
                    <?php if ($_SESSION['tipo_usuario'] == "administrador") { ?>
-                       <!-- USUAERIOS -->
+                       <!-- USUARIOS -->
                        <li class="nav-item">
                            <a href="usuarios.php" class="nav-link">
                                <i class="nav-icon fas fa-hotel"></i>

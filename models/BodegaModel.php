@@ -94,6 +94,28 @@
             }
         }
 
+        /* Devuelve todas las bodegas disponibles para el traslado */
+        public static function obtenerBodegas_traslados($id_b){
+            try{
+
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT * FROM bodegas where id_b <> ?");
+
+                $pst->execute([$id_b]);
+                $bodegas = $pst->fetchAll();
+
+                $conn = null;
+                $conexion->closeConexion();
+
+                return $bodegas;
+
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
         /* Metodo que imprime las notificaciones de stock bajo */
         public static function printStockBajoBodega(){
             try{
@@ -137,11 +159,7 @@
                         <span class="badge badge-info navbar-badge">0</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header">Sin Notificaciones</span>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            
-                        </a>
+                        <span class="dropdown-item dropdown-header">Sin Notificaciones</span>      
                     </div>
                     ';
                 }else{
@@ -150,6 +168,58 @@
 
                 $conn = null;
                 $conexion->closeConexion();
+
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
+        public static function insertarTraslado($traslado, $id_bo_salio){
+            try{
+
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $ban = self::verificarTraslado($traslado);
+                if(!$ban){
+                    return "Parece que algunas cantidades a trasladar sobrepasan el stock maximo de la sucursal que los recibira";
+                }
+                
+                $total_materiaes = count($traslado) - 1;
+
+                $pst = $conn->prepare("INSERT INTO traslados (llego_a, salio_de,t_materiales,te_traslado) VALUES (?,?,?,?)");
+                
+
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
+        public static function verificarTraslado($traslado){
+            try{
+                
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                // Id de la bodega a la que se hara el traslado
+                $id_b_llega = $traslado[0]['id_bodega'];
+                
+                for($i = 1; $i<count($traslado); $i++){
+
+                    $pst = $conn->prepare("SELECT s_total, s_max FROM inventario WHERE id_b_i = ? and id_m_i = ?");
+                    $pst->execute([$id_b_llega, $traslado[$i]['id']]);
+                    $datos = $pst->fetch();
+
+                    $filas = $pst->rowCount();
+                    if($filas > 0){
+                        if( ($datos['s_total'] + $traslado[$i]['cantidad']) > $datos['s_max'] ){
+                            return false;
+                        }
+                    }
+                    
+                }
+
+                return true;
 
             }catch(PDOException $e){
                 return $e->getMessage();
