@@ -184,7 +184,9 @@
                 if(!$ban){
                     return "Parece que algunas cantidades a trasladar sobrepasan el stock maximo de la sucursal que los recibira";
                 }
-                
+                return "OK";
+
+                // Dejamos pendiente esta parte
                 $total_materiaes = count($traslado) - 1;
 
                 $pst = $conn->prepare("INSERT INTO traslados (llego_a, salio_de,t_materiales,te_traslado) VALUES (?,?,?,?)");

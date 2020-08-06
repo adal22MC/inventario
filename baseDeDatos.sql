@@ -6,6 +6,9 @@ create or replace table categorias(
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+-- INSERCCIONES PARA LA TABLA CATEGORIAS
+INSERT INTO categorias VALUES (NULL, 'Ferreteria'), (NULL, 'Tuberia');
+
 create or replace table material(
 
     id_m varchar(50) COLLATE utf8_spanish_ci NOT NULL,
@@ -16,6 +19,9 @@ create or replace table material(
     primary key(id_m)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- INSERCCIONES PARA LA TABLA MATERIAL
+INSERT INTO material VALUES ('001','Segeta', 'S45568', 1),('002', 'Martillo', 'S13224', 1), ('003', 'Tubo PVC', 'S4564', 2);
 
 
 create or replace table entrada_material(
@@ -51,11 +57,13 @@ CREATE OR REPLACE TABLE bodegas(
     tel TEXT COLLATE utf8_spanish_ci NOT NULL,
     nombre TEXT COLLATE utf8_spanish_ci NOT NULL,
     tipo INT NOT NULL DEFAULT 0,
-    username VARCHAR(50) COLLATE utf8_spanish_ci NOT NULL,
-    pass VARCHAR(50) COLLATE utf8_spanish_ci NOT NULL,
     PRIMARY KEY(id_b)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- INSERCCIONES EN LA TABLA BODEGA
+INSERT INTO bodegas (correo,tel,nombre) VALUES ('tapachula@tapachula.es','9622162349','Sucursal Tapachula'), ('pinos@pinos.com','9627895878', 'Sucursal Los Pinos'), ('san_cristobal@sancris.com','5557894578', 'Sucursal San Cristobal');
+
 
 CREATE OR REPLACE TABLE tipo_usuario(
 
@@ -65,15 +73,28 @@ CREATE OR REPLACE TABLE tipo_usuario(
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+-- INSERCCIONES EN  LA TABLA tipo_usuario
+INSERT INTO tipo_usuario VALUES (NULL, 'Administrador'),(NULL, 'Almacenista Principal'),
+(NULL, 'Almacenista Por Unidad');
+
 CREATE OR REPLACE TABLE usuarios(
 
     username VARCHAR(60) COLLATE utf8_spanish_ci NOT NULL,
     pass varchar(60) COLLATE utf8_spanish_ci NOT NULL,
+    correo VARCHAR(255) COLLATE utf8_spanish_ci NOT NULL UNIQUE,
+    num_iden VARCHAR(255) COLLATE utf8_spanish_ci NOT NULL UNIQUE,
+    nombres VARCHAR(255) COLLATE utf8_spanish_ci NOT NULL,
+    apellidos VARCHAR(255) COLLATE utf8_spanish_ci NOT NULL,
     id_tu_u INT NOT NULL,
     FOREIGN KEY (id_tu_u) REFERENCES tipo_usuario(id_tu),
     PRIMARY KEY (username)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- INSERCCIONES EN LA TABLA usuarios
+INSERT INTO usuarios VALUES 
+('user','user','my.rg.developer@gmail.com','45878','Pedro Ignacio','Ruiz Guzmán',3), 
+('unidad','unidad','rodriguez@gmail.com', '78545', 'Juan Rodrigo', 'Rodriguez Perez',3);
 
 
 -- TABLA INTERMEDIA BODEGAS - USUARIOS
@@ -86,6 +107,9 @@ CREATE OR REPLACE TABLE bod_usu(
     PRIMARY KEY ( id_b_bu, username_bu )
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- INSERCCIONES PARA LA TABLA INTERMEDIA bod_usu
+INSERT INTO bod_usu VALUES (1,'user'),(2,'user');
 
 CREATE OR REPLACE TABLE orden_trabajo(
 
@@ -196,6 +220,9 @@ CREATE OR REPLACE TABLE inventario(
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+-- INSERCCIONES PARA LA TABLA inventario
+INSERT INTO inventario VALUES (100,10,100,1,'001'),(100,10,100,1,'002'),(100,10,100,1,'003');
+
 CREATE OR REPLACE TABLE detalle_inventario (
 
     cns INT NOT NULL AUTO_INCREMENT,
@@ -209,3 +236,7 @@ CREATE OR REPLACE TABLE detalle_inventario (
     PRIMARY KEY ( cns, id_b_di, id_m_di )
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- INSERCCIONES EN LA TABLA DETALLE INVENTARIO
+INSERT INTO detalle_inventario (dispo,p_compra,stock,id_b_di,id_m_di) VALUES (1,80,100,1,'001'),
+(1,80,100,1,'002'), (1,80,50,1,'003'), (1,50,50,1,'003');

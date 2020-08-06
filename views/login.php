@@ -1,8 +1,8 @@
 <?php
-    session_start();
-    if ( isset($_SESSION['username'])){
-        header('Location: admin.php');
-    }
+session_start();
+if (isset($_SESSION['username'])) {
+    header('Location: admin.php');
+}
 
 ?>
 
@@ -10,7 +10,7 @@
 <html lang="es">
 
 <head>
-  <?php include('include/cabezera.php'); ?>
+    <?php include('include/cabezera.php'); ?>
 </head>
 
 <body class="bg-dark">
@@ -38,10 +38,9 @@
         </div>
     </div>
 
-    
     <?php include('include/scripts.php'); ?>
     <script src="dist/js/pages/login.js"></script>
-    
+
 
 </body>
 
