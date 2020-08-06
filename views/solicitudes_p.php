@@ -29,7 +29,6 @@
                     <div class="row">
 
                         <div class="col-md-5">
-
                             <!-- TABLE: SOLICITUD -->
                             <div class="card">
                                 <div class="card-header border-transparent">
@@ -68,7 +67,6 @@
                                 <!-- /.card-footer -->
                             </div>
                             <!-- /.card -->
-
                         </div>
 
 
@@ -86,9 +84,9 @@
                                             <div class="card-body">
                                                 <table id="tablaMateriales" class="table table-bordered table-striped">
                                                     <thead>
-                                                        <tr>     
-                                                            <th>Acciones</th>  
+                                                        <tr>      
                                                             <th>ID Material</th>
+                                                            <th>Acciones</th> 
                                                             <th>Nombre</th>
                                                             <th>Stock</th>
                                                             <th>Stock Maximo</th>

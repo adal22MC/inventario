@@ -2,12 +2,10 @@ var tablaMateriales;
 var productosSolicitud = [];
 
 function initTablaMateriales(){
-   
     tablaMateriales =  $("#tablaMateriales").DataTable({
         "responsive": true,
         "autoWidth" : false
     })
-
 }
 
 initTablaMateriales();
@@ -21,8 +19,8 @@ $(document).on("click", ".btnAgregarASolicitud", async function(){
         var data = tablaMateriales.row($(this).parents("tr")).data();
     }
 
-    let idProducto = data[0];
-    let nomProducto = data[1];
+    let idProducto = data[0]; 
+    let nomProducto = data[2]; console.log(nomProducto)
     
     
     cantidad = await Swal.fire({

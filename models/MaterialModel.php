@@ -25,8 +25,8 @@
                 foreach($materiales as $material){
                     echo '
                         <tr>
-                            <td><div class="text-center"><div class="btn-group"><button class="btn btn-info btn-sm btnAgregarASolicitud"><i class="fas fa-reply"></i></button></div></div></td>
                             <td>'.$material['id_m'].'</td>
+                            <td><div class="text-center"><div class="btn-group"><button class="btn btn-info btn-sm btnAgregarASolicitud"><i class="fas fa-reply"></i></button></div></div></td>
                             <td>'.$material['nom'].'</td>';
                     
                     if($material['s_total'] == $material['s_max']){
