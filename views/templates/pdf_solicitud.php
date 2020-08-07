@@ -1,3 +1,21 @@
+<?php
+
+  session_start();
+
+  if( isset($_SESSION['username'])){
+    if( isset($_GET['id_solicitud'])){
+      echo "SI existe y es " . $_GET['id_solicitud'];
+    }else{
+      header("Location: ../historial_solicitudes.php");
+    }
+  }else{
+    header("Location: ../historial_solicitudes.php");
+  }
+  
+  require_once "../../models/Solicitud_model.php";
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -37,14 +55,9 @@
     <tr>
       <td valign="top"><img src="" alt="logo" width="150" /></td>
       <td align="right">
-        <h3>Los Pinos</h3>
-        <pre>
-          Jhon Doe CEO
-          Joystick
-          XX101010101
-          5512 3465 78
-          FAX
-        </pre>
+        <?php
+          SolicitudModelo::imprimiDatosEmpresa($_GET['id_solicitud']);
+        ?>
       </td>
     </tr>
   </table>

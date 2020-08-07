@@ -81,13 +81,13 @@
                            <li class="nav-item">
                                <a href="solicitudes_p.php" class="nav-link">
                                    <i class="fas fa-minus-3x nav-icon"></i>
-                                   <p>Generar solicitud</p>
+                                   <p>Realizar solicitud</p>
                                </a>
                            </li>
                            <li class="nav-item">
-                               <a href="#" class="nav-link">
+                               <a href="historial_solicitudes.php" class="nav-link">
                                    <i class="fas fa-minus-3x nav-icon"></i>
-                                   <p>Generar reporte</p>
+                                   <p>Historial de Solicitudes</p>
                                </a>
                            </li>
                        </ul>
@@ -106,13 +106,13 @@
                            <li class="nav-item">
                                <a href="despacho.php" class="nav-link">
                                    <i class="fas fa-minus-3x nav-icon"></i>
-                                   <p>Generar Despacho</p>
+                                   <p>Realizar Despacho</p>
                                </a>
                            </li>
                            <li class="nav-item">
                                <a href="#" class="nav-link">
                                    <i class="fas fa-minus-3x nav-icon"></i>
-                                   <p>Generar reporte</p>
+                                   <p>Historial de despachos</p>
                                </a>
                            </li>
                        </ul>
@@ -153,13 +153,13 @@
                            <li class="nav-item">
                                <a href="traslados.php" class="nav-link">
                                    <i class="fas fa-minus-3x nav-icon"></i>
-                                   <p>Generar Traslado</p>
+                                   <p>Realizar Traslado</p>
                                </a>
                            </li>
                            <li class="nav-item">
                                <a href="#" class="nav-link">
                                    <i class="fas fa-minus-3x nav-icon"></i>
-                                   <p>Generar reporte</p>
+                                   <p>Historial de traslados</p>
                                </a>
                            </li>
                        </ul>

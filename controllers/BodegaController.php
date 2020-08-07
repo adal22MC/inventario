@@ -105,3 +105,11 @@
 
         echo json_encode(['respuesta'=>$respuesta]);
     }
+
+    /* =============================================================
+        Devuelve el historial de solicitudes de una bodega hija
+     ===============================================================*/
+    if( isset($_POST['getHistorialSolicitudes']) ){
+        $solicitudes =  BodegaModelo::getHistorialSolicitudes($_SESSION['id_bodega']);
+        echo json_encode($solicitudes);
+    }

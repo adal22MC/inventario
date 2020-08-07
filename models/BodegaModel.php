@@ -430,4 +430,26 @@
                 return $e->getMessage();
             }
         }
+
+        // Devuelve el historial de solicitudes de una bodega hija
+        public static function getHistorialSolicitudes($id_bodega){
+            try{
+
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT id_s, fecha, hora, resp, status FROM solicitud_p WHERE id_b_sp = ? ");
+                $pst->execute([$id_bodega]);
+
+                $solicitudes = $pst->fetchAll();
+
+                $conexion->closeConexion();
+                $conn = null;
+
+                return $solicitudes;
+                
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
     }
