@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Despacho</title>
+  <title>Solicitud</title>
 
   <style type="text/css">
     * {
@@ -61,6 +61,7 @@
   <hr>
   <br />
   <!-- Información del trabajador -->
+   <!--
   <div width="50%" align="right">
     <h3 align="center">Despacho realizado por:</h3>
     <table width="60%">
@@ -81,7 +82,7 @@
         </tr>
       </tbody>
     </table>
-  </div>
+  </div> -->
   <br /> <br /> <br />
   <!-- Resumen de la cotización -->
   <table width="100%">
