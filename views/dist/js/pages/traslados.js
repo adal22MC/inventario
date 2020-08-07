@@ -196,6 +196,8 @@ $(document).on('click', '#procesarVenta', (e) => {
                     },
                     error : function(xhr, status){
                         notificarError('Ha ocurrido un error');
+                        console.log(xhr);
+                        console.log(status)
                     }
                 })
                 
@@ -257,7 +259,7 @@ function notificacionExitosa(mensaje){
         '',
         'success'
     ).then(result => {
-        //window.location = "despacho.php";
+        window.location = "traslados.php";
     });
 }
 

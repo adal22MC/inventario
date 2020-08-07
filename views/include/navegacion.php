@@ -41,6 +41,16 @@
        <!-- Sidebar -->
        <div class="sidebar">
 
+            <!-- Informacion del usuario -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="dist/img/avatar5.png" class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                    <a href="#" class="d-block"><?php echo $_SESSION['nombre_usuario']; ?></a>
+                </div>
+            </div>
+
            <!-- Menu opciones -->
            <nav class="mt-2">
 

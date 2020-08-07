@@ -184,12 +184,32 @@
                 if(!$ban){
                     return "Parece que algunas cantidades a trasladar sobrepasan el stock maximo de la sucursal que los recibira";
                 }
+                
+                // Obtenemos el total de materiales a trasladar
+                $total_materiaes = self::getTotalMaterialesTraslado($traslado);
+
+                // Insertamos en la tabla traslado
+                $pst = $conn->prepare("INSERT INTO traslados (llego_a, salio_de,t_materiales,te_traslado, resp) VALUES (?,?,?,?,?)");
+                $pst->execute([$traslado[0]['id_bodega'],$id_bo_salio,$total_materiaes,0,$_SESSION['username']]);
+
+                // Obtenemos el id del traslado
+                $pst = $conn->prepare("SELECT MAX(id_t) as id_t FROM traslados"); 
+                $pst->execute();
+                $id_t = $pst->fetch();
+
+                // Insertamos el detalle del traslado
+                self::insertarDetalleTraslado($traslado,$id_t['id_t'],$id_bo_salio);
+
+                // Obtenemos la suma total en efectivo del traslado
+                $pst = $conn->prepare("SELECT SUM(t_material) as total FROM material_traslado WHERE id_t_mt = ?");
+                $pst->execute([$id_t['id_t']]);
+                $suma = $pst->fetch();
+
+                // Acutalizamos el campo te_traslado de la tabla traslado
+                $pst = $conn->prepare("UPDATE traslados set te_traslado = ? WHERE id_t = ?");
+                $pst->execute([$suma['total'],$id_t['id_t']]);
+
                 return "OK";
-
-                // Dejamos pendiente esta parte
-                $total_materiaes = count($traslado) - 1;
-
-                $pst = $conn->prepare("INSERT INTO traslados (llego_a, salio_de,t_materiales,te_traslado) VALUES (?,?,?,?)");
                 
 
             }catch(PDOException $e){
@@ -222,6 +242,189 @@
                 }
 
                 return true;
+
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
+        public static function getTotalMaterialesTraslado($traslado){
+            $total = 0;
+            for($i = 1; $i<count($traslado); $i++){
+                $total = $total + $traslado[$i]['cantidad'];
+            }
+            return $total;
+        }
+
+        public static function insertarDetalleTraslado($traslado,$id_t,$id_bo_salio){
+            try{
+
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                for($i=1; $i<count($traslado); $i++){
+
+                    // Insertamos en la tabla material traslado
+                    $pst = $conn->prepare("INSERT INTO material_traslado VALUES (?,?,?,?)");
+                    $pst->execute([$traslado[$i]['cantidad'],0,$id_t,$traslado[$i]['id']]);
+
+                    //Descontamos del inventario de la bodega que hizo el traslado
+                    self::descontarInventarioTraslado($traslado[$i]['id'],$traslado[$i]['cantidad'],$traslado[0]['id_bodega'],$id_t,$id_bo_salio);
+
+                    // Obtenemos la suma total del material en efectivos
+                    $pst = $conn->prepare("SELECT SUM(total) as total FROM detalle_traslado WHERE id_t_dt = ? and id_m_dt = ?");
+                    $pst->execute([$id_t,$traslado[$i]['id']]);
+                    $suma = $pst->fetch();
+
+                    //Actualizamos el campo t_material de la tabla material_traslado
+                    $pst = $conn->prepare("UPDATE material_traslado set t_material = ? WHERE id_t_mt = ? and id_m_mt = ?");
+                    $pst->execute([$suma['total'],$id_t,$traslado[$i]['id']]);
+                }
+
+
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
+        public static function descontarInventarioTraslado($id_m,$cantidad,$id_b_llega,$id_t,$id_b_salio){
+            
+            try{
+
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+                $ban = true;
+                $restante = $cantidad;
+
+                //Insertamos el material en la tabla inventario con el id de la bodega a la que se traslado
+                self::insertarInventarioBodegaRecibeTraslado($id_m,$cantidad,$id_b_llega,$id_b_salio);
+
+                while($ban){
+
+                    // Obtengo el cns min
+                    $pst = $conn->prepare("SELECT MIN(cns) as cns, stock, p_compra FROM detalle_inventario WHERE dispo = 1 and id_b_di = ? and id_m_di = ?");
+                    $pst->execute([$id_b_salio,$id_m]);
+                    $cns = $pst->fetch();
+
+                    if( $cns['stock'] <= $restante ){
+
+                        $pst = $conn->prepare("UPDATE detalle_inventario set stock = 0, dispo = 0 WHERE cns = ?");
+                        $pst->execute([$cns['cns']]);
+                        $restante = $restante - $cns['stock'];
+
+                        //Insertamos el detalle del traslado
+                        $pst = $conn->prepare("INSERT INTO detalle_traslado (total,p_compra,cant,id_t_dt,id_m_dt) VALUES (?,?,?,?,?)");
+                        $total = $cns['p_compra'] * $cns['stock']; // Precio compra * cantidad
+                        $pst->execute([$total,$cns['p_compra'],$cns['stock'],$id_t,$id_m]);
+
+                        //Insertamos en la tabla detalle inventario
+                        self::insertarDetalleInventario($cns['p_compra'],$cns['stock'],$id_b_llega,$id_m);
+
+                    }else{
+
+                        $stock_sobra = $cns['stock'] - $restante;
+                        $pst = $conn->prepare("UPDATE detalle_inventario set stock = ? WHERE cns = ?");
+                        $pst->execute([$stock_sobra,$cns['cns']]);
+
+                        //Insertamos el detelle del traslado
+                        $pst = $conn->prepare("INSERT INTO detalle_traslado (total,p_compra,cant,id_t_dt,id_m_dt) VALUES (?,?,?,?,?)");
+                        $total = $cns['p_compra'] * $restante; // Precio compra * cantidad
+                        $pst->execute([$total,$cns['p_compra'],$restante,$id_t,$id_m]);
+
+                        //Insertamos en la tabla detalle inventario
+                        self::insertarDetalleInventario($cns['p_compra'],$restante,$id_b_llega,$id_m);
+
+                        $restante = 0;
+                    }
+
+                    if($restante == 0){
+                        $ban = false;
+                    }
+
+                }
+
+                $pst = $conn->prepare("SELECT SUM(stock) as total FROM detalle_inventario WHERE id_b_di = ? and id_m_di = ? ");
+                $pst->execute([$id_b_salio,$id_m]);
+                $total = $pst->fetch();
+
+                // Actualizamos el stock en la tabla inventario
+                $pst = $conn->prepare("UPDATE inventario set s_total = ? WHERE id_b_i = ? and id_m_i = ?");
+                $pst->execute([$total['total'],$id_b_salio,$id_m]);
+
+
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
+        // Inserta en la tabla inventario de la bodega que recibe
+        public static function insertarInventarioBodegaRecibeTraslado($id_m,$cantidad,$id_b,$id_b_salio){
+            try{
+
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                /*Verificamos si el material ya esta registrado en el inventario de la bodega
+                 que lo recibira */
+
+                $pst = $conn->prepare("SELECT * FROM inventario WHERE id_b_i = ? and id_m_i = ?");
+                $pst->execute([$id_b,$id_m]);
+                $datos = $pst->fetch(); 
+                $filas = $pst->rowCount();
+
+
+                // Si existe el material
+                if($filas > 0){
+                    // Sumamos el stock que la bodega ya tiene mas el que se le traslado
+                    $stock_nuevo = $datos['s_total'] + $cantidad;
+
+                    $pst = $conn->prepare("UPDATE inventario set s_total = ? WHERE id_b_i = ? and id_m_i = ?");
+                    $pst->execute([$stock_nuevo,$id_b,$id_m]);
+                }else{
+
+                    //Obtenemos el stock max y min de la bodega que traslado el material
+                    $pst = $conn->prepare("SELECT * FROM inventario WHERE id_b_i = ? and id_m_i = ? ");
+                    $pst->execute([$id_b_salio,$id_m]);
+                    $stock = $pst->fetch();
+
+                    // Insertamos el material en el inventario de la bodega que recibe el traslado
+                    $pst = $conn->prepare("INSERT INTO inventario VALUES (?,?,?,?,?)");
+                    $pst->execute([$cantidad,$stock['s_min'],$stock['s_max'],$id_b,$id_m]);
+                }
+
+                $conexion->closeConexion();
+                $conn = null;
+                
+
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
+        public static function insertarDetalleInventario($p_compra,$stock,$id_b,$id_m){
+            try{
+
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT * FROM detalle_inventario WHERE id_b_di = ? and id_m_di = ? and p_compra = ?");
+                $pst->execute([$id_b,$id_m,$p_compra]);
+
+                $existe = $pst->fetch();
+                $filas = $pst->rowCount();
+
+                // Si existe ya el material con ese mismo precio de compra
+                if($filas > 0){
+                    $total = $existe['stock'] + $stock;
+                    $pst = $conn->prepare("UPDATE detalle_inventario set stock = ? WHERE cns = ?");
+                    $pst->execute([$total,$existe['cns']]);
+                }else{
+                    $pst = $conn->prepare("INSERT INTO detalle_inventario (dispo,p_compra,stock,id_b_di,id_m_di) VALUES (?,?,?,?,?)");
+                    $pst->execute([1,$p_compra,$stock,$id_b,$id_m]);
+                }
+
+                $conexion->closeConexion();
+                $conn = null;
 
             }catch(PDOException $e){
                 return $e->getMessage();

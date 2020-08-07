@@ -45,7 +45,20 @@
                 if($tipoUsuario['descr'] == "Almacenista Por Unidad"){
 
                     // Por ende solo tiene acceso a una sucursal 
+
+                    // Obtenemos los datos de la sucursal
+                    $pst = $conn->prepare("SELECT * FROM bodegas WHERE id_b = ?");
+                    $pst->execute([$bodegas_acceso[0]['id_b_bu']]);
+                    $datos_bodega = $pst->fetch();
                     
+                    // Iniciamos las sesiones
+                    $_SESSION['username'] = $datosUsuario['username'];
+                    $_SESSION['nombre_usuario'] = $datosUsuario['nombres'];
+                    $_SESSION['id_bodega'] = $datos_bodega['id_b'];
+                    $_SESSION['nombre_bodega'] = $datos_bodega['nombre'];
+                    $_SESSION['tipo_usuario'] = "Almacenista Por Unidad";
+                    return "OK";
+
                 }else if($tipoUsuario['descr'] == "Almacenista Principal"){
                     return "Almacenista Principal";
                 }else if ($tipoUsuario['descr'] == "Administrador"){
