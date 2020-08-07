@@ -15,6 +15,7 @@ document.getElementById('formIngresar').addEventListener('submit', async (e) => 
         
         if(resjson.respuesta == "OK"){
             window.location = "admin.php";
+            console.log('OK')
         }else{
             notificarError(resjson.respuesta);
         }

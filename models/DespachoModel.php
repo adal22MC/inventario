@@ -11,23 +11,20 @@
                 $conn = $conexion->getConexion();
 
                 // Registramos el despacho el tabla orden_trabajo
-                $pst = $conn->prepare('INSERT INTO orden_trabajo (n_trabajador,cedula,tel,obser) values (?,?,?,?)');
+                $pst = $conn->prepare('INSERT INTO orden_trabajo (num_orden,n_trabajador,cedula,tel,obser,id_b_ot) values (?,?,?,?,?,?)');
 
-                $pst->execute([$despacho[0]['nombre'],$despacho[0]['cedula'],$despacho[0]['telefono'],$despacho[0]['obser']]);
-
-                // Ahora obtenemos el id de ese despacho que se acaba de insertar
-                $pst = $conn->prepare("SELECT MAX(num_orden) as id FROM orden_trabajo");
-                $pst->execute();
-                $id_despacho = $pst->fetch();
+                $pst->execute([$despacho[0]['num_orden'],$despacho[0]['nombre'],$despacho[0]['cedula'],$despacho[0]['telefono'],$despacho[0]['obser'],$_SESSION['id_bodega']]);
 
                 self::descontarInventarioHija($despacho,$id_bodega);
-                self::insertarDetalleOrden($despacho,$id_despacho['id']);
+                self::insertarDetalleOrden($despacho,$despacho[0]['num_orden']);
 
                 $conexion->closeConexion();
                 $conn = null;
 
+                return "OK";
+
             }catch(PDOException $e){
-                return $e->getMessage();
+                return "Numero de orden ya registrado!";
             }
         }
 

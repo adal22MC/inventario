@@ -1,6 +1,7 @@
 <?php
 
     require_once "../models/BodegaModel.php";
+    session_start();
 
     /* ===========================
         AGREGAR BODEGA
@@ -37,7 +38,7 @@
     }
 
     /* ==============================
-        EDITAR MATERIAL MATERIAL
+        EDITAR BODEGA
      ===============================*/
     if( isset($_POST['editarBodega']) ){
         if(
@@ -79,6 +80,14 @@
 
     }
 
+    /* ========================================================
+      DEVUELVE TODAS LAS BODEGAS DISPONIBLES PARA EL TRASALADO
+     ===========================================================*/
+    if (isset($_POST['obtenerBodegas_traslado'])){
+        $data = BodegaModelo::obtenerBodegas_traslados($_SESSION['id_bodega']);
+        echo json_encode($data);
+    }
+
     if( isset($_POST['eliminarBodega']) ){
         if(preg_match('/^[()\-0-9 ]+$/', $_POST['idBodega'])){
 
@@ -89,3 +98,10 @@
         }
     }
 
+    if( isset($_POST['traslado'])){
+        $traslado = $_POST['traslado'];
+
+        $respuesta = BodegaModelo::insertarTraslado($traslado, $_SESSION['id_bodega']);
+
+        echo json_encode(['respuesta'=>$respuesta]);
+    }

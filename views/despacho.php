@@ -26,7 +26,7 @@
                 <div class="container-fluid pt-4">
                     <div class="row">
 
-                        <div class="col-md-6">
+                        <div class="col-md-5">
 
                             <!-- TABLE: DESPACHOS -->
                             <div class="card">
@@ -68,7 +68,7 @@
                             <!-- /.card -->
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             <!-- TABLA MATERIALES -->
                             <div class="container-fluid">
                                 <div class="row">
@@ -115,7 +115,7 @@
 
 
             <!--=====================================
-            MODAL AGREGAR BODEGA 
+            MODAL PROCESAR DESPACHO 
             ======================================-->
 
             <div id="modalProcesarDespacho" class="modal fade" role="dialog">
@@ -145,6 +145,15 @@
 
                             <div class="modal-body">
 
+                                <!-- ENTRADA PARA EL NOMBRE DEL TRABAJADOR -->
+                                <div class="input-group pt-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-user"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" id="num_orden" placeholder="Número de orden" required>
+                                </div>
 
                                 <!-- ENTRADA PARA EL NOMBRE DEL TRABAJADOR -->
                                 <div class="input-group pt-3">
