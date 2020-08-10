@@ -44,7 +44,7 @@ $(document).on('click', '.btnSolicitud', function(){
     let id_solicitud = data[0];
 
     window.location = "templates/pdf_solicitud.php?id_solicitud="+id_solicitud;
-
+    
 });
 
 $(document).on('click', '.btnfechas', function(){
@@ -53,3 +53,4 @@ $(document).on('click', '.btnfechas', function(){
 
     window.location = "templates/pdf_solicitud.php?fechaInicial="+fecha+"&fechaFinal="+fecha2;
 });
+
