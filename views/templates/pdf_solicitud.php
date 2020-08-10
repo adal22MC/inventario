@@ -1,7 +1,7 @@
 <?php
 
     require_once "../../models/Solicitud_model.php";
-    require_once "../../vendor/autoload.php";
+    require_once "../../vendor/autoload.php"; // Requirir DOM PDF
     session_start();
 
     if (!isset($_SESSION['username'])) {
@@ -24,7 +24,6 @@
     $html = ob_get_clean();
 
     $pdf = new Dompdf();
-    $html = 
     $pdf->load_html($html);
 
     $pdf->setPaper("A4");
