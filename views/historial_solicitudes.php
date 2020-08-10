@@ -1,8 +1,8 @@
 <?php
-  session_start();
-  if (!isset($_SESSION['username']) ){
-      header('Location: login.php');
-  }
+session_start();
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
+}
 
 ?>
 
@@ -31,6 +31,17 @@
                             <div class="card-header">
                                 <h2 class="badge badge-primary">Historial Solicitudes</h2>
                             </div>
+                            <div class="card-header">
+                                <label for="card-header">De:</label>
+                                <input type="date" name="" id="Date" min="2000-01-01" max="2100-12-31">
+
+                                <label for="card-header"> A:</label>
+                                <input type="date" name="" id="Date2" min="2000-01-01" max="2100-12-31">
+                                <div class='btn-group'>
+                                    <button class='btn btn-danger btn-sm btnfechas'><i class='fas fa-file-pdf'></i>
+                                    </button>
+                                </div>
+                            </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="h_solicitudes" class="table table-bordered table-striped tablaModulos">
@@ -47,7 +58,7 @@
 
                                     <tbody>
                                         <?php
-                                            //MaterialModelo::obtenerMateriales($_SESSION['id_bodega']);
+                                        //MaterialModelo::obtenerMateriales($_SESSION['id_bodega']);
                                         ?>
                                     </tbody>
 

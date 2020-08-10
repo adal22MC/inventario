@@ -438,7 +438,7 @@
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
 
-                $pst = $conn->prepare("SELECT id_s, fecha, hora, resp, status FROM solicitud_p WHERE id_b_sp = ? ");
+                $pst = $conn->prepare("SELECT sp.id_s as id, sp.fecha as fecha, sp.hora as hora, u.nombres as nombre, sp.status FROM solicitud_p sp, usuarios u WHERE sp.resp = u.username and sp.id_b_sp = ? ");
                 $pst->execute([$id_bodega]);
 
                 $solicitudes = $pst->fetchAll();
