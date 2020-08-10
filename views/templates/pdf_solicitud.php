@@ -1,18 +1,18 @@
 <?php
 
-  session_start();
+session_start();
 
-  if( isset($_SESSION['username'])){
-    if( isset($_GET['id_solicitud'])){
-      echo "SI existe y es " . $_GET['id_solicitud'];
+if (isset($_SESSION['username'])) {
+  /*if( isset($_GET['id_solicitud'])){
+      //echo "SI existe y es " . $_GET['id_solicitud'];
     }else{
       header("Location: ../historial_solicitudes.php");
-    }
-  }else{
-    header("Location: ../historial_solicitudes.php");
-  }
-  
-  require_once "../../models/Solicitud_model.php";
+    }*/
+} else {
+  header("Location: ../historial_solicitudes.php");
+}
+
+require_once "../../models/Solicitud_model.php";
 
 ?>
 
@@ -27,13 +27,13 @@
     * {
       font-family: Verdana, Arial, sans-serif;
       font-size: 14px;
-      
+
     }
 
     table {
       font-size: x-small;
     }
-    
+
     tfoot tr td {
       font-weight: bold;
       font-size: x-small;
@@ -53,100 +53,80 @@
   <!-- Cabecera -->
   <table width="100%">
     <tr>
-      <td valign="top"><img src="" alt="logo" width="150" /></td>
+      <td valign="top"><img src="../dist/img/logotipo.jpg" alt="logo" width="150" /></td>
       <td align="right">
         <?php
-          SolicitudModelo::imprimiDatosEmpresa($_GET['id_solicitud']);
+        SolicitudModelo::imprimiDatosEmpresa($_SESSION['id_bodega']);
+        if (isset($_GET['fechaInicial'])) {
+          echo "<pre>
+            <b>Inicio: </b> " . $_GET['fechaInicial'] . "   <b>Final: </b>" . $_GET['fechaFinal'] . "
+                 </pre>";
+        }
         ?>
+        
+        
       </td>
     </tr>
   </table>
 
-  <!-- Información de la empresa -->
-  <table width="100%">
-    <tr>
-      <td><strong>Procesado por:</strong> Bodega Los Pinos</td>
-      <td><strong>Solicitado por:</strong> Bodega Hija</td>
-      <td><strong>Fecha:</strong> 04/12/20</td>
-      <td><strong>Hora:</strong> 08:14</td>
-    </tr>
-  </table>
-  <hr>
-  <br />
-  <!-- Información del trabajador -->
-   <!--
-  <div width="50%" align="right">
-    <h3 align="center">Despacho realizado por:</h3>
-    <table width="60%">
+  <!-- Información de la Solicitud -->
+  <?php
+
+  $van;
+  $Id;
+  if (isset($_GET['id_solicitud'])) {
+    $van = 0;
+    $Id[0] = array("id" => $_GET['id_solicitud']);
+  } else {
+    $van = 1;
+    $Id = SolicitudModelo::SolicitudesId($_GET['fechaInicial'], $_GET['fechaFinal'], $_SESSION['id_bodega']);
+  }
+
+  foreach ($Id as $item) {
+
+  ?>
+    <table width="100%">
+      <tr>
+        <?php
+        SolicitudModelo::imprimiDatosSolicitud($item["id"]);
+        ?>
+      </tr>
+    </table>
+    <hr>
+    <br />
+    <!-- Resumen de la cotización -->
+    <table width="100%">
       <thead style="background-color: lightgray;">
         <tr>
-          <th>Nombre</th>
-          <th>Telefono</th>
-          <th>Cedula</th>
-          <th>Observaciones</th>
+          <th>ID</th>
+          <th>Producto</th>
+          <th>Cantidad</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th align="center">Adalberto Moreno Cardenas</th>
-          <td align="center">9262033312</td>
-          <td align="center">33psWaosm2</td>
-          <td align="center">Todo llego correctamente prueba.</td>
-        </tr>
+        <?php
+
+        SolicitudModelo::imprimiDatosTabla($item["id"]);
+
+        ?>
       </tbody>
-    </table>
-  </div> -->
-  <br /> <br /> <br />
-  <!-- Resumen de la cotización -->
-  <table width="100%">
-    <thead style="background-color: lightgray;">
-      <tr>
-        <th>ID</th>
-        <th>Producto</th>
-        <th>Cantidad</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td align="center">PVC</td>
-        <td align="center">22</td>
+    
+      <tfoot>
+        <tr>
+          <?php
 
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td align="center">Tubos H2</td>
-        <td align="center">40</td>
+          SolicitudModelo::imprimiDatosSuma($item["id"]);
 
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td align="center">Laminas</td>
-        <td align="center">12</td>
 
-      </tr>
-      <tr>
-        <th scope="row">4</th>
-        <td align="center">Cinta</td>
-        <td align="center">20</td>
-
-      </tr>
-    </tbody>
-    <tfoot>
+          ?>
+        </tr>
+      </tfoot>
       
-      <tr>
-        <td colspan="1"></td>
-        <td align="right">Total: </td>
-        <td align="center" class="gray">
-          <h3 style="margin: 0px 0px;">94</h3>
-        </td>
-      </tr>
-      <!--
-      <tr>
-        <td colspan="5" align="right">IVA INCLUIDO</td>
-      </tr> -->
-    </tfoot>
-  </table>
+    </table>
+    <br><br><br><br>
+  <?php
+  }
+  ?>
 </body>
 
 </html>

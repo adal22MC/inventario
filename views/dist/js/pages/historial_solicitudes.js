@@ -13,10 +13,10 @@ function init() {
             "dataSrc":""
         },
         "columns" :[
-            {"data" : "id_s"},
+            {"data" : "id"},
             {"data" : "fecha"},
             {"data" : "hora"},
-            {"data" : "resp"},
+            {"data" : "nombre"},
             {"data" : function (status){
                 if(status.status == 1){
                     return "<p class='badge badge-info mb-0 mt-0'>Pendiente</p>";
@@ -29,6 +29,7 @@ function init() {
             {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-danger btn-sm btnSolicitud'><i class='fas fa-file-pdf'></i></button></div></div>"}
         ]
     })
+
 }
 
 init();
@@ -44,4 +45,11 @@ $(document).on('click', '.btnSolicitud', function(){
 
     window.location = "templates/pdf_solicitud.php?id_solicitud="+id_solicitud;
 
+});
+
+$(document).on('click', '.btnfechas', function(){
+    var fecha = $('#Date').val();
+    var fecha2 = $('#Date2').val();
+
+    window.location = "templates/pdf_solicitud.php?fechaInicial="+fecha+"&fechaFinal="+fecha2;
 });
