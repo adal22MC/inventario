@@ -1,8 +1,8 @@
 <?php
-  session_start();
-  if (!isset($_SESSION['username']) ){
-      header('Location: login.php');
-  }
+session_start();
+if (!isset($_SESSION['username'])) {
+  header('Location: login.php');
+}
 
 ?>
 
@@ -111,15 +111,52 @@
           </div>
           <!-- /.row -->
 
+          <div class="row">
+            <div class="col-md-5">
+              <div class="card">
+                <div class="card-header border-transparent">
+                  <h3 class="card-title">Cambiar de sucursal</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- /.card-header -->
+
+                <div class="card-body">
+                  <!-- ENTRADA PARA EL TIPO DE CATEGORIA -->
+                  <div class="input-group ">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fab fa-cuttlefish"></i>
+                      </span>
+                    </div>
+                    <select class="form-control" name="categoria" id="selectEditCategoria">
+                      
+                    </select>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer clearfix">
+                  <button id="procesarVenta" class="btn btn-sm btn-info float-right">Cambiar</button>
+                </div>
+                <!-- /.card-footer -->
+              </div>
+              <!-- /.card -->
+            </div>
+          </div>
+
         </div><!-- /.container-fluid -->
 
-    </section>
+      </section>
 
-    <!-- /.content -->
-  </div>
+      <!-- /.content -->
+    </div>
 
 
-  <?php include("include/footer.php") ?>
+    <?php include("include/footer.php") ?>
 
   </div>
   <!-- ./wrapper -->

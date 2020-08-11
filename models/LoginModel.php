@@ -60,7 +60,30 @@
                     return "OK";
 
                 }else if($tipoUsuario['descr'] == "Almacenista Principal"){
-                    return "Almacenista Principal";
+
+                    // Iniciamos las sesiones
+                    $_SESSION['username'] = $datosUsuario['username'];
+                    $_SESSION['nombre_usuario'] = $datosUsuario['nombres'];
+                    $_SESSION['tipo_usuario'] = "Almacenista Principal";
+
+                    //Iniciamos una sesion con todas las sucursales a las que tiene acceso
+                    foreach($bodegas_acceso as $bodega){
+
+                        // Obtenemos los datos de la sucursal
+                        $pst = $conn->prepare("SELECT * FROM bodegas WHERE id_b = ?");
+                        $pst->execute([$bodega['id_b_bu']]);
+                        $datos_bodega = $pst->fetch();
+
+                        $_SESSION['datos_bodegas'][] = [
+                            'id_bodega' => $datos_bodega['id_b'],
+                            'nombre_bodega' => $datos_bodega['nombre']
+                        ];
+                    }
+
+                    $_SESSION['id_bodega'] = $_SESSION['datos_bodegas'][0]['id_bodega'];
+                    $_SESSION['nombre_bodega'] = $_SESSION['datos_bodegas'][0]['nombre_bodega'];
+
+                    return "OK";
                 }else if ($tipoUsuario['descr'] == "Administrador"){
                     return "Administrador";
                 }
@@ -89,9 +112,6 @@
             }catch(PDOException $e){
                 return $e->getMessage();
             }
-        }
-
-        public static function validarUsuarioMultiple(){
         }
 
     }

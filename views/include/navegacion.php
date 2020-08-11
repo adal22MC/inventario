@@ -29,7 +29,7 @@
        <!-- Brand Logo -->
        <a href="admin.php" class="brand-link">
            <img src="dist/img/avatar5.png" alt="Inventario Logo" class="brand-image img-circle elevation-3">
-           <span class="brand-text font-weight-light">
+           <span class="brand-text font-weight-light text-center">
                <b>
                    <?php
                     echo $_SESSION['nombre_bodega'];
@@ -41,22 +41,22 @@
        <!-- Sidebar -->
        <div class="sidebar">
 
-            <!-- Informacion del usuario -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                    <img src="dist/img/avatar5.png" class="img-circle elevation-2" alt="User Image">
-                </div>
-                <div class="info">
-                    <a href="#" class="d-block"><?php echo $_SESSION['nombre_usuario']; ?></a>
-                </div>
-            </div>
+           <!-- Informacion del usuario -->
+           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+               <div class="image">
+                   <img src="dist/img/avatar5.png" class="img-circle elevation-2" alt="User Image">
+               </div>
+               <div class="info">
+                   <a href="#" class="d-block"><?php echo $_SESSION['nombre_usuario']; ?></a>
+               </div>
+           </div>
 
            <!-- Menu opciones -->
            <nav class="mt-2">
 
                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-                   <?php if ($_SESSION['tipo_usuario'] == "administrador") { ?>
+                   <?php if ($_SESSION['tipo_usuario'] == "Administrador") { ?>
                        <!-- BODEGAS -->
                        <li class="nav-item">
                            <a href="bodegas.php" class="nav-link">
@@ -118,7 +118,10 @@
                        </ul>
                    </li>
 
-                   <?php if ($_SESSION['tipo_usuario'] == "administrador") { ?>
+                   <?php if (
+                        $_SESSION['tipo_usuario'] == "Administrador" ||
+                        $_SESSION['tipo_usuario'] == "Almacenista Principal"
+                    ) { ?>
                        <!-- CATEGORIAS -->
                        <li class="nav-item">
                            <a href="categorias.php" class="nav-link">
@@ -166,8 +169,7 @@
                    </li>
 
 
-
-                   <?php if ($_SESSION['tipo_usuario'] == "administrador") { ?>
+                   <?php if ($_SESSION['tipo_usuario'] == "Administrador") { ?>
                        <!-- USUARIOS -->
                        <li class="nav-item">
                            <a href="usuarios.php" class="nav-link">

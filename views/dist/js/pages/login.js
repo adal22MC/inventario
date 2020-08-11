@@ -15,12 +15,12 @@ document.getElementById('formIngresar').addEventListener('submit', async (e) => 
         
         if(resjson.respuesta == "OK"){
             window.location = "admin.php";
-            console.log('OK')
         }else{
             notificarError(resjson.respuesta);
         }
 
     } catch (error) {
+        notificarError('Se ha generado un error en el servidor!');
         console.log(error);
     }
 

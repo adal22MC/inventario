@@ -240,6 +240,7 @@
 
                                 </select>
                             </div>
+                            
                             <!-- ENTRADA PARA DEL SERIAL DE MATERIAL -->
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">

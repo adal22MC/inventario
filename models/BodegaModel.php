@@ -126,6 +126,7 @@
                 $pst = $conn->prepare("SELECT descr FROM material, inventario WHERE s_total <= s_min and id_b_i = ? and id_m_i = id_m");
 
                 $pst->execute([$_SESSION['id_bodega']]);
+                
                 $materiales = $pst->fetchAll();
 
                 $ban = 0;
