@@ -107,9 +107,23 @@
     }
 
     /* =============================================================
-        Devuelve el historial de solicitudes de una bodega hija
+        Devuelve el historial de solicitudes de una bodega 
      ===============================================================*/
     if( isset($_POST['getHistorialSolicitudes']) ){
         $solicitudes =  BodegaModelo::getHistorialSolicitudes($_SESSION['id_bodega']);
         echo json_encode($solicitudes);
     }
+    /* =============================================================
+        Devuelve el historial de despachos de una bodega 
+     ===============================================================*/
+     if( isset($_POST['getHistorialDespachos']) ){
+        $Despachos =  BodegaModelo::getHistorialDespachos($_SESSION['id_bodega']);
+        echo json_encode($Despachos);
+    }
+     /* =============================================================
+        Devuelve el historial de traslados de una bodega 
+     ===============================================================*/
+     if( isset($_POST['getHistorialTraslados']) ){
+         $Traslados = BodegaModelo::getHistorialTraslados($_SESSION['id_bodega']);
+         echo json_encode($Traslados);
+     }
