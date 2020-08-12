@@ -121,7 +121,9 @@ CREATE OR REPLACE TABLE orden_trabajo(
     tel VARCHAR(50) COLLATE utf8_spanish_ci NOT NULL,
     obser TEXT COLLATE utf8_spanish_ci NOT NULL,
     id_b_ot INT NOT NULL,
+    resp VARCHAR(60) COLLATE utf8_spanish_ci NOT NULL,
     FOREIGN KEY (id_b_ot) REFERENCES bodegas (id_b),
+    FOREIGN KEY (resp) REFERENCES usuarios (username),
     PRIMARY KEY (num_orden)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -147,6 +149,7 @@ CREATE OR REPLACE TABLE solicitud_p(
     status INT NOT NULL,
     id_b_sp INT NOT NULL,
     FOREIGN KEY (id_b_sp) REFERENCES bodegas(id_b),
+    FOREIGN KEY (resp) REFERENCES usuarios(username),
     PRIMARY KEY (id_s)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -205,7 +208,6 @@ CREATE OR REPLACE TABLE detalle_traslado(
     PRIMARY KEY ( cns, id_m_dt, id_t_dt )
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
 
 CREATE OR REPLACE TABLE inventario(
 

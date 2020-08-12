@@ -453,6 +453,7 @@
                 return $e->getMessage();
             }
         }
+
         // Devuelve el historial de Despachos de una bodega 
         public static function getHistorialDespachos($id_bodega){
             try {
@@ -472,25 +473,26 @@
                 return $e->getMessage();
             }
         }
-         // Devuelve el historial de Despachos de una bodega 
-         public static function getHistorialTraslados($id_bodega){
-             try {
-                 $conexion = new Conexion();
-                 $conn = $conexion->getConexion();
+        
+        // Devuelve el historial de Despachos de una bodega 
+        public static function getHistorialTraslados($id_bodega){
+            try {
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
 
-                 $pst = $conn->prepare("SELECT t.id_t as id, t.fecha, t.hora, u.nombres as resp, b.nombre, t.t_materiales as cant, t.te_traslado as total
-                 FROM traslados t, usuarios u, bodegas b
-                 WHERE t.resp = u.username and t.llego_a = b.id_b and t.salio_de = ?");
-                 $pst->execute([$id_bodega]);
+                $pst = $conn->prepare("SELECT t.id_t as id, t.fecha, t.hora, u.nombres as resp, b.nombre, t.t_materiales as cant, t.te_traslado as total
+                FROM traslados t, usuarios u, bodegas b
+                WHERE t.resp = u.username and t.llego_a = b.id_b and t.salio_de = ?");
+                $pst->execute([$id_bodega]);
 
-                 $traslados = $pst->fetchAll();
-                 $conexion->closeConexion();
-                 $conn = null;
+                $traslados = $pst->fetchAll();
+                $conexion->closeConexion();
+                $conn = null;
 
-                 return $traslados;
+                return $traslados;
 
-             } catch (PDOException $e) {
-                 return $e->getMessage();
-             }
-         }
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
     }

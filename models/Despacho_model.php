@@ -27,6 +27,7 @@ class DespachoModel
             return $e->getMessage();
         }
     }
+
     public static function imprimirDatosTrabajador($id_despacho,$id_b){
         try {
             $conexion = new Conexion();
@@ -54,6 +55,7 @@ class DespachoModel
             return $e->getMessage();
         }
     }
+
     public static function imprimirDatosTabla($id_despacho,$id_b){
         try {
             $conexion = new Conexion();
@@ -82,6 +84,7 @@ class DespachoModel
             return $e->getMessage();
         }
     }
+
     public static function imprimirDatosSuma($id_despacho,$id_b){
         try {
             $conexion = new Conexion();
@@ -110,6 +113,7 @@ class DespachoModel
             return $e->getMessage();
         }
     }
+    
     public static function DespachoId($fehcaI,$fehcaF,$id_b){
         try {
             $conexion = new Conexion();

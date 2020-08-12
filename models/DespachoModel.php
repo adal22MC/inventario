@@ -11,9 +11,9 @@
                 $conn = $conexion->getConexion();
 
                 // Registramos el despacho el tabla orden_trabajo
-                $pst = $conn->prepare('INSERT INTO orden_trabajo (num_orden,n_trabajador,cedula,tel,obser,id_b_ot) values (?,?,?,?,?,?)');
+                $pst = $conn->prepare('INSERT INTO orden_trabajo (num_orden,n_trabajador,cedula,tel,obser,id_b_ot,resp) values (?,?,?,?,?,?,?)');
 
-                $pst->execute([$despacho[0]['num_orden'],$despacho[0]['nombre'],$despacho[0]['cedula'],$despacho[0]['telefono'],$despacho[0]['obser'],$_SESSION['id_bodega']]);
+                $pst->execute([$despacho[0]['num_orden'],$despacho[0]['nombre'],$despacho[0]['cedula'],$despacho[0]['telefono'],$despacho[0]['obser'],$_SESSION['id_bodega'], $_SESSION['username']]);
 
                 self::descontarInventarioHija($despacho,$id_bodega);
                 self::insertarDetalleOrden($despacho,$despacho[0]['num_orden']);
