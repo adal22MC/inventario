@@ -109,6 +109,8 @@ $(document).on('submit', "#formDatosDespacho", (e) => {
             },
             error : function(xhr, status){
                 notificarError('Ha ocurrido un error');
+                console.log(xhr);
+                console.log(status)
             }
         })
         
