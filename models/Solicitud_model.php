@@ -18,6 +18,7 @@ class SolicitudModelo
             foreach ($bo as $bodega) {
                 echo "<h3>" . $bodega['nombre'] . "</h3>
                         <pre>
+                        No Bodega: " .$id_solicitud. " 
                         " . $bodega['tel'] . "
                         " . $bodega['correo'] . "
                         </pre>";
@@ -43,8 +44,9 @@ class SolicitudModelo
 
             foreach ($solicitud as $soli) {
                 echo "
+                    <tr><td><strong>No Solicitud: </strong>".$id_solicitud."</td>
                     <td><strong>Realizado por:</strong> " . $soli['nombre'] . " " . $soli['apellido'] . "</td>
-                    <td><strong>Fecha:</strong> " . $soli['fecha'] . "</td>
+                    <td><strong>Fecha:</strong> " . $soli['fecha'] . "</td></tr>
                     <td><strong>Hora:</strong> " . $soli['hora'] . "</td>";
                     if ( $soli['status'] == 1) {
                         echo"<td><strong>Estatus:</strong> Pendiente </td>";

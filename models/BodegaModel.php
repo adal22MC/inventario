@@ -432,7 +432,7 @@
             }
         }
 
-        // Devuelve el historial de solicitudes de una bodega hija
+        // Devuelve el historial de solicitudes de una bodega 
         public static function getHistorialSolicitudes($id_bodega){
             try{
 
@@ -453,4 +453,44 @@
                 return $e->getMessage();
             }
         }
+        // Devuelve el historial de Despachos de una bodega 
+        public static function getHistorialDespachos($id_bodega){
+            try {
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+                $pst = $conn->prepare("SELECT num_orden as num,fecha,hora,n_trabajador as nombre,cedula,tel,obser FROM orden_trabajo WHERE id_b_ot = ?");
+                $pst->execute([$id_bodega]);
+
+                $Despachos = $pst->fetchAll();
+
+                $conexion->closeConexion();
+                $conn = null;
+
+                return $Despachos;
+
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
+         // Devuelve el historial de Despachos de una bodega 
+         public static function getHistorialTraslados($id_bodega){
+             try {
+                 $conexion = new Conexion();
+                 $conn = $conexion->getConexion();
+
+                 $pst = $conn->prepare("SELECT t.id_t as id, t.fecha, t.hora, u.nombres as resp, b.nombre, t.t_materiales as cant, t.te_traslado as total
+                 FROM traslados t, usuarios u, bodegas b
+                 WHERE t.resp = u.username and t.llego_a = b.id_b and t.salio_de = ?");
+                 $pst->execute([$id_bodega]);
+
+                 $traslados = $pst->fetchAll();
+                 $conexion->closeConexion();
+                 $conn = null;
+
+                 return $traslados;
+
+             } catch (PDOException $e) {
+                 return $e->getMessage();
+             }
+         }
     }

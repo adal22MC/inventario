@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Solicitud</title>
+  <title>Traslado</title>
 
   <style type="text/css">
     * {
@@ -48,7 +48,7 @@
     </tr>
   </table>
   <br>
-  <!-- Información de la Solicitud -->
+  <!-- Información del Traslado -->
   <?php
 
   foreach ($Id as $item) {
@@ -57,7 +57,7 @@
     <table width="100%">
     
         <?php
-        SolicitudModelo::imprimiDatosSolicitud($item["id"],$item["id_b"]);
+            TrasladoModelo::imprimirDatosTraslado($item["id"]);
         ?>
      
     </table>
@@ -70,23 +70,20 @@
           <th>ID</th>
           <th>Producto</th>
           <th>Cantidad</th>
+          <th>P.Compra</th>
+          <th>Total</th>
         </tr>
       </thead>
       <tbody>
         <?php
-
-        SolicitudModelo::imprimiDatosTabla($item["id"]);
-
+            TrasladoModelo::imprimiDatosTabla($item["id"]);
         ?>
       </tbody>
     
       <tfoot>
         <tr>
           <?php
-
-          SolicitudModelo::imprimiDatosSuma($item["id"]);
-
-
+            TrasladoModelo::imprimirDatosSuma($item["id"]);
           ?>
         </tr>
       </tfoot>

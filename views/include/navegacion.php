@@ -110,7 +110,7 @@
                                </a>
                            </li>
                            <li class="nav-item">
-                               <a href="#" class="nav-link">
+                               <a href="historial_despachos.php" class="nav-link">
                                    <i class="fas fa-minus-3x nav-icon"></i>
                                    <p>Historial de despachos</p>
                                </a>
@@ -160,7 +160,7 @@
                                </a>
                            </li>
                            <li class="nav-item">
-                               <a href="#" class="nav-link">
+                               <a href="historial_traslados.php" class="nav-link">
                                    <i class="fas fa-minus-3x nav-icon"></i>
                                    <p>Historial de traslados</p>
                                </a>
