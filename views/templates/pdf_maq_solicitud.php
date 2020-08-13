@@ -57,7 +57,7 @@
     <table width="100%">
     
         <?php
-        SolicitudModelo::imprimiDatosSolicitud($item["id"],$item["id_b"]);
+        SolicitudModelo::imprimiDatosSolicitud($item["id"]);
         ?>
      
     </table>

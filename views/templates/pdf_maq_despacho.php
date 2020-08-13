@@ -58,26 +58,25 @@
   <table width="100%">
     
       <?php
-        DespachoModel::imprimirDatosDespacho($item["id"],$item["id_b"]);
+        DespachoModelo::imprimirDatosDespacho($item["id"],$item["id_b"]);
         ?>
 
   </table>
   <hr>
   <!-- Información del trabajador -->
   <div width="100%" align="right">
-    <h3 align="center">Despacho realizado por:</h3>
+    <h3 align="center">Datos del Trabajador:</h3>
     <table width="100%">
       <thead style="background-color: lightgray;">
         <tr>
           <th>Nombre</th>
           <th>Telefono</th>
           <th>Cedula</th>
-          <th>Observaciones</th>
         </tr>
       </thead>
       <tbody>
        <?php
-        DespachoModel::imprimirDatosTrabajador($item["id"],$item["id_b"]);
+        DespachoModelo::imprimirDatosTrabajador($item["id"],$item["id_b"]);
        ?>
       </tbody>
     </table>
@@ -94,18 +93,31 @@
     </thead>
     <tbody>
       <?php
-        DespachoModel::imprimirDatosTabla($item["id"],$item["id_b"]);
+        DespachoModelo::imprimirDatosTabla($item["id"],$item["id_b"]);
       ?>
     </tbody>
     <tfoot>
       
       <tr>
         <?php
-         DespachoModel::imprimirDatosSuma($item["id"],$item["id_b"]);
+         DespachoModelo::imprimirDatosSuma($item["id"],$item["id_b"]);
         ?>
       </tr>
     </tfoot>
   </table>
+  <br>
+  <table width="100%">
+      <thead style="background-color: lightgray;">
+        <tr>
+          <th>Observaciones</th>
+        </tr>
+      </thead>
+      <tbody>
+       <?php
+        DespachoModelo::imprimirDatosObservaciones($item["id"],$item["id_b"]);
+       ?>
+      </tbody>
+    </table>
   <br><br><br><br>
   <?php
   }

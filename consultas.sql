@@ -30,7 +30,10 @@ FROM solicitud_p sp, usuarios u
 WHERE sp.resp = u.username and sp.id_b_sp = 1
  /* Consulta para encontrar Solicitudes en un Rango de fecha Especifico*/
 SELECT id_s AS id FROM solicitud_p WHERE fecha BETWEEN "2020-07-07 " AND "2020-08-07 " AND id_b_sp = 1 ORDER BY fecha ASC
-
+ /**/
+ SELECT u.nombres as nombre, u.apellidos, ot.fecha, ot.hora
+ FROM orden_trabajo ot, usuarios u
+ WHERE ot.resp = u.username and id_b_ot = 1 AND num_orden = 01
  /* Consulta para Encontrar los Materiales de un Despacho a partir de id despacho y el id de la bodega*/
 SELECT m.id_m as id, m.descr as material, do.cant as cant
 FROM orden_trabajo ot, detalle_orden do, material m

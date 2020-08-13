@@ -1,7 +1,7 @@
 <?php
 
     require_once "../../models/Solicitud_model.php";
-    require_once "../../models/Despacho_model.php";
+    require_once "../../models/DespachoModel.php";
     require_once "../../vendor/autoload.php"; // Requirir DOM PDF
     session_start();
 
@@ -16,7 +16,7 @@
                     "id_b" => $_SESSION['id_bodega']);
     } else {
         $van = 1;
-        $Id = DespachoModel::DespachoId($_GET['fechaInicial'], $_GET['fechaFinal'], $_SESSION['id_bodega']);
+        $Id = DespachoModelo::DespachoId($_GET['fechaInicial'], $_GET['fechaFinal'], $_SESSION['id_bodega']);
     }
 
     use Dompdf\Dompdf;
