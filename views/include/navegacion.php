@@ -68,6 +68,9 @@
                        </li>
                    <?php } ?>
 
+                
+                   <?php if($_SESSION['tipo_usuario'] == "Almacenista Por Unidad" ||
+                            $_SESSION['tipo_usuario'] == "Almacenista Multisucursal"){ ?>
                    <!-- SOLICITUDES -->
                    <li class="nav-item has-treeview menu-close">
                        <a href="#" class="nav-link">
@@ -92,7 +95,9 @@
                            </li>
                        </ul>
                    </li>
+                   <?php }?>
 
+                   
                    <!-- DESPACHOS -->
                    <li class="nav-item has-treeview menu-close">
                        <a href="#" class="nav-link">
@@ -117,6 +122,7 @@
                            </li>
                        </ul>
                    </li>
+                   
 
                    <?php if (
                         $_SESSION['tipo_usuario'] == "Administrador" ||

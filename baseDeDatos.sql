@@ -47,8 +47,11 @@ CREATE OR REPLACE TABLE tipo_usuario(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- INSERCCIONES EN  LA TABLA tipo_usuario
-INSERT INTO tipo_usuario VALUES (NULL, 'Administrador'),(NULL, 'Almacenista Principal'),
-(NULL, 'Almacenista Por Unidad');
+INSERT INTO tipo_usuario VALUES 
+(NULL, 'Administrador'),
+(NULL, 'Almacenista Principal'),
+(NULL, 'Almacenista Por Unidad'),
+(NULL, 'Almacenista Multisucursal');
 
 CREATE OR REPLACE TABLE usuarios(
 
@@ -66,7 +69,7 @@ CREATE OR REPLACE TABLE usuarios(
 
 -- INSERCCIONES EN LA TABLA usuarios
 INSERT INTO usuarios VALUES 
-('user','user','my.rg.developer@gmail.com','45878','Pedro Ignacio','Ruiz Guzmán',3), 
+('user','user','my.rg.developer@gmail.com','45878','Pedro Ignacio','Ruiz Guzmán',4), 
 ('unidad','unidad','rodriguez@gmail.com', '78545', 'Juan Rodrigo', 'Rodriguez Perez',3);
 
 
@@ -237,7 +240,7 @@ create or replace table detalle_orden(
     id_m_de varchar(50) COLLATE utf8_spanish_ci NOT NULL ,
     foreign key (id_m_de) references material(id_m) ON UPDATE CASCADE,
     foreign key (id_oc_do) references orden_compra(id_oc),
-    primary key( cns, id_em, id_m_de)
+    primary key( cns, id_oc_do, id_m_de)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
