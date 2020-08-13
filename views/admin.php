@@ -111,6 +111,7 @@ if (!isset($_SESSION['username'])) {
           </div>
           <!-- /.row -->
 
+          <?php if($_SESSION['tipo_usuario'] != "Almacenista Por Unidad"){?>
           <div class="row">
             <div class="col-md-5">
               <div class="card">
@@ -125,28 +126,42 @@ if (!isset($_SESSION['username'])) {
                 <!-- /.card-header -->
 
                 <div class="card-body">
-                  <!-- ENTRADA PARA EL TIPO DE CATEGORIA -->
+                  <!-- ENTRADA PARA CAMBIAR DE SUCURSAL -->
                   <div class="input-group ">
                     <div class="input-group-prepend">
                       <span class="input-group-text">
                         <i class="fab fa-cuttlefish"></i>
                       </span>
                     </div>
-                    <select class="form-control" name="categoria" id="selectEditCategoria">
-                      
+                    <select class="form-control" name="sucursalAcceso" id="sucursalesAcceso">
+                      <?php
+                        // Llenamos el select con las sucursales a las que tiene acceso el usuario
+                        for($i = 0; $i<count($_SESSION['datos_bodegas']); $i++){
+                          if($_SESSION['datos_bodegas'][$i]['id_bodega'] == $_SESSION['id_bodega']){
+                            echo '
+                              <option selected value="'.$_SESSION['datos_bodegas'][$i]['id_bodega'].'">'.$_SESSION['datos_bodegas'][$i]['nombre_bodega'].'</option>
+                            ';
+                          }else{
+                            echo '
+                              <option value="'.$_SESSION['datos_bodegas'][$i]['id_bodega'].'">'.$_SESSION['datos_bodegas'][$i]['nombre_bodega'].'</option>
+                            ';
+                          }
+                        }
+                      ?>
                     </select>
                   </div>
                 </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer clearfix">
-                  <button id="procesarVenta" class="btn btn-sm btn-info float-right">Cambiar</button>
+                  <button id="cambiarSucursal" class="btn btn-sm btn-info float-right">Cambiar</button>
                 </div>
                 <!-- /.card-footer -->
               </div>
               <!-- /.card -->
             </div>
           </div>
+          <?php }?>
 
         </div><!-- /.container-fluid -->
 
@@ -162,6 +177,9 @@ if (!isset($_SESSION['username'])) {
   <!-- ./wrapper -->
 
   <?php include('include/scripts.php'); ?>
+  <?php if($_SESSION['tipo_usuario'] != "Almacenista Por Unidad"){?>
+  <script src="dist/js/pages/cambio_sucursal.js"></script>
+  <?php }?>
 
 </body>
 

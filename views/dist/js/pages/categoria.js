@@ -146,6 +146,7 @@ $(document).on('click', ".btnBorrar", async function() {
     }
     
 })
+
 function notificacionExitosa(mensaje){
     Swal.fire(
         mensaje,
