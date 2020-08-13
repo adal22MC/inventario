@@ -1,6 +1,6 @@
 <?php
 
-    require_once "../../models/Solicitud_model.php";
+    require_once "../../models/SolicitudModel.php";
     require_once "../../vendor/autoload.php"; // Requirir DOM PDF
     session_start();
 
