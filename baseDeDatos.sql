@@ -23,32 +23,6 @@ create or replace table material(
 -- INSERCCIONES PARA LA TABLA MATERIAL
 INSERT INTO material VALUES ('001','Segeta', 'S45568', 1),('002', 'Martillo', 'S13224', 1), ('003', 'Tubo PVC', 'S4564', 2);
 
-
-create or replace table entrada_material(
-
-    id int NOT NULL AUTO_INCREMENT,
-    resp text COLLATE utf8_spanish_ci NOT NULL, -- Responsable
-    t_entrada int NOT NULL, -- total entrada efectivo
-    fecha date DEFAULT CURRENT_DATE,
-    hora time DEFAULT CURRENT_TIME,
-    primary key(id)
-
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
-create or replace table detalle_entrada(
-
-    cns int NOT NULL AUTO_INCREMENT,
-    id_em int NOT NULL,
-    cant int NOT NULL, -- cantidad 
-    p_compra float NOT NULL, -- precio compra
-    te_producto float NOT NULL, -- total efectivo -  cant * p_compra
-    id_m_de varchar(50) NOT NULL,
-    foreign key (id_m_de) references material(id_m) ON UPDATE CASCADE,
-    foreign key (id_em) references entrada_material(id),
-    primary key( cns, id_em, id_m_de)
-
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
 CREATE OR REPLACE TABLE bodegas(
 
     id_b INT NOT NULL AUTO_INCREMENT,
@@ -63,7 +37,6 @@ CREATE OR REPLACE TABLE bodegas(
 
 -- INSERCCIONES EN LA TABLA BODEGA
 INSERT INTO bodegas (correo,tel,nombre) VALUES ('tapachula@tapachula.es','9622162349','Sucursal Tapachula'), ('pinos@pinos.com','9627895878', 'Sucursal Los Pinos'), ('san_cristobal@sancris.com','5557894578', 'Sucursal San Cristobal');
-
 
 CREATE OR REPLACE TABLE tipo_usuario(
 
@@ -242,3 +215,40 @@ CREATE OR REPLACE TABLE detalle_inventario (
 -- INSERCCIONES EN LA TABLA DETALLE INVENTARIO
 INSERT INTO detalle_inventario (dispo,p_compra,stock,id_b_di,id_m_di) VALUES (1,80,100,1,'001'),
 (1,80,100,1,'002'), (1,80,50,1,'003'), (1,50,50,1,'003');
+
+CREATE OR REPLACE table orden_compra(
+
+    id_oc INT NOT NULL AUTO_INCREMENT,
+    status INT NOT NULL,
+    fecha date DEFAULT CURRENT_DATE,
+    hora time DEFAULT CURRENT_TIME,
+    resp VARCHAR(60) COLLATE utf8_spanish_ci NOT NULL,
+    FOREIGN KEY (resp) REFERENCES usuarios(username),
+    PRIMARY KEY(id_oc)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+create or replace table detalle_orden(
+
+    cns int NOT NULL AUTO_INCREMENT,
+    id_oc_do int NOT NULL,
+    cant int NOT NULL, -- cantidad 
+    p_compra float NOT NULL, -- precio compra
+    te_producto float NOT NULL, -- total efectivo -  cant * p_compra
+    id_m_de varchar(50) COLLATE utf8_spanish_ci NOT NULL ,
+    foreign key (id_m_de) references material(id_m) ON UPDATE CASCADE,
+    foreign key (id_oc_do) references orden_compra(id_oc),
+    primary key( cns, id_em, id_m_de)
+
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+create or replace table entrada_material(
+
+    id_em int NOT NULL AUTO_INCREMENT,
+    resp text COLLATE utf8_spanish_ci NOT NULL, -- Responsable
+    id_oc_em int NOT NULL, 
+    fecha date DEFAULT CURRENT_DATE,
+    hora time DEFAULT CURRENT_TIME,
+    FOREIGN KEY(id_oc_em) REFERENCES orden_compra(id_oc),
+    primary key(id_em)
+
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
