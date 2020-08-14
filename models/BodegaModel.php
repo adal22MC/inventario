@@ -474,7 +474,7 @@
             }
         }
         
-        // Devuelve el historial de Despachos de una bodega 
+        // Devuelve el historial de traslados de una bodega 
         public static function getHistorialTraslados($id_bodega){
             try {
                 $conexion = new Conexion();
@@ -495,4 +495,5 @@
                 return $e->getMessage();
             }
         }
+
     }

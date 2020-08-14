@@ -111,7 +111,7 @@
                                 </div>
                                 <!-- /.row -->
                             </div>
-                            <!-- /. TABLA PRODUCTOS -->
+                            <!-- /. TABLA MATERIALES -->
                         </div>
 
                     </div>

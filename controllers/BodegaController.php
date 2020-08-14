@@ -98,6 +98,9 @@
         }
     }
 
+    /* ==============================================
+        HACE EL TRASLADO DE UNA BODEGA A OTRA
+    ================================================= */
     if( isset($_POST['traslado'])){
         $traslado = $_POST['traslado'];
 
@@ -113,6 +116,7 @@
         $solicitudes =  BodegaModelo::getHistorialSolicitudes($_SESSION['id_bodega']);
         echo json_encode($solicitudes);
     }
+
     /* =============================================================
         Devuelve el historial de despachos de una bodega 
      ===============================================================*/

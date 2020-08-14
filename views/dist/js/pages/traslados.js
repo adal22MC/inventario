@@ -112,6 +112,7 @@ $(document).on('click', '.btnEliminar', (e) => {
 
 $(document).on('click', '#procesarVenta', (e) => {
     let contador = 0;
+    
     // Validamos si por lo menos hay un producto en la lista
     for(item of productosDespacho){
         if(item == undefined){}

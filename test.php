@@ -1,5 +1,16 @@
 <?php
 
+
+    $arre[]['id_bodega'] = 213;
+    $arre[1]['cant'] = 12;
+    $arre[1]['id'] = 001;
+
+    for($i = 1; $i < count($arre); $i++){
+        echo $arre[$i]['cant'];
+    }
+
+
+/*
     session_start();
 
     
@@ -21,3 +32,4 @@
     
 
     session_destroy();
+    */

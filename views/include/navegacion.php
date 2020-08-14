@@ -187,6 +187,20 @@
                        </li>
                    <?php } ?>
 
+                   <!-- SOLICITUDES -->
+
+                   <?php if ($_SESSION['tipo_usuario'] == "Administrador" ||
+                             $_SESSION['tipo_usuario'] == "Almacenista Principal"){ ?>
+                   <li class="nav-item">
+                       <a href="solicitudes_madre.php" class="nav-link">
+                           <i class="nav-icon fas fa-address-card"></i>
+                           <p>
+                               SOLICITUDES
+                           </p>
+                       </a>
+                   </li>
+                   <?php } ?>
+
                </ul>
 
            </nav>

@@ -36,7 +36,11 @@ CREATE OR REPLACE TABLE bodegas(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- INSERCCIONES EN LA TABLA BODEGA
-INSERT INTO bodegas (correo,tel,nombre) VALUES ('tapachula@tapachula.es','9622162349','Sucursal Tapachula'), ('pinos@pinos.com','9627895878', 'Sucursal Los Pinos'), ('san_cristobal@sancris.com','5557894578', 'Sucursal San Cristobal');
+INSERT INTO bodegas (correo,tel,nombre) VALUES 
+('principal@principal.es','4564551315','Sucursal Madre'),
+('tapachula@tapachula.es','9622162349','Sucursal Tapachula'),
+('pinos@pinos.com','9627895878', 'Sucursal Los Pinos'),
+('san_cristobal@sancris.com','5557894578', 'Sucursal San Cristobal');
 
 CREATE OR REPLACE TABLE tipo_usuario(
 
