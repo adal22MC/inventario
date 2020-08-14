@@ -60,7 +60,11 @@
                                             <th>Stock max</th>
                                             <th>Categoria</th>
                                             <th>Serial</th>
-                                            <th>Acciones</th>
+                                            <?php
+                                                if($_SESSION['tipo_usuario'] == "Administrador"){
+                                                    echo '<th>Acciones</th>';
+                                                }
+                                            ?>
                                         </tr>
                                     </thead>
 
@@ -85,6 +89,7 @@
         </div>
         <!-- ends content-wrapper -->
 
+        <?php if($_SESSION['tipo_usuario'] == "Administrador"){ ?>
         <!--=====================================
         MODAL AGREGAR MATERIAL (ADMINISTRADOR)
         ======================================-->
@@ -267,89 +272,16 @@
                 </div>
             </div>
         </div>
+        <?php } ?>
 
-        <!--=====================================
-        MODAL EDITAR MATERIAL (UNIDAD)
-        ======================================-->
-
-        <div id="modalEditMaterialUnidad" class="modal fade" role="dialog">
-
-            <div class="modal-dialog">
-
-                <div class="modal-content">
-
-                    <form id="formEditMaterialUnidad">
-
-                        <!--=====================================
-                        HEADER DEL MODAL
-                        ======================================-->
-
-                        <div class="modal-header">
-
-                            <h5 class="modal-title" id="exampleModalLabel">Editar Material</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-
-                        </div>
-
-                        <!--=====================================
-                        CUERPO DEL MODAL
-                        ====================================== -->
-
-                        <div class="modal-body">
-
-                            <!-- ENTRADA PARA EL STOCK MIN -->
-                            <div class="input-group pt-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
-                                    </span>
-                                </div>
-                                <input type="text" class="form-control" id="s_min" name="s_min" required>
-                                <small class="form-text text-muted btn-block">Stock minimo</small>
-                            </div>
-
-                            <!-- ENTRADA PARA EL STOCK MAX -->
-                            <div class="input-group pt-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
-                                    </span>
-                                </div>
-                                <input type="text" class="form-control" id="s_max" name="s_max" required>
-                                <small class="form-text text-muted btn-block">Stock maximo</small>
-                            </div>
-
-                        </div>
-
-
-                        <!--=====================================
-                        PIE DEL MODAL
-                        ======================================-->
-
-                        <div class="modal-footer">
-                            <button id="closeEdit" type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary">
-                                Guardar Cambios
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
+       
         <?php include("include/footer.php") ?>
 
     </div>
     <!-- ./wrapper -->
 
     <?php include("include/scripts.php"); 
-        if($_SESSION['tipo_usuario'] == "administrador"){
+        if($_SESSION['tipo_usuario'] == "Administrador"){
             echo '<script src="dist/js/pages/material.js"></script>';
         }else{
             echo '<script src="dist/js/pages/material_unidad.js"></script>';

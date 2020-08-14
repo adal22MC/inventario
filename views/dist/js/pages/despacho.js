@@ -215,6 +215,7 @@ $(document).on('click', '#procesarVenta', (e) => {
     if(contador == 0){
         notificarError('No has agregado materiales a lista');
     }else{
+        document.getElementById('observaciones').value = "Sin observaciones";
         $('#modalProcesarDespacho').modal('show');
     }
 });

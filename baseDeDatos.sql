@@ -73,6 +73,7 @@ CREATE OR REPLACE TABLE usuarios(
 
 -- INSERCCIONES EN LA TABLA usuarios
 INSERT INTO usuarios VALUES 
+('principal','principal','principal@gmail.com', '78456', 'Eduardo Principal', 'Rodriguez Perez',2),
 ('user','user','my.rg.developer@gmail.com','45878','Pedro Ignacio','Ruiz Guzmán',4), 
 ('unidad','unidad','rodriguez@gmail.com', '78545', 'Juan Rodrigo', 'Rodriguez Perez',3);
 
@@ -89,7 +90,7 @@ CREATE OR REPLACE TABLE bod_usu(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- INSERCCIONES PARA LA TABLA INTERMEDIA bod_usu
-INSERT INTO bod_usu VALUES (1,'user'),(2,'user');
+INSERT INTO bod_usu VALUES (2,'user'),(3,'user'),(4,'unidad');
 
 CREATE OR REPLACE TABLE orden_trabajo(
 
@@ -234,7 +235,7 @@ CREATE OR REPLACE table orden_compra(
     PRIMARY KEY(id_oc)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
-create or replace table detalle_orden(
+create or replace table detalle_orden_compra(
 
     cns int NOT NULL AUTO_INCREMENT,
     id_oc_do int NOT NULL,

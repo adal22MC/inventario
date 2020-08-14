@@ -145,16 +145,25 @@
                             <td>'.$material['s_max'].'</td>
                             <td>'.$material['des'].'</td>
                             <td>'.$material['serial'].'</td>
-                            <td><div class="text-center"><div class="btn-group"><button class="btn btn-info btn-sm btnEditar"><i class="fas fa-edit"></i></button></div></div></td>
-                        </tr>
                     ';
+
+                    if($_SESSION['tipo_usuario'] == "Administrador"){
+                        echo '
+                        <td>
+                           <div class="text-center">
+                               <div class="btn-group"><button class="btn   btn-info btn-sm btnEditar"><i class="fas fa-edit"></i></button>
+                               </div>
+                           </div>
+                        </td>
+                        ';
+                    }
+
+                    echo '</tr>';
 
                 }
 
                 $conn = null;
                 $conexion->closeConexion();
-
-                //return $materiales;
 
             }catch(PDOException $e){
                 return $e->getMessage();

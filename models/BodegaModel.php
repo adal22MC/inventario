@@ -101,7 +101,7 @@
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
 
-                $pst = $conn->prepare("SELECT * FROM bodegas where id_b <> ?");
+                $pst = $conn->prepare("SELECT * FROM bodegas where id_b <> ? and tipo = 0");
 
                 $pst->execute([$id_b]);
                 $bodegas = $pst->fetchAll();
