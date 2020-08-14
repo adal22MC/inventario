@@ -30,17 +30,18 @@ CREATE OR REPLACE TABLE bodegas(
     correo VARCHAR(60) COLLATE utf8_spanish_ci NOT NULL,
     tel TEXT COLLATE utf8_spanish_ci NOT NULL,
     nombre TEXT COLLATE utf8_spanish_ci NOT NULL,
+    direccion TEXT COLLATE utf8_spanish_ci NOT NULL,
     tipo INT NOT NULL DEFAULT 0,
     PRIMARY KEY(id_b)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- INSERCCIONES EN LA TABLA BODEGA
-INSERT INTO bodegas (correo,tel,nombre) VALUES 
-('principal@principal.es','4564551315','Sucursal Madre'),
-('tapachula@tapachula.es','9622162349','Sucursal Tapachula'),
-('pinos@pinos.com','9627895878', 'Sucursal Los Pinos'),
-('san_cristobal@sancris.com','5557894578', 'Sucursal San Cristobal');
+INSERT INTO bodegas (correo,tel,nombre, direccion) VALUES 
+('principal@principal.es','4564551315','Sucursal Madre','Mexico DF'),
+('tapachula@tapachula.es','9622162349','Sucursal Tapachula', 'Tapachula Chiapas'),
+('pinos@pinos.com','9627895878', 'Sucursal Los Pinos', 'Los pinos'),
+('san_cristobal@sancris.com','5557894578', 'Sucursal San Cristobal', 'Chiapas');
 
 CREATE OR REPLACE TABLE tipo_usuario(
 
@@ -75,7 +76,8 @@ CREATE OR REPLACE TABLE usuarios(
 INSERT INTO usuarios VALUES 
 ('principal','principal','principal@gmail.com', '78456', 'Eduardo Principal', 'Rodriguez Perez',2),
 ('user','user','my.rg.developer@gmail.com','45878','Pedro Ignacio','Ruiz Guzmán',4), 
-('unidad','unidad','rodriguez@gmail.com', '78545', 'Juan Rodrigo', 'Rodriguez Perez',3);
+('unidad','unidad','rodriguez@gmail.com', '78545', 'Juan Rodrigo', 'Rodriguez Perez',3),
+('admin','admin','admin@gmail.com', '7811545', 'Administrador', 'Rodriguez',1);
 
 
 -- TABLA INTERMEDIA BODEGAS - USUARIOS

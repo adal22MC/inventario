@@ -17,7 +17,7 @@
 
 <body class="hold-transition sidebar-mini layout-fixed" 
 <?php 
-    if($_SESSION['tipo_usuario'] == "administrador"){
+    if($_SESSION['tipo_usuario'] == "Administrador"){
         echo 'onload="obtenerSelect()';
     } 
 ?>">
@@ -37,7 +37,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <?php
-                                    if($_SESSION['tipo_usuario'] == "administrador"){
+                                    if($_SESSION['tipo_usuario'] == "Administrador"){
                                 ?>
                                 <button id="altaMaterial" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalAgregarMaterial">
                                     Agregar Nuevo Material

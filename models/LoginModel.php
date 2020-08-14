@@ -106,6 +106,22 @@
                     $_SESSION['nombre_bodega'] = $datos_bodega['nombre'];
                     
                     return "OK";
+                }else if($tipoUsuario['descr'] == "Administrador"){
+                    // Consultamos los datos de la bodega madre
+                    $pst = $conn->prepare("SELECT * FROM bodegas WHERE tipo = 1");
+                    $pst->execute();
+                    $datos_bodega = $pst->fetch();
+
+                    if(!$datos_bodega){
+                        return "La sucursal principal aun no esta creada";
+                    }
+
+                    // Iniciamos las sesiones
+                    $_SESSION['username'] = $datosUsuario['username'];
+                    $_SESSION['nombre_usuario'] = $datosUsuario['nombres'];
+                    $_SESSION['tipo_usuario'] = "Administrador";
+                    $_SESSION['id_bodega'] = $datos_bodega['id_b'];
+                    $_SESSION['nombre_bodega'] = $datos_bodega['nombre'];
                 }
 
 

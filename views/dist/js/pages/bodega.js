@@ -23,8 +23,6 @@ function init(){
             {"data" : "nombre"},
             {"data" : "correo"},
             {"data" : "tel"},
-            {"data" : "username"},
-            {"data" : "pass"},
             {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-info btn-sm btnEditar'><i class='fas fa-edit'></i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='fas fa-trash-alt'></i></button></div></div>"}
         ]
     })
@@ -52,7 +50,7 @@ formaddBodega.addEventListener('submit', async (e) =>{
             notificacionExitosa('¡Alta de bodega exitosa!');
             tablaBodega.ajax.reload(null, false);
         }else{
-            notificarError('Hubo un error :(');
+            notificarError(resjson.respuesta);
         }
         
     } catch (error) {

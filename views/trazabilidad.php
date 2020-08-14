@@ -1,53 +1,77 @@
 <?php
-session_start();
-if (!isset($_SESSION['username'])) {
-    header('Location: login.php');
-}
+  session_start();
+  if (!isset($_SESSION['username']) ){
+      header('Location: login.php');
+  }
+
+  require_once "../models/MaterialModel.php";
 
 ?>
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 
 <head>
-    <?php include('include/cabezera.php'); ?>
+    <?php include("include/cabezera.php"); ?>
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed" 
+<?php 
+    if($_SESSION['tipo_usuario'] == "administrador"){
+        echo 'onload="obtenerSelect()';
+    } 
+?>">
 
     <div class="wrapper">
 
-        <?php include('include/navegacion.php') ?>
+        <?php include("include/navegacion.php") ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
 
-            <!-- TABLA BODEGA -->
+            <!-- TABLA MATERIAL -->
             <div class="container-fluid pt-4">
                 <div class="row">
                     <div class="col-12">
 
                         <div class="card">
                             <div class="card-header">
-                                <button id="altaBodega" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalAgregarBodega">
-                                    Agregar Nueva Bodega
+                                <?php
+                                    if($_SESSION['tipo_usuario'] == "administrador"){
+                                ?>
+                                <button id="altaMaterial" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalAgregarMaterial">
+                                    Agregar Nuevo Material
                                 </button>
+                                <?php
+                                    }
+                                ?>
+                                
+
                             </div>
                             <!-- /.card-header -->
-
                             <div class="card-body">
-                                <table id="bodega" class="table table-bordered table-striped tablaModulos">
+                                <table id="material" class="table table-bordered table-striped tablaModulos">
                                     <thead>
                                         <tr>
-                                            <th>No Bodega</th>
-                                            <th>F. Creacion</th>
-                                            <th>Nombre</th>
-                                            <th>Correo</th>
-                                            <th>Telefono</th>
-                                            <th>Acciones</th>
+                                            <th>ID</th>
+                                            <th>Descripción</th>
+                                            <th>Stock</th>
+                                            <th>Stock min</th>
+                                            <th>Stock max</th>
+                                            <th>Categoria</th>
+                                            <th>Serial</th>
+                                            <?php
+                                                if($_SESSION['tipo_usuario'] == "Administrador"){
+                                                    echo '<th>Acciones</th>';
+                                                }
+                                            ?>
                                         </tr>
                                     </thead>
+
                                     <tbody>
+                                        <?php
+                                            MaterialModelo::obtenerMateriales($_SESSION['id_bodega']);
+                                        ?>
                                     </tbody>
 
                                 </table>
@@ -60,23 +84,23 @@ if (!isset($_SESSION['username'])) {
                 </div>
                 <!-- /.row -->
             </div>
-            <!-- /. TABLA BODEGA -->
+            <!-- /. TABLA MATERIAL -->
 
         </div>
         <!-- ends content-wrapper -->
 
-
+        <?php if($_SESSION['tipo_usuario'] == "Administrador"){ ?>
         <!--=====================================
-        MODAL AGREGAR BODEGA 
+        MODAL AGREGAR MATERIAL (ADMINISTRADOR)
         ======================================-->
 
-        <div id="modalAgregarBodega" class="modal fade" role="dialog">
+        <div id="modalAgregarMaterial" class="modal fade" role="dialog">
 
             <div class="modal-dialog">
 
                 <div class="modal-content">
 
-                    <form id="formAddBodega">
+                    <form id="formAddMaterial">
 
                         <!--=====================================
                         HEADER DEL MODAL
@@ -84,8 +108,8 @@ if (!isset($_SESSION['username'])) {
 
                         <div class="modal-header">
 
-                            <h5 class="modal-title" id="exampleModalLabel">Alta Bodega</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeEsquina">
+                            <h5 class="modal-title" id="exampleModalLabel">Alta Material</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
 
@@ -97,54 +121,47 @@ if (!isset($_SESSION['username'])) {
 
                         <div class="modal-body">
 
-                            <!-- ENTRADA PARA EL ID DE LA BODEGA -->
+                            <!-- ENTRADA PARA EL ID DE LA MATERIAL -->
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         <i class="fas fa-user"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" name="idBodega" placeholder="No Bodega" required>
+                                <input type="text" class="form-control" name="idM" placeholder="ID Material" required>
                             </div>
 
-                            <!-- ENTRADA PARA LA NOMBRE DE LA BODEGA -->
+                            <!-- ENTRADA PARA LA DESCRIPCION DEL  MATERIAL -->
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         <i class="fas fa-user"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" name="nomBodega" placeholder="Nombre" required>
+                                <input type="text" class="form-control" name="desMaterial" placeholder="Descripción" required>
                             </div>
 
-                            <!-- ENTRADA PARA EL CORREO DE LA BODEGA -->
+                            <!-- ENTRADA PARA EL TIPO DE CATEGORIA -->
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                        <i class="fab fa-cuttlefish"></i>
                                     </span>
                                 </div>
-                                <input type="email" class="form-control" name="correoBodega" placeholder="Correo" required>
+                                <select class="form-control" name="categoria" id="selectCategoria">
+                                    <option value="show" selected="selected">Seleccione una categoria</option>
+
+                                </select>
                             </div>
 
-                            <!-- ENTRADA PARA EL NUMERO DE LA BODEGA -->
+                            <!-- ENTRADA PARA EL SERIAL DE MATERIAL -->
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         <i class="fas fa-user"></i>
                                     </span>
                                 </div>
-                                <input type="number" class="form-control" name="numBodega" placeholder="Numero de Telefono" required>
-                            </div>
-
-                            <!-- ENTRADA PARA LA DIRECCION DE LA BODEGA -->
-                            <div class="input-group pt-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
-                                    </span>
-                                </div>
-                                <input type="text" class="form-control" name="direcBodega" placeholder="Direccion" required>
+                                <input type="text" class="form-control" name="serialMaterial" placeholder="Serial (Opcional)">
                             </div>
 
 
@@ -153,12 +170,12 @@ if (!isset($_SESSION['username'])) {
 
                         <!--=====================================
                         PIE DEL MODAL
-                    ======================================-->
+                        ======================================-->
 
                         <div class="modal-footer">
                             <button id="closeAdd" type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-primary">
-                                Guardar Bodega
+                                Guardar Material
                             </button>
                         </div>
                     </form>
@@ -167,16 +184,16 @@ if (!isset($_SESSION['username'])) {
         </div>
 
         <!--=====================================
-        MODAL EDITAR BODEGA 
+        MODAL EDITAR MATERIAL (ADMINISTRADOR)
         ======================================-->
 
-        <div id="modalEditarBodega" class="modal fade" role="dialog">
+        <div id="modalEditarMaterial" class="modal fade" role="dialog">
 
             <div class="modal-dialog">
 
                 <div class="modal-content">
 
-                    <form id="formEditBodega">
+                    <form id="formEditMaterial">
 
                         <!--=====================================
                         HEADER DEL MODAL
@@ -184,8 +201,8 @@ if (!isset($_SESSION['username'])) {
 
                         <div class="modal-header">
 
-                            <h5 class="modal-title" id="exampleModalLabel">Editar Bodega</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeEsquina">
+                            <h5 class="modal-title" id="exampleModalLabel">Editar Material</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
 
@@ -197,86 +214,80 @@ if (!isset($_SESSION['username'])) {
 
                         <div class="modal-body">
 
-
-                            <!-- ENTRADA PARA LA NOMBRE DE LA BODEGA -->
+                            <!-- ENTRADA PARA EL ID DE LA MATERIAL -->
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         <i class="fas fa-user"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" id="nomBodega" name="nomBodega" placeholder="Nombre" required>
+                                <input type="text" class="form-control" name="idM" id ="idM" placeholder="ID Material" required>
                             </div>
 
-                            <!-- ENTRADA PARA EL CORREO DE LA BODEGA -->
+                            <!-- ENTRADA PARA LA DESCRIPCION DEL MATERIAL -->
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         <i class="fas fa-user"></i>
                                     </span>
                                 </div>
-                                <input type="email" class="form-control" id="correoBodega" name="correoBodega" placeholder="Correo" required>
+                                <input type="text" class="form-control" id="desMaterial" name="desMaterial" placeholder="Descripción" required>
                             </div>
 
-                            <!-- ENTRADA PARA EL NUMERO DE TELEFONO LA BODEGA -->
+                            <!-- ENTRADA PARA EL TIPO DE CATEGORIA -->
+                            <div class="input-group pt-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fab fa-cuttlefish"></i>
+                                    </span>
+                                </div>
+                                <select class="form-control" name="categoria" id="selectEditCategoria">
+
+                                </select>
+                            </div>
+                            
+                            <!-- ENTRADA PARA DEL SERIAL DE MATERIAL -->
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         <i class="fas fa-user"></i>
                                     </span>
                                 </div>
-                                <input type="number" class="form-control" id="numBodega" name="numBodega" placeholder="Numero de Telefono" required>
+                                <input type="text" class="form-control" id="SerialMaterial" name="serialMaterial" placeholder="Serial (Opcional)">
                             </div>
-
-                            <!-- ENTRADA PARA EL USERNAME DE BODEGA -->
-                            <div class="input-group pt-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
-                                    </span>
-                                </div>
-                                <input type="text" class="form-control" id="userBodega" name="userBodega" placeholder="Username" required>
-                            </div>
-
-                            <!-- ENTRADA PARA EL PASSWORD DE BODEGA -->
-                            <div class="input-group pt-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
-                                    </span>
-                                </div>
-                                <input type="text" class="form-control" id="passBodega" name="passBodega" placeholder="Contraseña" required>
-                            </div>
-
-
                         </div>
 
 
                         <!--=====================================
                         PIE DEL MODAL
-                    ======================================-->
+                        ======================================-->
 
                         <div class="modal-footer">
                             <button id="closeEdit" type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-primary">
-                                Guardar Bodega
+                                Guardar Cambios
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+        <?php } ?>
 
-
+       
         <?php include("include/footer.php") ?>
 
     </div>
     <!-- ./wrapper -->
 
-    <?php include('include/scripts.php'); ?>
-    <script src="dist/js/pages/bodega.js"></script>
+    <?php include("include/scripts.php"); 
+        if($_SESSION['tipo_usuario'] == "Administrador"){
+            echo '<script src="dist/js/pages/material.js"></script>';
+        }else{
+            echo '<script src="dist/js/pages/material_unidad.js"></script>';
+        }
+    ?>
 
 </body>
-
 
 </html>
