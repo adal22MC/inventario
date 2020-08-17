@@ -241,13 +241,14 @@ create or replace table detalle_orden_compra(
 
     cns int NOT NULL AUTO_INCREMENT,
     id_oc_do int NOT NULL,
-    cant int NOT NULL, -- cantidad 
+    cant int NOT NULL, -- cantidad que pidio
+    recibi int NOT NULL, -- cantidad que recibio
     p_compra float NOT NULL, -- precio compra
     te_producto float NOT NULL, -- total efectivo -  cant * p_compra
-    id_m_de varchar(50) COLLATE utf8_spanish_ci NOT NULL ,
-    foreign key (id_m_de) references material(id_m) ON UPDATE CASCADE,
+    id_m_do varchar(50) COLLATE utf8_spanish_ci NOT NULL ,
+    foreign key (id_m_do) references material(id_m) ON UPDATE CASCADE,
     foreign key (id_oc_do) references orden_compra(id_oc),
-    primary key( cns, id_oc_do, id_m_de)
+    primary key( cns, id_oc_do, id_m_do)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 

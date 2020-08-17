@@ -56,7 +56,7 @@
     }
 
     /* =========================================================
-      RETORNA ID DE LA CATEDORIA
+      RETORNA ID DE LA CATEGORIA
      ============================================================ */
      if ( isset($_POST['IdMCategoria']) ){
         if (
@@ -146,5 +146,13 @@
         $respuesta = MaterialModelo::insertarSolicitudMaterial($solicitud,$_SESSION['id_bodega']);
 
         echo json_encode(['respuesta'=>$respuesta]);
-     }
+    }
+
+    /* =======================================================================
+        RETORNA ID MATERIAL, NOMBRE MATERIAL, STOCK, STOCK_MAX ,CATEGORIA
+    ========================================================================= */
+    if( isset($_POST['getMateriales'])){
+        $respuesta = MaterialModelo::getMateriales($_SESSION['id_bodega']);
+        echo json_encode($respuesta);
+    }
 

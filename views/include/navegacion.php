@@ -199,15 +199,32 @@
                        </a>
                    </li>
 
+                   <?php } ?>
+
+                   <!-- ORDEN DE COMPRA -->
                    <li class="nav-item">
-                       <a href="trazabilidad.php" class="nav-link">
+                       <a href="#" class="nav-link">
                            <i class="nav-icon fas fa-address-card"></i>
                            <p>
-                               TRAZABILIDAD
+                               ORDEN DE COMPRA
+                               <i class="right fas fa-angle-left"></i>
                            </p>
                        </a>
+                       <ul class="nav nav-treeview">
+                           <li class="nav-item">
+                               <a href="orden_compra.php" class="nav-link">
+                                   <i class="fas fa-minus-3x nav-icon"></i>
+                                   <p>Realizar orden</p>
+                               </a>
+                           </li>
+                           <li class="nav-item">
+                               <a href="historial_traslados.php" class="nav-link">
+                                   <i class="fas fa-minus-3x nav-icon"></i>
+                                   <p>Historial de ordenes</p>
+                               </a>
+                           </li>
+                       </ul>
                    </li>
-                   <?php } ?>
 
                </ul>
 
