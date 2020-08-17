@@ -58,9 +58,9 @@ FROM traslados t, usuarios u, bodegas b
 WHERE t.resp = u.username and t.llego_a = b.id_b and t.id_t = 2;
 
 /* Consulta para obtener datos del detallede un traslado a partir de un id traslado*/
-SELECT m.id_m, m.descr as nomM, dt.cant, dt.p_compra, dt.total 
-FROM traslados t, material_traslado mt, detalle_traslado dt, material m
-WHERE mt.id_t_mt = t.id_t and dt.id_t_dt = mt.id_t_mt and mt.id_m_mt = m.id_m and dt.id_m_dt = mt.id_m_mt and t.id_t = 2;
+SELECT m.id_m, m.descr as nomM, dt.cant, dt.p_compra, dt.total, tu.descr as tipoU
+FROM traslados t, material_traslado mt, detalle_traslado dt, material m, usuarios u, tipo_usuario tu
+WHERE mt.id_t_mt = t.id_t and dt.id_t_dt = mt.id_t_mt and mt.id_m_mt = m.id_m and dt.id_m_dt = mt.id_m_mt and t.resp = u.username and u.id_tu_u = tu.id_tu and t.resp = "user" and t.id_t = 2;
 
 /* Consulta para obtener la suma total de todos los materiales a partir de un id traslado*/
 SELECT SUM(dt.total)
@@ -69,3 +69,13 @@ WHERE dt.id_t_dt = mt.id_t_mt and mt.id_m_mt = m.id_m and dt.id_m_dt = mt.id_m_m
 
 /* consulta para obtener los id a partir de un rango de fecha eh id bodega */
 SELECT id_t AS id FROM traslados WHERE fecha BETWEEN ? and ? and salio_de = ? ORDER BY fecha ASC
+
+/* Consulta para Obtener el nombre completo del usuario desde su user y la bodega en la que esta*/
+SELECT u.nombres, u.apellidos
+FROM usuarios u, bod_usu bu
+WHERE bu.username_bu = u.username and bu.id_b_bu = 1 and u.username = "user"
+
+/* Consulta para obtener los materiales con stock bajo de una Bodega apartir de su mismo Id*/
+SELECT m.id_m as id, m.descr as nombre, c.descr as categoria, i.s_total as stock, i.s_max as maxi, i.s_min as mini
+FROM inventario i, material m, categorias c
+WHERE i.id_m_i = m.id_m and m.id_c_m = c.id_c  and i.s_total <= i.s_min and i.id_b_i = 1

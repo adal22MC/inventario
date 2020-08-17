@@ -234,6 +234,15 @@ function notificarError(mensaje) {
 document.getElementById('altaMaterial').addEventListener('click', () => {
     formaddMaterial.reset();
 })
+/* Generar Reporte Stock Bajo*/ 
+$(document).on('click', '.btnS', function(){
+    window.location = "templates/pdf_material.php";
+});
+/* Generar Reporte Stock Bajo*/ 
+$(document).on('click', '.btnM', function(){
+    window.location = "templates/pdf_material.php?materiales="+1;
+});
+
 
 
 

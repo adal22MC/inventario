@@ -1,10 +1,10 @@
 <?php
-  session_start();
-  if (!isset($_SESSION['username']) ){
-      header('Location: login.php');
-  }
+session_start();
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
+}
 
-  require_once "../models/MaterialModel.php";
+require_once "../models/MaterialModel.php";
 
 ?>
 
@@ -15,12 +15,11 @@
     <?php include("include/cabezera.php"); ?>
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed" 
-<?php 
-    if($_SESSION['tipo_usuario'] == "administrador"){
-        echo 'onload="obtenerSelect()';
-    } 
-?>">
+<body class="hold-transition sidebar-mini layout-fixed" <?php
+                                                        if ($_SESSION['tipo_usuario'] == "administrador") {
+                                                            echo 'onload="obtenerSelect()';
+                                                        }
+                                                        ?>">
 
     <div class="wrapper">
 
@@ -36,16 +35,23 @@
 
                         <div class="card">
                             <div class="card-header">
+                                <h2 class="badge badge-primary">Materiales</h2>
+
+                                <div class="card-img-bottom col text-right">
+                                    <button title="Reporte Stok Bajo" class='btn btn-danger btn-sm btnS '><i class='fas fa-file-pdf'></i>
+                                    </button>
+                                    <button title="Reporte Materiales" class='btn btn-danger btn-sm btnM '><i class='fas fa-file-pdf'></i>
+                                    </button>
+                                </div>
                                 <?php
-                                    if($_SESSION['tipo_usuario'] == "administrador"){
+                                if ($_SESSION['tipo_usuario'] == "administrador") {
                                 ?>
-                                <button id="altaMaterial" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalAgregarMaterial">
-                                    Agregar Nuevo Material
-                                </button>
+                                    <button id="altaMaterial" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalAgregarMaterial">
+                                        Agregar Nuevo Material
+                                    </button>
                                 <?php
-                                    }
+                                }
                                 ?>
-                                
 
                             </div>
                             <!-- /.card-header -->
@@ -66,7 +72,7 @@
 
                                     <tbody>
                                         <?php
-                                            MaterialModelo::obtenerMateriales($_SESSION['id_bodega']);
+                                        MaterialModelo::obtenerMateriales($_SESSION['id_bodega']);
                                         ?>
                                     </tbody>
 
@@ -216,7 +222,7 @@
                                         <i class="fas fa-user"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" name="idM" id ="idM" placeholder="ID Material" required>
+                                <input type="text" class="form-control" name="idM" id="idM" placeholder="ID Material" required>
                             </div>
 
                             <!-- ENTRADA PARA LA DESCRIPCION DEL MATERIAL -->
@@ -240,7 +246,7 @@
 
                                 </select>
                             </div>
-                            
+
                             <!-- ENTRADA PARA DEL SERIAL DE MATERIAL -->
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
@@ -348,12 +354,12 @@
     </div>
     <!-- ./wrapper -->
 
-    <?php include("include/scripts.php"); 
-        if($_SESSION['tipo_usuario'] == "administrador"){
-            echo '<script src="dist/js/pages/material.js"></script>';
-        }else{
-            echo '<script src="dist/js/pages/material_unidad.js"></script>';
-        }
+    <?php include("include/scripts.php");
+    if ($_SESSION['tipo_usuario'] == "administrador") {
+        echo '<script src="dist/js/pages/material.js"></script>';
+    } else {
+        echo '<script src="dist/js/pages/material_unidad.js"></script>';
+    }
     ?>
 
 </body>
