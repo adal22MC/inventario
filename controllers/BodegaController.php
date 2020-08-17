@@ -11,10 +11,10 @@
         if(
 
             preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_ ]+$/', $_POST['nomBodega']) &&
+            preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_ ]+$/', $_POST['idBodega']) &&
             preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}+$/', $_POST['correoBodega']) &&
             preg_match('/^[()\-0-9 ]+$/', $_POST['numBodega']) &&
-            preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ.,_]+$/', $_POST['userBodega']) &&
-            preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ.,_]+$/', $_POST['passBodega'])
+            preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ.,_]+$/', $_POST['direcBodega'])
 
         ){
 
@@ -22,11 +22,12 @@
                 "nombre" => $_POST['nomBodega'],
                 "correo" => $_POST['correoBodega'],
                 "tel" => $_POST['numBodega'],
-                "usuario" => $_POST['userBodega'],
-                "pass" => $_POST['passBodega']
+                "direc" => $_POST['direcBodega'],
+                "id" => $_POST['idBodega']
             );
 
-            
+            echo json_encode(['respuesta'=>'OK']);
+        
 
             $respuesta = BodegaModelo::agregarBodeja($bodega);
             echo json_encode(['respuesta'=>$respuesta]);
@@ -34,8 +35,9 @@
         }else{
             echo json_encode(['respuesta'=>'Error en caracteres.']);
         }
-        
     }
+        
+    
 
     /* ==============================
         EDITAR BODEGA
@@ -98,6 +100,9 @@
         }
     }
 
+    /* ==============================================
+        HACE EL TRASLADO DE UNA BODEGA A OTRA
+    ================================================= */
     if( isset($_POST['traslado'])){
         $traslado = $_POST['traslado'];
 
@@ -113,6 +118,7 @@
         $solicitudes =  BodegaModelo::getHistorialSolicitudes($_SESSION['id_bodega']);
         echo json_encode($solicitudes);
     }
+
     /* =============================================================
         Devuelve el historial de despachos de una bodega 
      ===============================================================*/

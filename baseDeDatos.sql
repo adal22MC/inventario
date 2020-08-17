@@ -30,13 +30,18 @@ CREATE OR REPLACE TABLE bodegas(
     correo VARCHAR(60) COLLATE utf8_spanish_ci NOT NULL,
     tel TEXT COLLATE utf8_spanish_ci NOT NULL,
     nombre TEXT COLLATE utf8_spanish_ci NOT NULL,
+    direccion TEXT COLLATE utf8_spanish_ci NOT NULL,
     tipo INT NOT NULL DEFAULT 0,
     PRIMARY KEY(id_b)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- INSERCCIONES EN LA TABLA BODEGA
-INSERT INTO bodegas (correo,tel,nombre) VALUES ('tapachula@tapachula.es','9622162349','Sucursal Tapachula'), ('pinos@pinos.com','9627895878', 'Sucursal Los Pinos'), ('san_cristobal@sancris.com','5557894578', 'Sucursal San Cristobal');
+INSERT INTO bodegas (correo,tel,nombre, direccion) VALUES 
+('principal@principal.es','4564551315','Sucursal Madre','Mexico DF'),
+('tapachula@tapachula.es','9622162349','Sucursal Tapachula', 'Tapachula Chiapas'),
+('pinos@pinos.com','9627895878', 'Sucursal Los Pinos', 'Los pinos'),
+('san_cristobal@sancris.com','5557894578', 'Sucursal San Cristobal', 'Chiapas');
 
 CREATE OR REPLACE TABLE tipo_usuario(
 
@@ -47,8 +52,11 @@ CREATE OR REPLACE TABLE tipo_usuario(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- INSERCCIONES EN  LA TABLA tipo_usuario
-INSERT INTO tipo_usuario VALUES (NULL, 'Administrador'),(NULL, 'Almacenista Principal'),
-(NULL, 'Almacenista Por Unidad');
+INSERT INTO tipo_usuario VALUES 
+(NULL, 'Administrador'),
+(NULL, 'Almacenista Principal'),
+(NULL, 'Almacenista Por Unidad'),
+(NULL, 'Almacenista Multisucursal');
 
 CREATE OR REPLACE TABLE usuarios(
 
@@ -66,8 +74,10 @@ CREATE OR REPLACE TABLE usuarios(
 
 -- INSERCCIONES EN LA TABLA usuarios
 INSERT INTO usuarios VALUES 
-('user','user','my.rg.developer@gmail.com','45878','Pedro Ignacio','Ruiz Guzmán',3), 
-('unidad','unidad','rodriguez@gmail.com', '78545', 'Juan Rodrigo', 'Rodriguez Perez',3);
+('principal','principal','principal@gmail.com', '78456', 'Eduardo Principal', 'Rodriguez Perez',2),
+('user','user','my.rg.developer@gmail.com','45878','Pedro Ignacio','Ruiz Guzmán',4), 
+('unidad','unidad','rodriguez@gmail.com', '78545', 'Juan Rodrigo', 'Rodriguez Perez',3),
+('admin','admin','admin@gmail.com', '7811545', 'Administrador', 'Rodriguez',1);
 
 
 -- TABLA INTERMEDIA BODEGAS - USUARIOS
@@ -82,7 +92,7 @@ CREATE OR REPLACE TABLE bod_usu(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- INSERCCIONES PARA LA TABLA INTERMEDIA bod_usu
-INSERT INTO bod_usu VALUES (1,'user'),(2,'user');
+INSERT INTO bod_usu VALUES (2,'user'),(3,'user'),(4,'unidad');
 
 CREATE OR REPLACE TABLE orden_trabajo(
 
@@ -227,17 +237,18 @@ CREATE OR REPLACE table orden_compra(
     PRIMARY KEY(id_oc)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
-create or replace table detalle_orden(
+create or replace table detalle_orden_compra(
 
     cns int NOT NULL AUTO_INCREMENT,
     id_oc_do int NOT NULL,
-    cant int NOT NULL, -- cantidad 
+    cant int NOT NULL, -- cantidad que pidio
+    recibi int NOT NULL, -- cantidad que recibio
     p_compra float NOT NULL, -- precio compra
     te_producto float NOT NULL, -- total efectivo -  cant * p_compra
-    id_m_de varchar(50) COLLATE utf8_spanish_ci NOT NULL ,
-    foreign key (id_m_de) references material(id_m) ON UPDATE CASCADE,
+    id_m_do varchar(50) COLLATE utf8_spanish_ci NOT NULL ,
+    foreign key (id_m_do) references material(id_m) ON UPDATE CASCADE,
     foreign key (id_oc_do) references orden_compra(id_oc),
-    primary key( cns, id_em, id_m_de)
+    primary key( cns, id_oc_do, id_m_do)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 

@@ -68,6 +68,9 @@
                        </li>
                    <?php } ?>
 
+                
+                   <?php if($_SESSION['tipo_usuario'] == "Almacenista Por Unidad" ||
+                            $_SESSION['tipo_usuario'] == "Almacenista Multisucursal"){ ?>
                    <!-- SOLICITUDES -->
                    <li class="nav-item has-treeview menu-close">
                        <a href="#" class="nav-link">
@@ -92,7 +95,9 @@
                            </li>
                        </ul>
                    </li>
+                   <?php }?>
 
+                   
                    <!-- DESPACHOS -->
                    <li class="nav-item has-treeview menu-close">
                        <a href="#" class="nav-link">
@@ -117,6 +122,7 @@
                            </li>
                        </ul>
                    </li>
+                   
 
                    <?php if (
                         $_SESSION['tipo_usuario'] == "Administrador" ||
@@ -180,6 +186,45 @@
                            </a>
                        </li>
                    <?php } ?>
+
+                   <!-- SOLICITUDES -->
+                   <?php if ($_SESSION['tipo_usuario'] == "Administrador" ||
+                             $_SESSION['tipo_usuario'] == "Almacenista Principal"){ ?>
+                   <li class="nav-item">
+                       <a href="solicitudes_madre.php" class="nav-link">
+                           <i class="nav-icon fas fa-address-card"></i>
+                           <p>
+                               SOLICITUDES
+                           </p>
+                       </a>
+                   </li>
+
+                   <?php } ?>
+
+                   <!-- ORDEN DE COMPRA -->
+                   <li class="nav-item">
+                       <a href="#" class="nav-link">
+                           <i class="nav-icon fas fa-address-card"></i>
+                           <p>
+                               ORDEN DE COMPRA
+                               <i class="right fas fa-angle-left"></i>
+                           </p>
+                       </a>
+                       <ul class="nav nav-treeview">
+                           <li class="nav-item">
+                               <a href="orden_compra.php" class="nav-link">
+                                   <i class="fas fa-minus-3x nav-icon"></i>
+                                   <p>Realizar orden</p>
+                               </a>
+                           </li>
+                           <li class="nav-item">
+                               <a href="historial_traslados.php" class="nav-link">
+                                   <i class="fas fa-minus-3x nav-icon"></i>
+                                   <p>Historial de ordenes</p>
+                               </a>
+                           </li>
+                       </ul>
+                   </li>
 
                </ul>
 

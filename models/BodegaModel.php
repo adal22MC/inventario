@@ -4,23 +4,24 @@
 
     class BodegaModelo {
 
-        private static $INSERT_BODEGA = "INSERT INTO bodegas (correo,tel,nombre,username,pass) values (?, ?, ?, ?, ?)";
+        private static $INSERT_BODEGA = "INSERT INTO bodegas (correo,tel,nombre,direccion) values (?, ?, ?, ?)";
 
-        private static $SELECT_ALL = "SELECT id_b,f_creacion,correo,tel,nombre,username,pass FROM bodegas";
+        private static $SELECT_ALL = "SELECT id_b,f_creacion,correo,tel,nombre FROM bodegas";
 
         private static $UPDATE = "UPDATE bodegas set nombre=?,correo=?,tel=?,username=?,pass=? WHERE id_b = ?";
 
-        private static $DELETE = "DELETE FROM bodegas WHERE id_b = ?";
+        private static $DELETE = "DELETE FROM bodegas WHERE id_b = ? and tipo = 0";
 
         public static function agregarBodeja($bodega){
             try{
 
+                return "OK";
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
 
                 $pst = $conn->prepare(self::$INSERT_BODEGA);
 
-                $pst->execute([$bodega['correo'], $bodega['tel'], $bodega['nombre'], $bodega['usuario'], $bodega['pass']]);
+                $pst->execute([$bodega['correo'], $bodega['tel'], $bodega['nombre'],$bodega['direc']]);
 
                 $conn = null;
                 $conexion->closeConexion();
@@ -43,12 +44,19 @@
 
                 $pst->execute([$id]);
 
+                $filas = $pst->rowCount();
+
+                if($filas > 0){
+                    return "OK";
+                }
+
                 $conn = null;
                 $conexion->closeConexion();
 
-                return "OK";
+                return "No se ha podido eliminar la bodega";
 
             }catch(PDOException $e){
+                return "No se ha podido eliminar la bodega";
                 return $e->getMessage();
             }
         }
@@ -101,7 +109,7 @@
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
 
-                $pst = $conn->prepare("SELECT * FROM bodegas where id_b <> ?");
+                $pst = $conn->prepare("SELECT * FROM bodegas where id_b <> ? and tipo = 0");
 
                 $pst->execute([$id_b]);
                 $bodegas = $pst->fetchAll();
@@ -474,7 +482,7 @@
             }
         }
         
-        // Devuelve el historial de Despachos de una bodega 
+        // Devuelve el historial de traslados de una bodega 
         public static function getHistorialTraslados($id_bodega){
             try {
                 $conexion = new Conexion();
@@ -495,4 +503,5 @@
                 return $e->getMessage();
             }
         }
+
     }

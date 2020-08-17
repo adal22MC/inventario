@@ -1,10 +1,8 @@
 <?php
   session_start();
   if (!isset($_SESSION['username']) ){
-      header('Location: login.php');
+    header('Location: login.php');
   }
-
-  require_once "../models/MaterialModel.php";
 
 ?>
 
@@ -29,10 +27,11 @@
                     <div class="row">
 
                         <div class="col-md-5">
-                            <!-- TABLE: SOLICITUD -->
+
+                            <!-- TABLE: ORDEN -->
                             <div class="card">
                                 <div class="card-header border-transparent">
-                                    <h3 id="totalApagar" class="card-title">Lista de productos a solicitar</h3>
+                                    <h3 id="totalApagar" class="card-title">Lista de productos a ordenar</h3>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-minus"></i>
@@ -43,12 +42,13 @@
 
                                 <div class="card-body p-0">
                                     <div class="table-responsive">
-                                        <table id="tablaSolicitud" class="table m-0 listaSolicitud">
+                                        <table id="tablaOrden" class="table m-0">
                                             <thead>
                                                 <tr>
                                                     <th>Eliminar</th>
                                                     <th>Producto</th>
                                                     <th>Cantidad</th>
+                                                    <th>P. Compra</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -61,14 +61,13 @@
                                 <!-- /.card-body -->
 
                                 <div class="card-footer clearfix">
-                                    <a href="solicitudes_p.php" class="btn btn-sm btn-danger float-left">Cancelar todo</a>
-                                    <button id="procesarVenta" class="btn btn-sm btn-info float-right">Procesar solicitud</button>
+                                    <a href="orden_compra.php" class="btn btn-sm btn-danger float-left">Cancelar todo</a>
+                                    <button id="procesarVenta" class="btn btn-sm btn-info float-right">Procesar orden</button>
                                 </div>
                                 <!-- /.card-footer -->
                             </div>
                             <!-- /.card -->
                         </div>
-
 
                         <div class="col-md-7">
                             <!-- TABLA MATERIALES -->
@@ -84,20 +83,18 @@
                                             <div class="card-body">
                                                 <table id="tablaMateriales" class="table table-bordered table-striped">
                                                     <thead>
-                                                        <tr>      
+                                                        <tr>
                                                             <th>ID Material</th>
-                                                            <th>Acciones</th> 
                                                             <th>Nombre</th>
                                                             <th>Stock</th>
-                                                            <th>Stock Maximo</th>
+                                                            <th>Stock Max</th>
                                                             <th>Categoria</th>
+                                                            <th>Acciones</th>
                                                         </tr>
                                                     </thead>
 
                                                     <tbody>
-                                                       <?php
-                                                            MaterialModelo::getMaterialesHija($_SESSION['id_bodega']);
-                                                       ?>
+
                                                     </tbody>
 
                                                 </table>
@@ -111,7 +108,7 @@
                                 </div>
                                 <!-- /.row -->
                             </div>
-                            <!-- /. TABLA MATERIALES -->
+                            <!-- /. TABLA PRODUCTOS -->
                         </div>
 
                     </div>
@@ -121,13 +118,14 @@
         </div>
         <!-- ends content-wrapper -->
 
+
         <?php include("include/footer.php") ?>
 
     </div>
     <!-- ./wrapper -->
 
     <?php include('include/scripts.php'); ?>
-    <script src="dist/js/pages/solicitudes_p.js"></script>
+    <script src="dist/js/pages/orden_compra.js"></script>
 
 </body>
 

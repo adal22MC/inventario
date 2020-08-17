@@ -111,7 +111,7 @@ if (!isset($_SESSION['username'])) {
           </div>
           <!-- /.row -->
 
-          <?php if($_SESSION['tipo_usuario'] != "Almacenista Por Unidad"){?>
+          <?php if($_SESSION['tipo_usuario'] == "Almacenista Multisucursal"){?>
           <div class="row">
             <div class="col-md-5">
               <div class="card">
@@ -152,11 +152,6 @@ if (!isset($_SESSION['username'])) {
                   </div>
                 </div>
                 <!-- /.card-body -->
-
-                <div class="card-footer clearfix">
-                  <button id="cambiarSucursal" class="btn btn-sm btn-info float-right">Cambiar</button>
-                </div>
-                <!-- /.card-footer -->
               </div>
               <!-- /.card -->
             </div>
@@ -177,7 +172,7 @@ if (!isset($_SESSION['username'])) {
   <!-- ./wrapper -->
 
   <?php include('include/scripts.php'); ?>
-  <?php if($_SESSION['tipo_usuario'] != "Almacenista Por Unidad"){?>
+  <?php if($_SESSION['tipo_usuario'] == "Almacenista Multisucursal"){?>
   <script src="dist/js/pages/cambio_sucursal.js"></script>
   <?php }?>
 
