@@ -12,10 +12,11 @@
     $Id;
     if (isset($_GET['id_traslado'])) {
         $van = 0;
-        $Id[0] = array("id" => $_GET['id_traslado']);
+        $Id[0] = array("id" => $_GET['id_traslado'],
+                        "user" => $_SESSION['username']);
     } else {
         $van = 1;
-        $Id = TrasladoModelo::TrasladosId($_GET['fechaInicial'], $_GET['fechaFinal'], $_SESSION['id_bodega']);
+        $Id = TrasladoModelo::TrasladosId($_GET['fechaInicial'], $_GET['fechaFinal'], $_SESSION['id_bodega'],$_SESSION['username']);
     }
 
     use Dompdf\Dompdf;

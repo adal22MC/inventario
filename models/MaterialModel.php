@@ -375,5 +375,89 @@
                 return $e->getMessage();
             }
         }
+         /* ============================================================
+            REPORTE DE STOCK BAJO DE MATERIAL DE UNA SUCURSAL 
+          ============================================================= */
+        public static function imprimirDatosUsuario($id_bodega,$user){
+            try {
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT u.nombres, u.apellidos
+                FROM usuarios u, bod_usu bu
+                WHERE bu.username_bu = u.username and bu.id_b_bu = ? and u.username =?");
+                $pst->execute([$id_bodega,$user]);
+
+                $usuario = $pst->fetchAll();
+
+                foreach($usuario as $u){
+                    echo"
+                        <td><strong>Realizado por:</strong> " . $u['nombres'] . " " . $u['apellidos'] . "</td>
+                        ";
+                }
+                $conexion->closeConexion();
+                $conn = null;
+
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
+        public static function imprimiDatosTabla($id_bodega){
+            try {
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT m.id_m as id, m.descr as nombre, c.descr as categoria, i.s_total as stock,  i.s_min as mini
+                FROM inventario i, material m, categorias c
+                WHERE i.id_m_i = m.id_m and m.id_c_m = c.id_c  and i.s_total <= i.s_min and i.id_b_i = ?");
+                $pst->execute([$id_bodega]);
+
+                $material = $pst->fetchAll();
+
+                foreach($material  as $ma){
+                    echo '
+                    <tr>
+                        <th scope="row">'.$ma["id"].'</th>
+                        <td align="center">'.$ma["nombre"].'</td>
+                        <td align="center">'.$ma["categoria"].'</td>
+                        <td align="center">'.$ma["mini"].'</td>
+                        <td align="center">'.$ma["stock"].'</td>
+                    </tr>';
+                }
+                $conexion->closeConexion();
+                $conn = null;
+
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
+        public static function imprimirDatosMateriales($id_bodega){
+            try {
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT m.id_m as id, m.descr as nombre, c.descr as categoria, i.s_total as stock
+                FROM inventario i, material m, categorias c
+                WHERE i.id_m_i = m.id_m and m.id_c_m = c.id_c and i.id_b_i = ?");
+                $pst->execute([$id_bodega]);
+
+                $material = $pst->fetchAll();
+
+                foreach($material  as $ma){
+                    echo '
+                    <tr>
+                        <th scope="row">'.$ma["id"].'</th>
+                        <td align="center">'.$ma["nombre"].'</td>
+                        <td align="center">'.$ma["categoria"].'</td>
+                        <td align="center">'.$ma["stock"].'</td>
+                    </tr>';
+                }
+                $conexion->closeConexion();
+                $conn = null;
+
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
         
     }

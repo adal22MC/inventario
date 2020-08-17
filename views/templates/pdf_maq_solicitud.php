@@ -67,8 +67,8 @@
     <table width="100%">
       <thead style="background-color: lightgray;">
         <tr>
-          <th>ID</th>
-          <th>Producto</th>
+          <th>Codigo</th>
+          <th>Material</th>
           <th>Cantidad</th>
         </tr>
       </thead>

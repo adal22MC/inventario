@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Traslado</title>
+  <title>Material</title>
 
   <style type="text/css">
     * {
@@ -39,60 +39,72 @@
       <td align="right">
         <?php
         SolicitudModelo::imprimiDatosEmpresa($_SESSION['id_bodega']);
-        if (isset($_GET['fechaInicial'])) {
-          echo "<pre>
-            <b>Inicio: </b> " . $_GET['fechaInicial'] . "   <b>Final: </b>" . $_GET['fechaFinal'] . "</pre>";
-        }
-        ?>  
+        ?>
       </td>
     </tr>
   </table>
   <br>
-  <!-- Información del Traslado -->
+  <!-- Información de los Materiales -->
   <?php
 
   foreach ($Id as $item) {
 
   ?>
     <table width="100%">
-    
-        <?php
-            TrasladoModelo::imprimirDatosTraslado($item["id"]);
-        ?>
-     
+
+      <?php
+      MaterialModelo::imprimirDatosUsuario($item["id"], $item["user"]);
+      ?>
+
     </table>
     <hr>
     <br />
     <!-- Resumen de la cotización -->
+    <?php 
+      if (isset($_GET['materiales'])){
+        echo"<h3 align='center'>Productos</h3>";
+      }else{
+        echo"<h3 align='center'>Productos con Stock Bajo</h3>";
+      }
+    ?>
+    <br>
     <table width="100%">
       <thead style="background-color: lightgray;">
         <tr>
-          <th>Codigo</th>
-          <th>Material</th>
-          <th>Cantidad</th>
           <?php
-            if($_SESSION['tipo_usuario']== "Almacenista Principal" || $_SESSION['tipo_usuario']== "Administrador"){
+          if (isset($_GET['materiales'])){
+            echo"
+              <th>Codigo</th>
+              <th>Material</th>
+              <th>Categoria</th>
+              <th>Stock</th>";
+          }else{
+            echo"
+            <th>Codigo</th>
+            <th>Material</th>
+            <th>Categoria</th>
+            <th>Stock Min</th>
+            <th>Stock</th>";
+          }
           ?>
-          <th>P.Compra</th>
-          <th>Total</th>
-          <?php
-            }
-          ?> 
+          
         </tr>
       </thead>
       <tbody>
         <?php
-            TrasladoModelo::imprimiDatosTabla($item["id"], $item["user"]);
+          if (isset($_GET['materiales'])){
+            MaterialModelo::imprimirDatosMateriales($item["id"]);
+          }else{
+            MaterialModelo::imprimiDatosTabla($item["id"]);
+          }
+        
         ?>
       </tbody>
+
       <tfoot>
-        <tr>
-          <?php
-            TrasladoModelo::imprimirDatosSuma($item["id"],$item["user"]);
-          ?>
-        </tr>
+       
       </tfoot>
-      
+
     </table>
     <br><br><br><br>
   <?php
@@ -100,6 +112,4 @@
   ?>
 </body>
 
-
 </html>
-
