@@ -44,6 +44,7 @@ if (!isset($_SESSION['username'])) {
                                             <th>Nombre</th>
                                             <th>Correo</th>
                                             <th>Telefono</th>
+                                            <th>Dirección</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -107,7 +108,7 @@ if (!isset($_SESSION['username'])) {
                                 <input type="text" class="form-control" name="idBodega" placeholder="No Bodega" required>
                             </div>
 
-                            <!-- ENTRADA PARA LA NOMBRE DE LA BODEGA -->
+                            <!-- ENTRADA PARA EL NOMBRE DE LA BODEGA -->
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
@@ -197,6 +198,16 @@ if (!isset($_SESSION['username'])) {
 
                         <div class="modal-body">
 
+                            <!-- ENTRADA PARA EL ID DE LA BODEGA -->
+                            <div class="input-group pt-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" id="idBodega" name="idBodega" placeholder="No Bodega" required>
+                            </div>
+
 
                             <!-- ENTRADA PARA LA NOMBRE DE LA BODEGA -->
                             <div class="input-group pt-3">
@@ -228,24 +239,14 @@ if (!isset($_SESSION['username'])) {
                                 <input type="number" class="form-control" id="numBodega" name="numBodega" placeholder="Numero de Telefono" required>
                             </div>
 
-                            <!-- ENTRADA PARA EL USERNAME DE BODEGA -->
+                            <!-- ENTRADA PARA LA DIRECCION DE LA BODEGA -->
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         <i class="fas fa-user"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" id="userBodega" name="userBodega" placeholder="Username" required>
-                            </div>
-
-                            <!-- ENTRADA PARA EL PASSWORD DE BODEGA -->
-                            <div class="input-group pt-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
-                                    </span>
-                                </div>
-                                <input type="text" class="form-control" id="passBodega" name="passBodega" placeholder="Contraseña" required>
+                                <input type="text" class="form-control" id="direcBodega" name="direcBodega" placeholder="Dirección" required>
                             </div>
 
 

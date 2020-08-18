@@ -3,6 +3,7 @@ const formEditBodega = document.getElementById('formEditBodega');
 
 var tablaBodega;
 var idBodega;
+var id_viejo;
 
 function init(){
    
@@ -23,7 +24,8 @@ function init(){
             {"data" : "nombre"},
             {"data" : "correo"},
             {"data" : "tel"},
-            {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-info btn-sm btnEditar'><i class='fas fa-edit'></i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='fas fa-trash-alt'></i></button></div></div>"}
+            {"data" : "direccion"},
+            {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-info btn-sm btnEditar'><i class='fas fa-edit'></i></button></div></div>"}
         ]
     })
 
@@ -65,7 +67,7 @@ formEditBodega.addEventListener('submit', async (e) => {
 
         var datosBodega = new FormData(formEditBodega); //obtenemos el formulario y creamos un objeto
         datosBodega.append('editarBodega', 'OK');
-        datosBodega.append('idBodega', idBodega);
+        datosBodega.append('id_viejo', id_viejo);
     
         var peticion = await fetch('../controllers/BodegaController.php', {
             method : 'POST',
@@ -97,17 +99,19 @@ $(document).on("click", ".btnEditar", function(){
     }
 
     /* Cargamos los datos obtenidos al modal editar */
-    idBodega = data[0];
-    $("#nomBodega").val(data[4]);
-    $("#correoBodega").val(data[2]);
-    $("#numBodega").val(data[3]);
-    $("#userBodega").val(data[5]);
-    $("#passBodega").val(data[6]);
+    idBodega = data['id_b'];
+    id_viejo = data['id_b'];
+    $("#nomBodega").val(data['nombre']);
+    $("#correoBodega").val(data['correo']);
+    $("#numBodega").val(data['tel']);
+    $("#idBodega").val(data['id_b']);
+    $("#direcBodega").val(data['direccion']);
    
     /* Hacemos visible el modal */
     $('#modalEditarBodega').modal('show');		   
 });
 
+/*
 $(document).on('click', ".btnBorrar", async function() {
 
     if(tablaBodega.row(this).child.isShown()){
@@ -155,7 +159,7 @@ $(document).on('click', ".btnBorrar", async function() {
     }
     
 })
-
+*/
 
 
 function notificacionExitosa(mensaje){

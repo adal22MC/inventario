@@ -25,7 +25,7 @@ INSERT INTO material VALUES ('001','Segeta', 'S45568', 1),('002', 'Martillo', 'S
 
 CREATE OR REPLACE TABLE bodegas(
 
-    id_b INT NOT NULL AUTO_INCREMENT,
+    id_b VARCHAR(50) COLLATE utf8_spanish_ci NOT NULL,
     f_creacion date DEFAULT CURRENT_DATE NOT NULL,
     correo VARCHAR(60) COLLATE utf8_spanish_ci NOT NULL,
     tel TEXT COLLATE utf8_spanish_ci NOT NULL,
@@ -37,11 +37,11 @@ CREATE OR REPLACE TABLE bodegas(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- INSERCCIONES EN LA TABLA BODEGA
-INSERT INTO bodegas (correo,tel,nombre, direccion) VALUES 
-('principal@principal.es','4564551315','Sucursal Madre','Mexico DF'),
-('tapachula@tapachula.es','9622162349','Sucursal Tapachula', 'Tapachula Chiapas'),
-('pinos@pinos.com','9627895878', 'Sucursal Los Pinos', 'Los pinos'),
-('san_cristobal@sancris.com','5557894578', 'Sucursal San Cristobal', 'Chiapas');
+INSERT INTO bodegas (id_b,correo,tel,nombre, direccion) VALUES 
+('1','principal@principal.es','4564551315','Sucursal Madre','Mexico DF'),
+('2','tapachula@tapachula.es','9622162349','Sucursal Tapachula', 'Tapachula Chiapas'),
+('3','pinos@pinos.com','9627895878', 'Sucursal Los Pinos', 'Los pinos'),
+('4','san_cristobal@sancris.com','5557894578', 'Sucursal San Cristobal', 'Chiapas');
 
 CREATE OR REPLACE TABLE tipo_usuario(
 
@@ -83,16 +83,16 @@ INSERT INTO usuarios VALUES
 -- TABLA INTERMEDIA BODEGAS - USUARIOS
 CREATE OR REPLACE TABLE bod_usu(
 
-    id_b_bu INT NOT NULL,
+    id_b_bu VARCHAR(50) COLLATE utf8_spanish_ci NOT NULL,
     username_bu VARCHAR(60) COLLATE utf8_spanish_ci NOT NULL,
-    FOREIGN KEY ( id_b_bu ) REFERENCES bodegas ( id_b ),
+    FOREIGN KEY ( id_b_bu ) REFERENCES bodegas ( id_b ) ON UPDATE CASCADE,
     FOREIGN KEY ( username_bu ) REFERENCES usuarios ( username ) ON UPDATE CASCADE,
     PRIMARY KEY ( id_b_bu, username_bu )
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- INSERCCIONES PARA LA TABLA INTERMEDIA bod_usu
-INSERT INTO bod_usu VALUES (2,'user'),(3,'user'),(4,'unidad');
+INSERT INTO bod_usu VALUES ('2','user'),('3','user'),('4','unidad');
 
 CREATE OR REPLACE TABLE orden_trabajo(
 
@@ -103,9 +103,9 @@ CREATE OR REPLACE TABLE orden_trabajo(
     cedula VARCHAR(100) COLLATE utf8_spanish_ci NOT NULL,
     tel VARCHAR(50) COLLATE utf8_spanish_ci NOT NULL,
     obser TEXT COLLATE utf8_spanish_ci NOT NULL,
-    id_b_ot INT NOT NULL,
+    id_b_ot VARCHAR(50) COLLATE utf8_spanish_ci NOT NULL,
     resp VARCHAR(60) COLLATE utf8_spanish_ci NOT NULL,
-    FOREIGN KEY (id_b_ot) REFERENCES bodegas (id_b),
+    FOREIGN KEY (id_b_ot) REFERENCES bodegas (id_b) ON UPDATE CASCADE,
     FOREIGN KEY (resp) REFERENCES usuarios (username),
     PRIMARY KEY (num_orden)
 
@@ -130,8 +130,8 @@ CREATE OR REPLACE TABLE solicitud_p(
     hora TIME DEFAULT CURRENT_TIME NOT NULL,
     resp varchar(255) COLLATE utf8_spanish_ci NOT NULL,
     status INT NOT NULL,
-    id_b_sp INT NOT NULL,
-    FOREIGN KEY (id_b_sp) REFERENCES bodegas(id_b),
+    id_b_sp VARCHAR(50) COLLATE utf8_spanish_ci NOT NULL,
+    FOREIGN KEY (id_b_sp) REFERENCES bodegas(id_b) ON UPDATE CASCADE,
     FOREIGN KEY (resp) REFERENCES usuarios(username),
     PRIMARY KEY (id_s)
 
@@ -153,14 +153,14 @@ CREATE OR REPLACE TABLE traslados(
     id_t INT NOT NULL AUTO_INCREMENT,
     fecha DATE DEFAULT CURRENT_DATE NOT NULL,
     hora TIME DEFAULT CURRENT_TIME NOT NULL,
-    llego_a INT NOT NULL,
-    salio_de INT NOT NULL,
+    llego_a VARCHAR(50) COLLATE utf8_spanish_ci NOT NULL,
+    salio_de VARCHAR(50) COLLATE utf8_spanish_ci NOT NULL,
     t_materiales INT NOT NULL, -- cantidad de materiales
     te_traslado FLOAT NOT NULL, -- total efectivo
     resp VARCHAR(60) COLLATE utf8_spanish_ci NOT NULL,
     FOREIGN KEY (resp) REFERENCES usuarios (username),
-    FOREIGN KEY (llego_a) REFERENCES bodegas(id_b),
-    FOREIGN KEY (salio_de) REFERENCES bodegas (id_b),
+    FOREIGN KEY (llego_a) REFERENCES bodegas(id_b) ON UPDATE CASCADE,
+    FOREIGN KEY (salio_de) REFERENCES bodegas (id_b) ON UPDATE CASCADE,
     PRIMARY KEY (id_t)
 
 
@@ -197,16 +197,16 @@ CREATE OR REPLACE TABLE inventario(
     s_total INT NOT NULL,
     s_min INT NOT NULL,
     s_max INT NOT NULL,
-    id_b_i INT NOT NULL,
+    id_b_i VARCHAR(50) COLLATE utf8_spanish_ci NOT NULL,
     id_m_i VARCHAR(50) COLLATE utf8_spanish_ci NOT NULL,
-    FOREIGN KEY ( id_b_i ) REFERENCES bodegas (id_b),
+    FOREIGN KEY ( id_b_i ) REFERENCES bodegas (id_b) ON UPDATE CASCADE,
     FOREIGN KEY ( id_m_i ) REFERENCES material (id_m) ON UPDATE CASCADE,
     PRIMARY KEY ( id_b_i, id_m_i )
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- INSERCCIONES PARA LA TABLA inventario
-INSERT INTO inventario VALUES (100,10,100,1,'001'),(100,10,100,1,'002'),(100,10,100,1,'003');
+INSERT INTO inventario VALUES (100,10,100,'1','001'),(100,10,100,'1','002'),(100,10,100,'1','003');
 
 CREATE OR REPLACE TABLE detalle_inventario (
 
@@ -215,7 +215,7 @@ CREATE OR REPLACE TABLE detalle_inventario (
     p_compra FLOAT NOT NULL,
     stock INT NOT NULL,
     fecha DATE DEFAULT CURRENT_DATE NOT NULL,
-    id_b_di INT NOT NULL,
+    id_b_di VARCHAR(50) COLLATE utf8_spanish_ci NOT NULL,
     id_m_di VARCHAR(50) COLLATE utf8_spanish_ci NOT NULL,
     FOREIGN KEY ( id_b_di, id_m_di ) REFERENCES inventario ( id_b_i, id_m_i ) ON UPDATE CASCADE,
     PRIMARY KEY ( cns, id_b_di, id_m_di )
@@ -223,8 +223,8 @@ CREATE OR REPLACE TABLE detalle_inventario (
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- INSERCCIONES EN LA TABLA DETALLE INVENTARIO
-INSERT INTO detalle_inventario (dispo,p_compra,stock,id_b_di,id_m_di) VALUES (1,80,100,1,'001'),
-(1,80,100,1,'002'), (1,80,50,1,'003'), (1,50,50,1,'003');
+INSERT INTO detalle_inventario (dispo,p_compra,stock,id_b_di,id_m_di) VALUES (1,80,100,'1','001'),
+(1,80,100,'1','002'), (1,80,50,'1','003'), (1,50,50,'1','003');
 
 CREATE OR REPLACE table orden_compra(
 

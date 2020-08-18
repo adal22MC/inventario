@@ -4,24 +4,23 @@
 
     class BodegaModelo {
 
-        private static $INSERT_BODEGA = "INSERT INTO bodegas (correo,tel,nombre,direccion) values (?, ?, ?, ?)";
+        private static $INSERT_BODEGA = "INSERT INTO bodegas (id_b,correo,tel,nombre,direccion) values (?, ?, ?, ?, ?)";
 
-        private static $SELECT_ALL = "SELECT id_b,f_creacion,correo,tel,nombre FROM bodegas";
+        private static $SELECT_ALL = "SELECT id_b,f_creacion,correo,tel,nombre,direccion FROM bodegas";
 
-        private static $UPDATE = "UPDATE bodegas set nombre=?,correo=?,tel=?,username=?,pass=? WHERE id_b = ?";
+        private static $UPDATE = "UPDATE bodegas set id_b = ?, nombre=?,correo=?,tel=?,direccion=?  WHERE id_b = ?";
 
         private static $DELETE = "DELETE FROM bodegas WHERE id_b = ? and tipo = 0";
 
         public static function agregarBodeja($bodega){
             try{
 
-                return "OK";
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
 
                 $pst = $conn->prepare(self::$INSERT_BODEGA);
 
-                $pst->execute([$bodega['correo'], $bodega['tel'], $bodega['nombre'],$bodega['direc']]);
+                $pst->execute([$bodega['id'],$bodega['correo'], $bodega['tel'], $bodega['nombre'],$bodega['direc']]);
 
                 $conn = null;
                 $conexion->closeConexion();
@@ -29,7 +28,7 @@
                 return "OK";
 
             }catch(PDOException $e){
-                return $e->getMessage();
+                return "Error, el codigo de sucursal ya existe!";
             }
         }
 
@@ -69,7 +68,7 @@
 
                 $pst = $conn->prepare(self::$UPDATE);
 
-                $pst->execute([$bodega['nombre'], $bodega['correo'], $bodega['tel'], $bodega['usuario'], $bodega['pass'], $bodega['id']]);
+                $pst->execute([$bodega['id'],$bodega['nombre'], $bodega['correo'], $bodega['tel'], $bodega['direccion'], $bodega['id_viejo']]);
 
                 $conn = null;
                 $conexion->closeConexion();

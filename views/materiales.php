@@ -171,6 +171,25 @@ require_once "../models/MaterialModel.php";
                                 <input type="text" class="form-control" name="serialMaterial" placeholder="Serial (Opcional)">
                             </div>
 
+                            <!-- ENTRADA PARA EL STOCK MAXIMO -->
+                            <div class="input-group pt-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" name="stock_max" placeholder="Stock maximo" required>
+                            </div>
+
+                            <!-- ENTRADA PARA EL STOCK MINIMO -->
+                            <div class="input-group pt-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" name="stock_min" placeholder="Stock minimo" required>
+                            </div>
 
                         </div>
 
@@ -261,6 +280,26 @@ require_once "../models/MaterialModel.php";
                                     </span>
                                 </div>
                                 <input type="text" class="form-control" id="SerialMaterial" name="serialMaterial" placeholder="Serial (Opcional)">
+                            </div>
+
+                            <!-- ENTRADA PARA EL STOCK MAXIMO -->
+                            <div class="input-group pt-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" id="stock_max" name="stock_max" placeholder="Stock maximo" required>
+                            </div>
+
+                            <!-- ENTRADA PARA EL STOCK MINIMO -->
+                            <div class="input-group pt-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" id="stock_min" name="stock_min" placeholder="Stock minimo" required>
                             </div>
                         </div>
 

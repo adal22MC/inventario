@@ -8,7 +8,7 @@ function init() {
     tablaMaterial = $("#material").DataTable({
         "responsive": true,
         "autoWidth": false
-    })
+    });
 }
 
 init();
@@ -76,7 +76,7 @@ formaddMaterial.addEventListener('submit', async (e) => {
 
             if (resjson.respuesta == "OK") {
                 notificacionExitosa('¡Alta de material exitosa!');
-                tablaMaterial.ajax.reload(null, false);
+                //tablaMaterial.ajax.reload(null, false);
             } else {
                 notificarError(resjson.respuesta);
             }
@@ -105,7 +105,7 @@ formEditMaterial.addEventListener('submit', async (e) => {
 
         if (resjson.respuesta == "OK") {
             notificacionExitosa('¡Modificación de Material exitosa!');
-            tablaMaterial.ajax.reload(null, false);
+            //tablaMaterial.ajax.reload(null, false);
         } else {
             notificarError(resjson.respuesta);
         }
@@ -128,7 +128,9 @@ $(document).on("click", ".btnEditar", async function () {
     idMaterial = data[0];
     $("#idM").val(idMaterial);
     $("#desMaterial").val(data[1]);
-    $("#SerialMaterial").val(data[3]);
+    $("#SerialMaterial").val(data[6]);
+    $("#stock_max").val(data[4]);
+    $("#stock_min").val(data[3]);
     /* Hacemos visible el modal */
     $('#modalEditarMaterial').modal('show');
 
@@ -219,6 +221,7 @@ function notificacionExitosa(mensaje) {
         formaddMaterial.reset();
         document.getElementById('closeAdd').click();
         document.getElementById('closeEdit').click();
+        window.location = "materiales.php";
     });
 }
 

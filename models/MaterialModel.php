@@ -206,6 +206,9 @@
 
                 $pst->execute([$material['id'], $material['descr'], $material['serial'], $material['id_c']]);
 
+                $pst = $conn->prepare("INSERT INTO inventario VALUES (0,?,?,?,?)");
+                $pst->execute([$material['s_min'],$material['s_max'],$_SESSION['id_bodega'],$material['id']]);
+
                 $conn = null;
                 $conexion->closeConexion();
 
@@ -242,6 +245,10 @@
 
                 $pst = $conn->prepare(self::$UPDATE_MATERIAL);
                 $pst->execute([$material['idNew'],$material['descr'],$material['serial'],$material['id_c'],$material['id']] );
+
+                $pst = $conn->prepare("UPDATE inventario set s_max = ?, s_min = ? WHERE id_b_i = ? and id_m_i = ?");
+                $pst->execute([$material['s_max'],$material['s_min'],$_SESSION['id_bodega'],$material['idNew']]);
+                
 
                 $conn = null;
                 $conexion->closeConexion();

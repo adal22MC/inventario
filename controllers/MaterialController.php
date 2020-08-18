@@ -25,12 +25,14 @@
                 "id" => $_POST['idM'],
                 "descr" => $_POST['desMaterial'],
                 "serial" => $_POST['serialMaterial'],
-                "id_c" => $_POST['categoria']
+                "id_c" => $_POST['categoria'],
+                "s_max" => $_POST['stock_max'],
+                "s_min" => $_POST['stock_min']
             );
          
             $respuesta = MaterialModelo::agregarMaterial($Material);
             echo json_encode(['respuesta'=>$respuesta]);
-          //  echo json_encode(['respuesta'=>$_POST['categoria']]);
+          
         }else{
             echo json_encode(['respuesta'=>'Error en caracteres.']);
         }
@@ -95,7 +97,9 @@
                 "idNew" => $_POST['idM'],
                 "descr" => $_POST['desMaterial'],
                 "serial" => $_POST['serialMaterial'],
-                "id_c" => $_POST['categoria']
+                "id_c" => $_POST['categoria'],
+                "s_max" => $_POST['stock_max'],
+                "s_min" => $_POST['stock_min']
             );
          
             $respuesta = MaterialModelo::editarMaterial($Material);

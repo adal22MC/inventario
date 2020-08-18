@@ -8,16 +8,6 @@
      =============================*/
     if( isset($_POST['agregarBodega']) ){
         
-        if(
-
-            preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_ ]+$/', $_POST['nomBodega']) &&
-            preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_ ]+$/', $_POST['idBodega']) &&
-            preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}+$/', $_POST['correoBodega']) &&
-            preg_match('/^[()\-0-9 ]+$/', $_POST['numBodega']) &&
-            preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ.,_]+$/', $_POST['direcBodega'])
-
-        ){
-
             $bodega = array(
                 "nombre" => $_POST['nomBodega'],
                 "correo" => $_POST['correoBodega'],
@@ -26,50 +16,27 @@
                 "id" => $_POST['idBodega']
             );
 
-            echo json_encode(['respuesta'=>'OK']);
-        
-
             $respuesta = BodegaModelo::agregarBodeja($bodega);
             echo json_encode(['respuesta'=>$respuesta]);
-
-        }else{
-            echo json_encode(['respuesta'=>'Error en caracteres.']);
-        }
+        
     }
         
-    
-
     /* ==============================
         EDITAR BODEGA
      ===============================*/
     if( isset($_POST['editarBodega']) ){
-        if(
-            preg_match('/^[()\-0-9 ]+$/', $_POST['idBodega']) &&
-            preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_ ]+$/', $_POST['nomBodega']) &&
-            preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}+$/', $_POST['correoBodega']) &&
-            preg_match('/^[()\-0-9 ]+$/', $_POST['numBodega']) &&
-            preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ.,_]+$/', $_POST['userBodega']) &&
-            preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ.,_]+$/', $_POST['passBodega'])
-
-        ){
-
+        
             $bodega = array(
                 "id" => $_POST['idBodega'],
                 "nombre" => $_POST['nomBodega'],
                 "correo" => $_POST['correoBodega'],
                 "tel" => $_POST['numBodega'],
-                "usuario" => $_POST['userBodega'],
-                "pass" => $_POST['passBodega']
+                "direccion" => $_POST['direcBodega'],
+                "id_viejo" => $_POST['id_viejo']
             );
-
-            
 
             $respuesta = BodegaModelo::editarBodega($bodega);
             echo json_encode(['respuesta'=>$respuesta]);
-
-        }else{
-            echo json_encode(['respuesta'=>'Error en caracteres.']);
-        }
     }
 
     /* ================================
@@ -126,6 +93,7 @@
         $Despachos =  BodegaModelo::getHistorialDespachos($_SESSION['id_bodega']);
         echo json_encode($Despachos);
     }
+
      /* =============================================================
         Devuelve el historial de traslados de una bodega 
      ===============================================================*/

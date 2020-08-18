@@ -44,7 +44,7 @@ $(document).on("click", ".btnAddListTraslado", function(){
     let stock = parseInt(data[2]); 
     
     Swal.fire({
-        title: 'Ingresa la cantidad a despachar',
+        title: 'Ingresa la cantidad a trasladar',
         input: 'number',
         inputAttributes: {
           autocapitalize: 'off'
