@@ -218,7 +218,7 @@
                                </a>
                            </li>
                            <li class="nav-item">
-                               <a href="historial_traslados.php" class="nav-link">
+                               <a href="historial_orden_compra.php" class="nav-link">
                                    <i class="fas fa-minus-3x nav-icon"></i>
                                    <p>Historial de ordenes</p>
                                </a>
