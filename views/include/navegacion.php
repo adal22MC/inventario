@@ -257,6 +257,20 @@
 
                    <?php } ?>
 
+                   <?php if ($_SESSION['tipo_usuario'] == "Administrador" ||
+                             $_SESSION['tipo_usuario'] == "Almacenista Principal"){ 
+                   ?>
+                   <!-- TRAZABILIDAD -->
+                   <li class="nav-item">
+                       <a href="trazabilidad.php" class="nav-link">
+                           <i class="nav-icon fas fa-hotel"></i>
+                           <p>
+                               TRAZABILIDAD
+                           </p>
+                       </a>
+                   </li>
+                   <?php } ?>
+
                </ul>
 
            </nav>
