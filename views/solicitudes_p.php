@@ -4,6 +4,12 @@
       header('Location: login.php');
   }
 
+  if ($_SESSION['tipo_usuario'] != "Almacenista Por Unidad" &&
+      $_SESSION['tipo_usuario'] != "Almacenista Multisucursal") {
+        
+        header('Location: login.php');
+  }
+
   require_once "../models/MaterialModel.php";
 
 ?>

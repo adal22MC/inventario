@@ -75,8 +75,6 @@ formaddBodega.addEventListener('submit', async (e) =>{
 
             if(resjson.respuesta == "OK"){
                 notificacionExitosa('¡Alta de bodega exitosa!');
-                //tablaBodega.ajax.reload(null, false);
-                window.location = "bodegas.php";
             }else{
                 notificarError(resjson.respuesta);
             }
@@ -200,6 +198,7 @@ function notificacionExitosa(mensaje){
         formaddBodega.reset();
         document.getElementById('closeAdd').click();
         document.getElementById('closeEdit').click();
+        window.location = "bodegas.php";
     });
 }
 

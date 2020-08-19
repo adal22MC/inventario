@@ -6,9 +6,6 @@ create or replace table categorias(
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- INSERCCIONES PARA LA TABLA CATEGORIAS
-INSERT INTO categorias VALUES (NULL, 'Ferreteria'), (NULL, 'Tuberia');
-
 create or replace table material(
 
     id_m varchar(50) COLLATE utf8_spanish_ci NOT NULL,
@@ -19,9 +16,6 @@ create or replace table material(
     primary key(id_m)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
--- INSERCCIONES PARA LA TABLA MATERIAL
-INSERT INTO material VALUES ('001','Segeta', 'S45568', 1),('002', 'Martillo', 'S13224', 1), ('003', 'Tubo PVC', 'S4564', 2);
 
 CREATE OR REPLACE TABLE bodegas(
 
@@ -37,11 +31,9 @@ CREATE OR REPLACE TABLE bodegas(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- INSERCCIONES EN LA TABLA BODEGA
-INSERT INTO bodegas (id_b,correo,tel,nombre, direccion) VALUES 
-('1','principal@principal.es','4564551315','Sucursal Madre','Mexico DF'),
-('2','tapachula@tapachula.es','9622162349','Sucursal Tapachula', 'Tapachula Chiapas'),
-('3','pinos@pinos.com','9627895878', 'Sucursal Los Pinos', 'Los pinos'),
-('4','san_cristobal@sancris.com','5557894578', 'Sucursal San Cristobal', 'Chiapas');
+INSERT INTO bodegas (id_b,correo,tel,nombre, direccion,tipo) VALUES 
+('1','principal@principal.es','4564551315','Sucursal Madre','Mexico DF',1);
+
 
 CREATE OR REPLACE TABLE tipo_usuario(
 
@@ -201,9 +193,6 @@ CREATE OR REPLACE TABLE inventario(
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- INSERCCIONES PARA LA TABLA inventario
-INSERT INTO inventario VALUES (100,10,100,'1','001'),(100,10,100,'1','002'),(100,10,100,'1','003');
-
 CREATE OR REPLACE TABLE detalle_inventario (
 
     cns INT NOT NULL AUTO_INCREMENT,
@@ -218,9 +207,6 @@ CREATE OR REPLACE TABLE detalle_inventario (
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- INSERCCIONES EN LA TABLA DETALLE INVENTARIO
-INSERT INTO detalle_inventario (dispo,p_compra,stock,id_b_di,id_m_di) VALUES (1,80,100,'1','001'),
-(1,80,100,'1','002'), (1,80,50,'1','003'), (1,50,50,'1','003');
 
 CREATE OR REPLACE table orden_compra(
 

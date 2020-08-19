@@ -1,7 +1,13 @@
 <?php
   session_start();
   if (!isset($_SESSION['username']) ){
-      header('Location: login.php');
+    header('Location: login.php');
+  }
+
+  if ($_SESSION['tipo_usuario'] != "Administrador" &&
+      $_SESSION['tipo_usuario'] != "Almacenista Principal"
+    ) {
+    header('Location: login.php');
   }
 
 ?>

@@ -4,6 +4,10 @@ if (!isset($_SESSION['username'])) {
     header('Location: login.php');
 }
 
+if (!($_SESSION['tipo_usuario'] == "Administrador")) {
+    header('Location: login.php');
+}
+
 ?>
 
 <!DOCTYPE html>

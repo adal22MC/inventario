@@ -141,7 +141,7 @@
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
 
-                $pst = $conn->prepare("SELECT username FROM usuarios, tipo_usuario WHERE id_tu = id_tu_u and descr = 'Almacenista Multisucursal'");
+                $pst = $conn->prepare("SELECT username FROM usuarios, tipo_usuario WHERE id_tu = id_tu_u and descr = 'Almacenista Multisucursal' and status = 1");
                 $pst->execute();
 
                 $usuarios = $pst->fetchAll();

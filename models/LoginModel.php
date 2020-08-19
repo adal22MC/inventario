@@ -24,6 +24,10 @@
                     return "¡Usuario o contraseña incorrectos!";
                 }
 
+                if($datosUsuario['status'] == 0){
+                    return "El usuario esta desactivado";
+                }
+
                 // Obtenemos todas las bodegas a las que este usuario tiene acceso
                 $pst = $conn->prepare("SELECT id_b_bu FROM bod_usu WHERE username_bu = ?");
                 $pst->execute([$datosUsuario['username']]);
