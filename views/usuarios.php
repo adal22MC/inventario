@@ -34,7 +34,7 @@ if (!isset($_SESSION['username'])) {
 
                                         <div class="card">
                                             <div class="card-header">
-                                                <button class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modalAgregarUsuario">
+                                                <button id="btnAddUsuario" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modalAgregarUsuario">
                                                     Agregar Usuario
                                                 </button>
                                             </div>
@@ -49,7 +49,10 @@ if (!isset($_SESSION['username'])) {
                                                             <th>No Identificación</th>
                                                             <th>Nombres</th>
                                                             <th>Apellidos</th>
+                                                            <th>Id_tu</th>
                                                             <th>Tipo Usuario</th>
+                                                            <th>Status</th>
+                                                            <th>Acciones</th>
                                                         </tr>
                                                     </thead>
 

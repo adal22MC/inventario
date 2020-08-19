@@ -109,3 +109,11 @@ WHERE em.id_oc_em = oc.id_oc and oc.id_oc = doc.id_oc_do and doc.id_m_do = m.id_
 SELECT m.id_m as id, m.descr as nombre, oc.fecha as fechaOrdenCompra, doc.recibi as cantResibida, em.fecha as fechaEntrada, t.fecha as fechaTraslados, mt.cant as cantTraslado, s.fecha as fechaSolicitud, ds.cant as cantSolicitud,ot.fecha as fechaOrdenT, do.cant as cantOrdenT
 FROM material m ,orden_compra oc, detalle_orden_compra doc, entrada_material em, traslados t, material_traslado mt,solicitud_p s, detalle_solicitud ds, orden_trabajo ot, detalle_orden do
 WHERE em.id_oc_em = oc.id_oc and oc.id_oc = doc.id_oc_do and doc.id_m_do = m.id_m and mt.id_t_mt = t.id_t and mt.id_m_mt = m.id_m and ds.id_s_ds = s.id_s and ds.id_m_ds = m.id_m and do.num_orden_do = ot.num_orden and do.id_m_do = m.id_m and m.id_m = 1
+
+-- consulta para obtener los usuarios por unidad que aun no tienes una sucursal establecida
+SELECT username 
+FROM usuarios, tipo_usuario 
+WHERE status = 1 and username NOT IN(
+    SELECT username_bu 
+    FROM bod_usu
+) and id_tu = id_tu_u and descr = "Almacenista Por Unidad"
