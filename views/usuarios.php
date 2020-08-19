@@ -1,8 +1,8 @@
 <?php
-  session_start();
-  if (!isset($_SESSION['username']) ){
+session_start();
+if (!isset($_SESSION['username'])) {
     header('Location: login.php');
-  }
+}
 
 ?>
 
@@ -34,11 +34,13 @@
 
                                         <div class="card">
                                             <div class="card-header">
-                                                <h2 class="card-title">Lista de usuarios</h2>
+                                                <button class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modalAgregarUsuario">
+                                                    Agregar Usuario
+                                                </button>
                                             </div>
                                             <!-- /.card-header -->
                                             <div class="card-body">
-                                                <table id="tablaMateriales" class="table table-bordered table-striped">
+                                                <table id="tablaUsuarios" class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th>Username</th>
@@ -75,16 +77,16 @@
 
 
             <!--=====================================
-            MODAL PROCESAR DESPACHO 
+                MODAL AGREGAR USUARIO 
             ======================================-->
 
-            <div id="modalProcesarDespacho" class="modal fade" role="dialog">
+            <div id="modalAgregarUsuario" class="modal fade" role="dialog">
 
                 <div class="modal-dialog">
 
                     <div class="modal-content">
 
-                        <form id="formDatosDespacho">
+                        <form id="formAddUusario">
 
                             <!--=====================================
                             HEADER DEL MODAL
@@ -92,7 +94,7 @@
 
                             <div class="modal-header">
 
-                                <h5 class="modal-title" id="exampleModalLabel">Procesando Despacho</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Alta Usuario</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeEsquina">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -105,55 +107,80 @@
 
                             <div class="modal-body">
 
-                                <!-- ENTRADA PARA EL NOMBRE DEL TRABAJADOR -->
+                                <!-- ENTRADA PARA EL USERNAME -->
                                 <div class="input-group pt-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <i class="fas fa-user"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control" id="num_orden" placeholder="Número de orden" required>
+                                    <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
                                 </div>
 
-                                <!-- ENTRADA PARA EL NOMBRE DEL TRABAJADOR -->
+                                <!-- ENTRADA PARA LA PASS -->
                                 <div class="input-group pt-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <i class="fas fa-user"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control" id="nomTrabajador" name="nomTrabajador" placeholder="Nombre trabajador" required>
+                                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
                                 </div>
 
-                                <!-- ENTRADA PARA EL TELEFONO DEL TRABAJADOR -->
+                                <!-- ENTRADA PARA EL CORREO -->
                                 <div class="input-group pt-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <i class="fas fa-user"></i>
                                         </span>
                                     </div>
-                                    <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Telefono" required>
+                                    <input type="email" class="form-control" name="correo" id="correo" placeholder="Correo" required>
                                 </div>
 
-                                <!-- ENTRADA PARA EL NUMERO DE CEDULA -->
+                                <!-- ENTRADA PARA EL NUMERO DE IDENTIFICACION -->
                                 <div class="input-group pt-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <i class="fas fa-user"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control" id="cedula" name="cedula" placeholder="Cedula" required>
+                                    <input type="text" class="form-control" id="num_iden" name="num_iden" placeholder="Número de identificación" required>
                                 </div>
 
-                                <!-- ENTRADA PARA LAS OBSERVACIONES -->
+                                <!-- ENTRADA PARA EL NOMBRE -->
                                 <div class="input-group pt-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <i class="fas fa-user"></i>
                                         </span>
                                     </div>
-                                    <textarea class="form-control" id="observaciones" name="observaciones"  cols="30" rows="5" placeholder="Observaciones" required></textarea>
+                                    <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Nombre" required>
                                 </div>
+
+                                <!-- ENTRADA PARA LOS APELLIDOS -->
+                                <div class="input-group pt-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-user"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Apellidos" required>
+                                </div>
+
+                                <!-- ENTRADA PARA EL TIPO DE USUARIO -->
+                                <div class="input-group pt-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fab fa-cuttlefish"></i>
+                                        </span>
+                                    </div>
+                                    <select class="form-control" name="tipoUsuario" id="tipoUsuario">
+
+                                    <option value="default">Selecciona un tipo de usuario</option>
+
+                                    </select>
+                                </div>
+
 
 
                             </div>
@@ -184,7 +211,7 @@
     <!-- ./wrapper -->
 
     <?php include('include/scripts.php'); ?>
-    <script src="dist/js/pages/despacho.js"></script>
+    <script src="dist/js/pages/usuarios.js"></script>
 
 </body>
 
