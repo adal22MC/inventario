@@ -80,6 +80,36 @@ SELECT m.id_m as id, m.descr as nombre, c.descr as categoria, i.s_total as stock
 FROM inventario i, material m, categorias c
 WHERE i.id_m_i = m.id_m and m.id_c_m = c.id_c  and i.s_total <= i.s_min and i.id_b_i = 1
 
+/* Consulta para obtener el historial de orden de compra con su respectivo usuario*/
+SELECT oc.id_oc as id, oc.fecha, oc.hora, u.nombres as nombre, oc.status
+FROM orden_compra oc,usuarios u
+WHERE  oc.resp = u.username and oc.resp = "principal"
+
+/* Consulta para obtener el detalle de orden de compra a partir de su mismo id*/
+SELECT m.id_m as id, m.descr as nomM, doc.cant, doc.recibi, doc.p_compra, doc.te_producto as total
+FROM  detalle_orden_compra doc, material m
+WHERE doc.id_m_do = m.id_m and doc.id_oc_do = 1
+
+/* Consulta para obtener la suma total de los productos y el dinero de una orden de compra*/
+SELECT SUM(recibi) AS cant, SUM(te_producto) AS total
+FROM detalle_orden_compra
+WHERE id_oc_do = 1
+
+/* Consulta para la trazabilidad de algun material , bodegas b, orden_trabajo ot,  traslados t, */ 
+SELECT m.id_m as id, m.descr as nombre, oc.fecha as fechaOrdenCompra, doc.recibi as cantResibida, em.fecha as fechaEntrada, t.fecha as fechaTraslados, s.fecha as fechaSolicitud
+FROM material m ,orden_compra oc, detalle_orden_compra doc, entrada_material em, traslados t, material_traslado mt,solicitud_p s, detalle_solicitud ds
+WHERE em.id_oc_em = oc.id_oc and oc.id_oc = doc.id_oc_do and doc.id_m_do = m.id_m and mt.id_t_mt = t.id_t and mt.id_m_mt = m.id_m   and ds.id_s_ds = s.id_s 
+
+ /* Consulta para la entrada y orden de conpras dependiendo de su entrada*/
+SELECT m.id_m as id, m.descr as nombre, oc.fecha as fechaOrdenCompra, doc.recibi as cantResibida, em.fecha as fechaEntrada
+FROM material m ,orden_compra oc, detalle_orden_compra doc, entrada_material em
+WHERE em.id_oc_em = oc.id_oc and oc.id_oc = doc.id_oc_do and doc.id_m_do = m.id_m and em.id_em = 1    and em.id_em = 1
+
+/* Prueba realizada*/
+SELECT m.id_m as id, m.descr as nombre, oc.fecha as fechaOrdenCompra, doc.recibi as cantResibida, em.fecha as fechaEntrada, t.fecha as fechaTraslados, mt.cant as cantTraslado, s.fecha as fechaSolicitud, ds.cant as cantSolicitud,ot.fecha as fechaOrdenT, do.cant as cantOrdenT
+FROM material m ,orden_compra oc, detalle_orden_compra doc, entrada_material em, traslados t, material_traslado mt,solicitud_p s, detalle_solicitud ds, orden_trabajo ot, detalle_orden do
+WHERE em.id_oc_em = oc.id_oc and oc.id_oc = doc.id_oc_do and doc.id_m_do = m.id_m and mt.id_t_mt = t.id_t and mt.id_m_mt = m.id_m and ds.id_s_ds = s.id_s and ds.id_m_ds = m.id_m and do.num_orden_do = ot.num_orden and do.id_m_do = m.id_m and m.id_m = 1
+
 -- consulta para obtener los usuarios por unidad que aun no tienes una sucursal establecida
 SELECT username 
 FROM usuarios, tipo_usuario 
@@ -87,4 +117,3 @@ WHERE status = 1 and username NOT IN(
     SELECT username_bu 
     FROM bod_usu
 ) and id_tu = id_tu_u and descr = "Almacenista Por Unidad"
-

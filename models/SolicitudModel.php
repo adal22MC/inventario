@@ -11,14 +11,15 @@ class SolicitudModelo
             $conexion = new Conexion();
             $conn = $conexion->getConexion();
 
-            $pst = $conn->prepare("SELECT  nombre, correo, tel FROM  bodegas WHERE id_b = ?");
+            $pst = $conn->prepare("SELECT  nombre, correo, tel, direccion FROM  bodegas WHERE id_b = ?");
             $pst->execute([$id_solicitud]);
 
             $bo = $pst->fetchAll();
             foreach ($bo as $bodega) {
                 echo "<h3>" . $bodega['nombre'] . "</h3>
                         <pre>
-                        No Bodega: " .$id_solicitud. " 
+                        No Bodega: " .$id_solicitud. "
+                        " . $bodega['direccion'] . " 
                         " . $bodega['tel'] . "
                         " . $bodega['correo'] . "
                         </pre>";

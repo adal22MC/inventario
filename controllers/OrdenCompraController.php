@@ -71,3 +71,11 @@
         $respuesta = OrdenCompraModel::aceptarOrden($_POST['id_orden']);
         echo json_encode(['respuesta'=>$respuesta]);
     }
+     /* =============================================================
+        Devuelve el historial de las Ordenes de compra
+     ===============================================================*/
+     if( isset($_POST['getHistorialOrden']) ){
+        $orden =  OrdenCompraModel::getHistorialOrden($_SESSION['username']);
+        echo json_encode($orden);
+
+    }
