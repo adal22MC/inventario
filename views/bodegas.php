@@ -148,6 +148,18 @@ if (!isset($_SESSION['username'])) {
                                 <input type="text" class="form-control" name="direcBodega" placeholder="Direccion" required>
                             </div>
 
+                            <!-- ENTRADA PARA EL USUARIO A NIVEL UNIDAD -->
+                            <div class="input-group pt-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                </div>
+                                <select class="form-control" id="selectUsuario" name="selectUsuario">
+                                    <option value="default">Selecciona un usuario para esta bodega</option>
+                                </select>
+                            </div>
+
 
                         </div>
 

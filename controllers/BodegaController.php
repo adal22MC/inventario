@@ -13,7 +13,8 @@
                 "correo" => $_POST['correoBodega'],
                 "tel" => $_POST['numBodega'],
                 "direc" => $_POST['direcBodega'],
-                "id" => $_POST['idBodega']
+                "id" => $_POST['idBodega'],
+                "username" => $_POST["selectUsuario"]
             );
 
             $respuesta = BodegaModelo::agregarBodeja($bodega);
@@ -45,6 +46,16 @@
      if( isset($_POST['obtenerBodegas']) ){
     
         $data = BodegaModelo::obtenerBodegas();
+        echo json_encode($data);
+
+    }
+
+    /* ==================================================
+        DEVUELVE TODAS LAS BODEGAS HIJAS
+     ====================================================*/
+     if( isset($_POST['obtenerBodegasHijas']) ){
+    
+        $data = BodegaModelo::obtenerBodegasHijas();
         echo json_encode($data);
 
     }

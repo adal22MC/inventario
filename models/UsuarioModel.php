@@ -44,8 +44,28 @@
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
 
-                $pst = $conn->prepare("INSERT INTO usuarios VALUES (?,?,?,?,?,?,?)");
-                $pst->execute([$usuario['username'],$usuario['password'],$usuario['correo'],$usuario['num_iden'],$usuario['nombres'],$usuario['apellidos'],$usuario['id_tu_u']]);
+                $pst = $conn->prepare("INSERT INTO usuarios VALUES (?,?,?,?,?,?,?,?)");
+                $pst->execute([$usuario['username'],$usuario['password'],$usuario['correo'],$usuario['num_iden'],$usuario['nombres'],$usuario['apellidos'],$usuario['id_tu_u'],1]);
+
+                $conexion->closeConexion();
+                $conn = null;
+
+                return "OK";
+
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
+
+        public static function editUsuario($usuario){
+            try {
+                
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("UPDATE usuarios set pass = ?, correo = ?, num_iden = ?, nombres = ?, apellidos = ? WHERE username = ?");
+
+                $pst->execute([$usuario['password'],$usuario['correo'],$usuario['num_iden'],$usuario['nombres'],$usuario['apellidos'],$usuario['username']]);
 
                 $conexion->closeConexion();
                 $conn = null;
@@ -63,7 +83,7 @@
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
 
-                $pst = $conn->prepare("SELECT * FROM usuarios");
+                $pst = $conn->prepare("SELECT username,pass,correo,num_iden,nombres,apellidos,id_tu_u,descr,status FROM usuarios, tipo_usuario WHERE id_tu = id_tu_u");
                 $pst->execute();
                 $usuarios = $pst->fetchAll();
 
@@ -71,6 +91,112 @@
                 $conn = null;
 
                 return $usuarios;
+
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
+
+        public static function desactivarUsuario($username){
+            try {
+                
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("UPDATE usuarios set status = 0 WHERE username = ?");
+                $pst->execute([$username]);
+
+                $conexion->closeConexion();
+                $conn = null;
+
+                return "OK";
+
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
+
+        public static function activarUsuario($username){
+            try {
+                
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("UPDATE usuarios set status = 1 WHERE username = ?");
+                $pst->execute([$username]);
+
+                $conexion->closeConexion();
+                $conn = null;
+
+                return "OK";
+
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
+
+        public static function getUsuariosMultisucursal(){
+            try {
+                
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT username FROM usuarios, tipo_usuario WHERE id_tu = id_tu_u and descr = 'Almacenista Multisucursal'");
+                $pst->execute();
+
+                $usuarios = $pst->fetchAll();
+
+                $conexion->closeConexion();
+                $conn = null;
+
+                return $usuarios;
+
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
+
+        public static function getUsuariosUnidadLibres(){
+            try {
+                
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT username 
+                FROM usuarios, tipo_usuario 
+                WHERE status = 1 and username NOT IN(
+                    SELECT username_bu 
+                    FROM bod_usu
+                ) and id_tu = id_tu_u and descr = 'Almacenista Por Unidad'");
+                $pst->execute();
+
+                $usuarios = $pst->fetchAll();
+
+                $conexion->closeConexion();
+                $conn = null;
+
+                return $usuarios;
+
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
+
+        public static function getBodegasUsuarioMultisucursal($username){
+            try {
+                
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT id_b_bu, nombre FROM bod_usu,bodegas WHERE username_bu = ? and id_b = id_b_bu");
+                $pst->execute([$username]);
+
+                $bodegas = $pst->fetchAll();
+
+                $conexion->closeConexion();
+                $conn = null;
+
+                return $bodegas;
 
             } catch (PDOException $e) {
                 return $e->getMessage();

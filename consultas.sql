@@ -79,3 +79,12 @@ WHERE bu.username_bu = u.username and bu.id_b_bu = 1 and u.username = "user"
 SELECT m.id_m as id, m.descr as nombre, c.descr as categoria, i.s_total as stock, i.s_max as maxi, i.s_min as mini
 FROM inventario i, material m, categorias c
 WHERE i.id_m_i = m.id_m and m.id_c_m = c.id_c  and i.s_total <= i.s_min and i.id_b_i = 1
+
+-- consulta para obtener los usuarios por unidad que aun no tienes una sucursal establecida
+SELECT username 
+FROM usuarios, tipo_usuario 
+WHERE status = 1 and username NOT IN(
+    SELECT username_bu 
+    FROM bod_usu
+) and id_tu = id_tu_u and descr = "Almacenista Por Unidad"
+

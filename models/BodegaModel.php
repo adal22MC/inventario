@@ -22,6 +22,9 @@
 
                 $pst->execute([$bodega['id'],$bodega['correo'], $bodega['tel'], $bodega['nombre'],$bodega['direc']]);
 
+                $pst = $conn->prepare("INSERT INTO bod_usu VALUES (?,?)");
+                $pst->execute([$bodega['id'],$bodega['username']]);
+
                 $conn = null;
                 $conexion->closeConexion();
 
@@ -100,6 +103,28 @@
                 return $e->getMessage();
             }
         }
+
+        public static function obtenerBodegasHijas(){
+            try{
+
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT * FROM bodegas WHERE tipo = 0");
+
+                $pst->execute();
+                $bodegas = $pst->fetchAll();
+
+                $conn = null;
+                $conexion->closeConexion();
+
+                return $bodegas;
+
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
 
         /* Devuelve todas las bodegas disponibles para el traslado */
         public static function obtenerBodegas_traslados($id_b){

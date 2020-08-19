@@ -67,6 +67,7 @@ CREATE OR REPLACE TABLE usuarios(
     nombres VARCHAR(255) COLLATE utf8_spanish_ci NOT NULL,
     apellidos VARCHAR(255) COLLATE utf8_spanish_ci NOT NULL,
     id_tu_u INT NOT NULL,
+    status INT NOT NULL DEFAULT 1,
     FOREIGN KEY (id_tu_u) REFERENCES tipo_usuario(id_tu),
     PRIMARY KEY (username)
 
@@ -74,10 +75,7 @@ CREATE OR REPLACE TABLE usuarios(
 
 -- INSERCCIONES EN LA TABLA usuarios
 INSERT INTO usuarios VALUES 
-('principal','principal','principal@gmail.com', '78456', 'Eduardo Principal', 'Rodriguez Perez',2),
-('user','user','my.rg.developer@gmail.com','45878','Pedro Ignacio','Ruiz Guzmán',4), 
-('unidad','unidad','rodriguez@gmail.com', '78545', 'Juan Rodrigo', 'Rodriguez Perez',3),
-('admin','admin','admin@gmail.com', '7811545', 'Administrador', 'Rodriguez',1);
+('admin','admin','admin@gmail.com', '7811545', 'Administrador', 'Rodriguez',1,1);
 
 
 -- TABLA INTERMEDIA BODEGAS - USUARIOS
@@ -91,8 +89,6 @@ CREATE OR REPLACE TABLE bod_usu(
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- INSERCCIONES PARA LA TABLA INTERMEDIA bod_usu
-INSERT INTO bod_usu VALUES ('2','user'),('3','user'),('4','unidad');
 
 CREATE OR REPLACE TABLE orden_trabajo(
 

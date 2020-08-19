@@ -5,7 +5,7 @@ var tablaBodega;
 var idBodega;
 var id_viejo;
 
-function init(){
+async function init(){
    
     tablaBodega =  $("#bodega").DataTable({
         "responsive": true,
@@ -29,6 +29,28 @@ function init(){
         ]
     })
 
+    try {
+        let datos = new FormData();
+        datos.append('getUsuariosUnidadLibres', 'OK');
+
+        let peticion = await fetch('../controllers/UsuarioController.php', {
+            method : 'POST',
+            body : datos
+        });
+
+        let resjson = await peticion.json();
+        let selectUsuario = document.getElementById('selectUsuario');
+        for(let item of resjson){
+            let option = document.createElement('option');
+            option.value = item.username;
+            option.text = item.username;
+            selectUsuario.appendChild(option);
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+
 }
 
 init();
@@ -38,21 +60,28 @@ formaddBodega.addEventListener('submit', async (e) =>{
 
     try {
 
-        var datosBodega = new FormData(formaddBodega); //obtenemos el formulario y creamos un objeto
-        datosBodega.append('agregarBodega', 'OK');
-    
-        var peticion = await fetch('../controllers/BodegaController.php', {
-            method : 'POST',
-            body : datosBodega
-        });
+        let selectUsuario = document.getElementById('selectUsuario');
 
-        var resjson = await peticion.json();
+        if(selectUsuario.value != "default"){
+            var datosBodega = new FormData(formaddBodega); //obtenemos el formulario y creamos un objeto
+            datosBodega.append('agregarBodega', 'OK');
+        
+            var peticion = await fetch('../controllers/BodegaController.php', {
+                method : 'POST',
+                body : datosBodega
+            });
 
-        if(resjson.respuesta == "OK"){
-            notificacionExitosa('¡Alta de bodega exitosa!');
-            tablaBodega.ajax.reload(null, false);
+            var resjson = await peticion.json();
+
+            if(resjson.respuesta == "OK"){
+                notificacionExitosa('¡Alta de bodega exitosa!');
+                //tablaBodega.ajax.reload(null, false);
+                window.location = "bodegas.php";
+            }else{
+                notificarError(resjson.respuesta);
+            }
         }else{
-            notificarError(resjson.respuesta);
+            notificarError("Selecciona un usuario para esta bodega");
         }
         
     } catch (error) {
