@@ -202,4 +202,30 @@
                 return $e->getMessage();
             }
         }
+
+        public static function multisucursal($accesos){
+            try {
+                
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("DELETE FROM bod_usu WHERE username_bu = ?");
+                $pst->execute([$accesos[0]['username']]);
+
+                if(count($accesos) > 1){
+                    for($i=1; $i<count($accesos); $i++){
+                        $pst = $conn->prepare("INSERT INTO bod_usu VALUES (?,?)");
+                        $pst->execute([$accesos[$i]['id_bodega'],$accesos[0]['username']]);
+                    }
+                }
+
+                $conexion->closeConexion();
+                $conn = null;
+
+                return "OK";
+
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
     }

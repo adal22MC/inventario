@@ -43,7 +43,7 @@ if (!isset($_SESSION['username'])) {
                             <!-- TABLE: BODEGA ACCESO -->
                             <div class="card">
                                 <div class="card-header border-transparent">
-                                    <h3 id="totalApagar" class="card-title">Bodega a las que tiene acceso el usuario</h3>
+                                    <h3 id="totalApagar" class="card-title">Bodegas a las que tiene acceso el usuario</h3>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-minus"></i>
@@ -72,8 +72,8 @@ if (!isset($_SESSION['username'])) {
                                 <!-- /.card-body -->
 
                                 <div class="card-footer clearfix">
-                                    <a href="orden_compra.php" class="btn btn-sm btn-danger float-left">Cancelar todo</a>
-                                    <button id="procesarVenta" class="btn btn-sm btn-info float-right">Procesar orden</button>
+                                    <a href="establecer_usuarios.php" class="btn btn-sm btn-danger float-left">Cancelar todo</a>
+                                    <button id="addUsuario" class="btn btn-sm btn-info float-right">Procesar</button>
                                 </div>
                                 <!-- /.card-footer -->
                             </div>

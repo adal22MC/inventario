@@ -79,3 +79,13 @@
         $bodegas = UsuarioModel::getBodegasUsuarioMultisucursal($_POST['username']);
         echo json_encode($bodegas);
     }
+
+    /* ================================================================
+        ESTABLECER LAS SUCURSALES A LAS QUE TENDRA ACCESO UN USUARIO
+        MULTISUCURSAL
+     ================================================================== */
+     if(isset($_POST['multiusuario'])){
+        $accesos = $_POST['multiusuario'];
+        $respuesta = UsuarioModel::multisucursal($accesos);
+        echo json_encode(['respuesta'=>$respuesta]);
+     }
