@@ -117,3 +117,28 @@ WHERE status = 1 and username NOT IN(
     SELECT username_bu 
     FROM bod_usu
 ) and id_tu = id_tu_u and descr = "Almacenista Por Unidad"
+
+/* Obtenemos las sucursales hijas*/
+SELECT id_b, nombre
+FROM bodegas
+WHERE tipo = 0;
+ 
+  /* Consulta para saber los materiales de una bodeja hija*/
+SELECT m.id_m as id, m.descr as nombre, m.serial
+FROM material m, inventario i
+WHERE  i.id_m_i = m.id_m and i.id_b_i = 1;
+
+    /* Consulta trazabilidad traslado de madres a hijas mediante un rango de fechas eh id del producto deseado*/
+SELECT b.nombre as realizado,dt.cant, dt.p_compra, dt.total, u.nombres as resp, t.fecha
+FROM traslados t, material_traslado mt, detalle_traslado dt, material m, usuarios u, bodegas b
+WHERE mt.id_t_mt = t.id_t and dt.id_t_dt = mt.id_t_mt and mt.id_m_mt = m.id_m and dt.id_m_dt = mt.id_m_mt and t.resp = u.username  and t.salio_de = b.id_b and t.llego_a = 2  and t.fecha BETWEEN "2020-08-15 " and "2020-08-19 " and m.id_m = 001 ORDER BY t.fecha ASC 
+
+ /* Consulta Trazabilidad Despachos mediante un rango de fechas eh id del producto deseado*/
+SELECT  dt.cant as cant, u.nombres as resp, ot.fecha
+FROM orden_trabajo ot, detalle_orden dt, material m, usuarios u, bodegas b
+WHERE m.id_m = dt.id_m_do and dt.num_orden_do = ot.num_orden and ot.resp = u.username and ot.id_b_ot = b.id_b and ot.id_b_ot = 2 and ot.fecha BETWEEN "2020-08-15 " and "2020-08-20 " and m.id_m = 001 ORDER BY ot.fecha ASC
+
+
+SELECT dt.cant, dt.p_compra, dt.total, u.nombres as resp, t.fecha, b.nombre as Destino
+FROM traslados t, material_traslado mt, detalle_traslado dt, material m, usuarios u, bodegas b
+WHERE mt.id_t_mt = t.id_t and dt.id_t_dt = mt.id_t_mt and mt.id_m_mt = m.id_m and dt.id_m_dt = mt.id_m_mt and t.resp = u.username  and t.llego_a = b.id_b and t.salio_de = 2 and t.fecha BETWEEN "2020-08-15 " and "2020-08-20 " and m.id_m = 001 ORDER BY t.fecha ASC
