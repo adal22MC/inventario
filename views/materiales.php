@@ -18,9 +18,9 @@ require_once "../models/MaterialModel.php";
 <body class="hold-transition sidebar-mini layout-fixed" 
 <?php 
     if($_SESSION['tipo_usuario'] == "Administrador"){
-        echo 'onload="obtenerSelect()';
+        echo ' onload="obtenerSelect()"';
     } 
-?>"
+?>>
 
     <div class="wrapper">
 
