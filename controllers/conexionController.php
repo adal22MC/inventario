@@ -1,10 +1,14 @@
 <?php
 
     require_once "../models/conexion.php";
+    session_start();
 
-    class conexionController{
-        public function crearBackups(){
+    if(isset($_POST['backups'])){
+        if($_SESSION['tipo_usuario'] == "Administrador"){
             $conexion = new Conexion();
-            $conexion->backup_tables();
+            $backups = $conexion->backup_tables();
+            echo json_encode($backups);
+        }else{
+            echo json_encode([]);
         }
     }

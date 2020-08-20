@@ -96,7 +96,14 @@ class Conexion
 
 		fwrite($handle, $return);
 		fclose($handle);
+
+		$backups = array(
+			"nombre" => $nombre_backups
+		);
+
+		return $backups;
 		
+		/*
 		echo "<a id='descargar' href='../models/backups/{$nombre_backups}' download='{$nombre_backups}'>...</a>";
 		echo "
 			<script>
@@ -104,6 +111,7 @@ class Conexion
 				window.location = 'admin.php';
 			</script>
 		";
+		*/
 		
 	}
 }

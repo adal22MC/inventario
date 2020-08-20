@@ -276,12 +276,13 @@
                    ?>
                    <!-- BACKUPS BD -->
                    <li class="nav-item">
-                       <a  href="backups_bd.php" class="nav-link">
+                       <a id="backups" href="#" class="nav-link">
                            <i class="nav-icon fas fa-hotel"></i>
                            <p>
                                BACKUPS BD
                            </p>
                        </a>
+                       <a id="enlace"></a>
                    </li>
                    <?php } ?>
 
