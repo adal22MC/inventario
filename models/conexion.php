@@ -102,16 +102,16 @@ class Conexion
 		);
 
 		return $backups;
+	
 		
-		/*
-		echo "<a id='descargar' href='../models/backups/{$nombre_backups}' download='{$nombre_backups}'>...</a>";
-		echo "
-			<script>
-				document.getElementById('descargar').click();
-				window.location = 'admin.php';
-			</script>
-		";
-		*/
-		
+	}
+
+	public function backup_remove($ruta){
+		if(file_exists(BACKUPS.$ruta)){
+			unlink(BACKUPS.$ruta);
+			return "ELIMINADO";
+		}else{
+			return "NO EXISTE";
+		}
 	}
 }

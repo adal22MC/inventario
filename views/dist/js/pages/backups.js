@@ -13,11 +13,25 @@ backup.addEventListener('click',async function(){
 
         let resjson = await peticion.json();
 
+        
         let enlace = document.getElementById('enlace');
         enlace.setAttribute('href', '../models/backups/'+resjson.nombre);
         enlace.setAttribute('download', resjson.nombre);
         enlace.click();
-        
+
+        let datoss = new FormData();
+        datoss.append('backups_remove', 'OK');
+        datoss.append('ruta', resjson.nombre);
+
+        let peticionn = await fetch('../controllers/conexionController.php', {
+            method : 'POST',
+            body : datoss
+        });
+
+        let resjsonn = await peticionn.json();
+        console.log(resjsonn)
+
+
     } catch (error) {
         console.log(error);
     }
