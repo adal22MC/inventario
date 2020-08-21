@@ -228,4 +228,27 @@
                 return $e->getMessage();
             }
         }
+
+        public static function getSucursalesAcceso($username){
+            try {
+                
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT b.id_b, b.nombre FROM bod_usu, bodegas b WHERE id_b_bu = b.id_b and username_bu = ?");
+                $pst->execute([$username]);
+
+                $bodegas = $pst->fetchAll();
+                
+                $conexion->closeConexion();
+                $conn = null;
+
+                return $bodegas;
+
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
+
+
     }

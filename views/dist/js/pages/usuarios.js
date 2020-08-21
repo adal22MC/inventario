@@ -32,7 +32,7 @@ function init(){
                     return `<button class="btn btn-danger btn-sm activar">Inactivo</button>`;
                 }
             }},
-            {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-info btn-sm btnEditar'>EDIT</button></div></div>"}
+            {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-info btn-sm btnEditar'>EDIT</button><button class='btn btn-primary btn-sm btnVerAccesos'>ACCESOS</button></div></div>"}
         ]
     });
 }
@@ -131,6 +131,51 @@ $(document).on('click', '.btnEditar', function(){
    
     /* Hacemos visible el modal */
     $('#modalAgregarUsuario').modal('show');	
+});
+
+$(document).on('click', '.btnVerAccesos', async function(){
+    if(tablaUsuarios.row(this).child.isShown()){
+        var data = tablaUsuarios.row(this).data();
+    }else{
+        var data = tablaUsuarios.row($(this).parents("tr")).data();
+    }
+    if(data['descr'] == "Administrador" || data['descr'] == "Almacenista Principal"){
+        Swal.fire({
+            title: '',
+            text: 'Para ver los acceso selecciona un usuario de tipo Unidad o Multisucursal.',
+        });
+    }else{
+        try {
+            let data_form = new FormData();
+            data_form.append('getSucursalesAcceso','OK');
+            data_form.append('username',data['username']);
+
+            let peticion = await fetch('../controllers/UsuarioController.php', {
+                method : 'POST',
+                body : data_form
+            });
+
+            let resjson = await peticion.json();
+
+            console.log(resjson);
+
+            $("#tablaAcceso tbody").children().remove();
+            for(let item of resjson){
+                $("#tablaAcceso").find('tbody').append(`
+                    <tr>
+                        <td>${item[0].id_b}</td>
+                        <td>${item[0].nombre}</td>
+                    </tr>
+                `);
+            }
+
+            $("#modalSucursalesAcceso").modal('show');
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
 });
 
 $(document).on('click', '.desactivar', async function(){

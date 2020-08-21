@@ -89,3 +89,12 @@
         $respuesta = UsuarioModel::multisucursal($accesos);
         echo json_encode(['respuesta'=>$respuesta]);
      }
+
+     /*===============================================================
+       DEVUELVE LAS SUCURSALES A LAS QUE TIENE ACCESOS UN USUARIO 
+       MULTISUCURSAL O POR UNIDAD OPERATIVA
+     ================================================================= */
+     if(isset($_POST['getSucursalesAcceso'])){
+        $bodegas = UsuarioModel::getSucursalesAcceso($_POST['username']);
+        echo json_encode([$bodegas]);
+     }

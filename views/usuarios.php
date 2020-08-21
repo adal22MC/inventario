@@ -183,7 +183,7 @@ if (!($_SESSION['tipo_usuario'] == "Administrador")) {
                                     </div>
                                     <select class="form-control" name="tipoUsuario" id="tipoUsuario">
 
-                                    <option value="default">Selecciona un tipo de usuario</option>
+                                        <option value="default">Selecciona un tipo de usuario</option>
 
                                     </select>
                                 </div>
@@ -204,6 +204,59 @@ if (!($_SESSION['tipo_usuario'] == "Administrador")) {
                                 </button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+
+            <!--=====================================
+                MODAL ACCESO SUCURSALES 
+            ======================================-->
+
+            <div id="modalSucursalesAcceso" class="modal fade" role="dialog">
+
+                <div class="modal-dialog">
+
+                    <div class="modal-content">
+
+                        <!--=====================================
+                            HEADER DEL MODAL
+                        ======================================-->
+
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Unidades Operativas Acceso</h5>
+                        </div>
+
+                        <!--=====================================
+                            CUERPO DEL MODAL
+                        ====================================== -->
+
+                        <div class="modal-body">
+
+                            <table id="tablaAcceso" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Codigo</th>
+                                        <th>Nombre Sucursal</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                </tbody>
+
+                            </table>
+                        </div>
+
+
+                        <!--=====================================
+                                PIE DEL MODAL
+                            ======================================-->
+
+                        <div class="modal-footer">
+                            <button id="closeAdd" type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                        </div>
+
+
                     </div>
                 </div>
             </div>
