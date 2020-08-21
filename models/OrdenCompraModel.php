@@ -61,15 +61,15 @@
             }
         }
 
-        public static function getHistorialOrden($resp){
+        public static function getHistorialOrden(){
             try {
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
 
                 $pst = $conn->prepare("SELECT oc.id_oc as id, oc.fecha, oc.hora, u.nombres as nombre, oc.status
                 FROM orden_compra oc,usuarios u
-                WHERE  oc.resp = u.username and oc.resp = ?");
-                $pst->execute([$resp]);
+                WHERE  oc.resp = u.username ");
+                $pst->execute();
 
                 $orden = $pst->fetchAll();
 
