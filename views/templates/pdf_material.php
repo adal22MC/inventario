@@ -10,8 +10,10 @@
     }
    
     $Id;
-        $Id[0] = array("id" => $_SESSION['id_bodega'],
-                        "user"=>$_SESSION['username']);
+    $Id[0] = array(
+        "id" => $_SESSION['id_bodega'],
+        "user"=>$_SESSION['username']
+    );
     
     use Dompdf\Dompdf;
 

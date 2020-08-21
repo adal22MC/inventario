@@ -1,6 +1,7 @@
 <?php
 
     require_once "../models/conexion.php";
+    require_once "../config.php";
     session_start();
 
     if(isset($_POST['backups'])){

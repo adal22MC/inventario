@@ -101,7 +101,7 @@ if (!($_SESSION['tipo_usuario'] == "Administrador")) {
 
                             <div class="modal-header">
 
-                                <h5 class="modal-title" id="exampleModalLabel">Alta Usuario</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Crear Usuario</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeEsquina">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -200,7 +200,7 @@ if (!($_SESSION['tipo_usuario'] == "Administrador")) {
                             <div class="modal-footer">
                                 <button id="closeAdd" type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
                                 <button type="submit" class="btn btn-primary">
-                                    Procesar despacho
+                                    Crear Usuario
                                 </button>
                             </div>
                         </form>

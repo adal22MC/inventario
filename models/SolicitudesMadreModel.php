@@ -14,7 +14,7 @@
                 $conn = $conexion->getConexion();
 
                 // 1 = pendiente
-                $pst = $conn->prepare("SELECT id_s, nombre, fecha, hora, nombres, apellidos FROM solicitud_p, bodegas, usuarios WHERE status = 1 and id_b = id_b_sp and username = resp");
+                $pst = $conn->prepare("SELECT id_s, nombre, fecha, hora, nombres, apellidos FROM solicitud_p, bodegas, usuarios WHERE solicitud_p.status = 1 and id_b = id_b_sp and username = resp");
                 $pst->execute();
 
                 $datosSolicitudes = $pst->fetchAll();

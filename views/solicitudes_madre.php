@@ -60,7 +60,7 @@ require_once "../models/SolicitudesMadreModel.php";
 
                                                     <tbody>
                                                         <?php
-                                                        SolicitudesMadreModel::printSolicitudes();
+                                                            SolicitudesMadreModel::printSolicitudes();
                                                         ?>
                                                     </tbody>
 
