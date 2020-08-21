@@ -10,7 +10,7 @@
             $backups = $conexion->backup_tables();
             echo json_encode($backups);
         }else{
-            echo json_encode(['respuesta'=>$backups]);
+            echo json_encode(['respuesta'=>'SIN ACCESO']);
         }
     }
 

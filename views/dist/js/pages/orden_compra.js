@@ -1,3 +1,4 @@
+const formaddMaterial = document.getElementById('formAddMaterial');
 var tablaMateriales;
 var productosDespacho = [];
 
@@ -31,7 +32,7 @@ function initTablaMateriales(){
 
 initTablaMateriales();
 
-/* Cuando se procesa el despacho finalmente */
+/* Cuando se procesa la orden de compra finalmente */
 function procesar_orden () {
     
     try {
@@ -85,7 +86,7 @@ function procesar_orden () {
             success : function(respuesta){
                 
                 if(respuesta.respuesta == "OK"){
-                    notificacionExitosa('Orden de compra realizado con exito!');
+                    notificacionExitosa('Orden de compra realizado con exito!',1);
                 }else{
                     notificarError(respuesta.respuesta);
                 }
@@ -105,6 +106,86 @@ function procesar_orden () {
         console.log(error)
     }
 
+}
+
+/* Cuando se presiona el boton para agregar un material */
+document.getElementById('altaMaterial').addEventListener('click', () => {
+    formaddMaterial.reset();
+});
+
+formaddMaterial.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if(document.getElementById('selectCategoria').value == "show"){
+        notificarError("¡ Selecciona una categoria para el material !")
+    }else{
+
+        try {
+
+            var datosMaterial = new FormData(formaddMaterial); //obtenemos el formulario y creamos un objeto
+            datosMaterial.append('agregarMaterial', 'OK');
+
+
+            var peticion = await fetch('../controllers/MaterialController.php', {
+                method: 'POST',
+                body: datosMaterial
+            });
+
+            var resjson = await peticion.json();
+
+            if (resjson.respuesta == "OK") {
+                notificacionExitosa('¡Alta de material exitosa!',0);
+                tablaMateriales.ajax.reload(null, false);
+                $("#modalAgregarMaterial").modal("hide");
+            } else {
+                notificarError(resjson.respuesta);
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+})
+
+/*  Llena el select de categoria una sola vez */
+async function obtenerSelect() {
+
+    try {
+        var peticionCategoria = new FormData();
+        peticionCategoria.append('obtenerCategorias', 'OK');
+
+        var peticion = await fetch('../controllers/CategoriaController.php', {
+            method: 'POST',
+            body: peticionCategoria
+        });
+
+        var resjson = await peticion.json();
+        
+        if (resjson != null) {
+            for (let item of resjson) {
+                var option = document.createElement("option");
+    
+                option.setAttribute("id", item.id_c);
+                option.setAttribute("value", item.id_c);
+                $(option).html(item.descr);
+                $(option).appendTo("#selectCategoria");
+    
+            }
+    
+            for (let item of resjson) {
+                var option = document.createElement("option");
+    
+                option.setAttribute("id", item.id_c);
+                option.setAttribute("value", item.id_c);
+                $(option).html(item.descr);
+                $(option).appendTo("#selectEditCategoria");
+    
+            }
+        }
+        
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 /* Cuando se presiona el boton para agregar a la lista de solicitud */
@@ -242,13 +323,15 @@ function validarMaterialRepetido(id){
 
 }
 
-function notificacionExitosa(mensaje){
+function notificacionExitosa(mensaje,ban){
     Swal.fire(
         mensaje,
         '',
         'success'
     ).then(result => {
-        window.location = "orden_compra.php";
+        if(ban == 1){
+            window.location = "orden_compra.php";
+        }
     });
 }
 

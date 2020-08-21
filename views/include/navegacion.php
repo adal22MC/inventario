@@ -271,8 +271,7 @@
                    </li>
                    <?php } ?>
 
-                   <?php if ($_SESSION['tipo_usuario'] == "Administrador" ||
-                             $_SESSION['tipo_usuario'] == "Almacenista Principal"){ 
+                   <?php if ($_SESSION['tipo_usuario'] == "Administrador"){ 
                    ?>
                    <!-- BACKUPS BD -->
                    <li class="nav-item">

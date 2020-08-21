@@ -17,7 +17,8 @@ require_once "../models/MaterialModel.php";
   
 <body class="hold-transition sidebar-mini layout-fixed" 
 <?php 
-    if($_SESSION['tipo_usuario'] == "Administrador"){
+    if($_SESSION['tipo_usuario'] == "Administrador" ||
+       $_SESSION['tipo_usuario'] == "Almacenista Principal"){
         echo ' onload="obtenerSelect()"';
     } 
 ?>>
@@ -45,7 +46,8 @@ require_once "../models/MaterialModel.php";
                                     </button>
                                 </div>
                                 <?php
-                                    if($_SESSION['tipo_usuario'] == "Administrador"){
+                                    if($_SESSION['tipo_usuario'] == "Administrador" ||
+                                       $_SESSION['tipo_usuario'] == "Almacenista Principal"){
                                 ?>
                                     <button id="altaMaterial" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalAgregarMaterial">
                                         Agregar Nuevo Material
@@ -96,10 +98,11 @@ require_once "../models/MaterialModel.php";
         </div>
         <!-- ends content-wrapper -->
 
-        <?php if($_SESSION['tipo_usuario'] == "Administrador"){ ?>
-        <!--=====================================
-        MODAL AGREGAR MATERIAL (ADMINISTRADOR)
-        ======================================-->
+        <?php if($_SESSION['tipo_usuario'] == "Administrador" ||
+                 $_SESSION['tipo_usuario'] == "Almacenista Principal"){ ?>
+            <!--=====================================
+            MODAL AGREGAR MATERIAL (ADMINISTRADOR)
+            ======================================-->
 
         <div id="modalAgregarMaterial" class="modal fade" role="dialog">
 
@@ -328,7 +331,8 @@ require_once "../models/MaterialModel.php";
 
 
     <?php include("include/scripts.php"); 
-        if($_SESSION['tipo_usuario'] == "Administrador"){
+        if($_SESSION['tipo_usuario'] == "Administrador" ||
+           $_SESSION['tipo_usuario'] == "Almacenista Principal"){
             echo '<script src="dist/js/pages/material.js"></script>';
         }else{
             echo '<script src="dist/js/pages/material_unidad.js"></script>';

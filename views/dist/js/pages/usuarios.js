@@ -140,10 +140,20 @@ $(document).on('click', '.btnVerAccesos', async function(){
         var data = tablaUsuarios.row($(this).parents("tr")).data();
     }
     if(data['descr'] == "Administrador" || data['descr'] == "Almacenista Principal"){
-        Swal.fire({
-            title: '',
+       Swal.fire({
+            title: 'Mensaje',
             text: 'Para ver los acceso selecciona un usuario de tipo Unidad o Multisucursal.',
-        });
+        }); 
+        /*$("#tablaAcceso tbody").children().remove();
+        $("#tablaAcceso").find('tbody').append(`
+            <tr>
+                <td>*</td>
+                <td>Unidad Pricipal</td>
+            </tr>
+        `);
+        $("#modalSucursalesAcceso").modal('show'); */
+            
+        
     }else{
         try {
             let data_form = new FormData();
@@ -159,17 +169,25 @@ $(document).on('click', '.btnVerAccesos', async function(){
 
             console.log(resjson);
 
-            $("#tablaAcceso tbody").children().remove();
-            for(let item of resjson){
-                $("#tablaAcceso").find('tbody').append(`
-                    <tr>
-                        <td>${item[0].id_b}</td>
-                        <td>${item[0].nombre}</td>
-                    </tr>
-                `);
+            if(resjson[0].length === 0){
+                Swal.fire({
+                    title: 'Mensaje',
+                    text: 'Sin acceso a sucursales',
+                }); 
+            }else{
+                $("#tablaAcceso tbody").children().remove();
+                for(let item of resjson){
+                    $("#tablaAcceso").find('tbody').append(`
+                        <tr>
+                            <td>${item[0].id_b}</td>
+                            <td>${item[0].nombre}</td>
+                        </tr>
+                    `);
+                }
+                $("#modalSucursalesAcceso").modal('show');
             }
 
-            $("#modalSucursalesAcceso").modal('show');
+            
             
         } catch (error) {
             console.log(error);
