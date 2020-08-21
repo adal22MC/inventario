@@ -3,7 +3,6 @@ session_start();
 if (!isset($_SESSION['username'])) {
   header('Location: login.php');
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +12,11 @@ if (!isset($_SESSION['username'])) {
   <?php include('include/cabezera.php'); ?>
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed" <?php
+                                                        if ($_SESSION['tipo_usuario'] == "Administrador") {
+                                                          echo ' onload="obtenerDatosSucursalMadre()"';
+                                                        }
+                                                        ?>>
   <div class="wrapper">
 
     <?php include('include/navegacion.php') ?>
@@ -110,53 +113,140 @@ if (!isset($_SESSION['username'])) {
 
           </div>
           <!-- /.row -->
+          <?php if ($_SESSION['tipo_usuario'] == "Administrador") { ?>
+            <div class="row-cols-12">
+              <div class="col-md-12">
+                <form id="formAddSucursal">
 
-          <?php if($_SESSION['tipo_usuario'] == "Almacenista Multisucursal"){?>
-          <div class="row">
-            <div class="col-md-5">
-              <div class="card">
-                <div class="card-header border-transparent">
-                  <h3 class="card-title">Cambiar de sucursal</h3>
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                      <i class="fas fa-minus"></i>
+                  <!--=====================================
+                    HEADER DEL MODAL
+                    ======================================-->
+
+                  <div class="modal-header">
+
+                    <h5 class="modal-title" id="exampleModalLabel">Sucursal</h5>
+
+                  </div>
+
+                  <!--=====================================
+                    CUERPO DEL MODAL
+                    ====================================== -->
+
+                  <div class="modal-body">
+
+                    <!-- ENTRADA PARA LA DESCRIPCION DE LA CATEGORIA -->
+                    <div class="input-group pt-2 col-md-12">
+
+                      <div class=" input-group-prepend">
+                        <span class="input-group-text">
+                          Nombre
+                        </span>
+                      </div>
+                      <input type="text" class="form-control col-md-6" id="nombreS" name="nombreS" placeholder="Nombre" required>
+
+                      <div class=" input-group-prepend">
+                        <span class="input-group-text">
+                          Correo
+                        </span>
+                      </div>
+                      <input type="text" class="form-control col-md-6" id="correoS" name="correoS" placeholder="Correo" required>
+
+                    </div>
+                    <div class="input-group pt-2 col-md-12">
+
+                      <div class=" input-group-prepend">
+                        <span class="input-group-text">
+                          Telefono
+                        </span>
+                      </div>
+                      <input type="text" class="form-control" id="telefonoS" name="telefonoS" placeholder="Telefono" required>
+
+                      <div class=" input-group-prepend">
+                        <span class="input-group-text">
+                          Direccion
+                        </span>
+                      </div>
+                      <input type="text" class="form-control" id="direccionS" name="direccionS" placeholder="Direccion" required>
+
+                    </div>
+                    <div class="input-group pt-2 col-md-12">
+
+                      <div class=" input-group-prepend">
+                        <span class="input-group-text">
+                          Nit
+                        </span>
+                      </div>
+                      <input type="text" class="form-control" id="nitS" name="nitS" placeholder="Telefono" required>
+
+                      <div class=" input-group-prepend">
+                        <span class="input-group-text">
+                          Pagina
+                        </span>
+                      </div>
+                      <input type="text" class="form-control" id="paginaS" name="paginaS" placeholder="Direccion" required>
+
+                    </div>
+
+                  </div>
+                  <!--=====================================
+                    PIE DEL MODAL
+                    ======================================-->
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">
+                      Actualizar Datos
                     </button>
                   </div>
-                </div>
-                <!-- /.card-header -->
+                </form>
+              </div>
+            </div>
+          <?php } ?>
 
-                <div class="card-body">
-                  <!-- ENTRADA PARA CAMBIAR DE SUCURSAL -->
-                  <div class="input-group ">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="fab fa-cuttlefish"></i>
-                      </span>
+          <?php if ($_SESSION['tipo_usuario'] == "Almacenista Multisucursal") { ?>
+            <div class="row">
+              <div class="col-md-5">
+                <div class="card">
+                  <div class="card-header border-transparent">
+                    <h3 class="card-title">Cambiar de sucursal</h3>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                      </button>
                     </div>
-                    <select class="form-control" name="sucursalAcceso" id="sucursalesAcceso">
-                      <?php
+                  </div>
+                  <!-- /.card-header -->
+
+                  <div class="card-body">
+                    <!-- ENTRADA PARA CAMBIAR DE SUCURSAL -->
+                    <div class="input-group ">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fab fa-cuttlefish"></i>
+                        </span>
+                      </div>
+                      <select class="form-control" name="sucursalAcceso" id="sucursalesAcceso">
+                        <?php
                         // Llenamos el select con las sucursales a las que tiene acceso el usuario
-                        for($i = 0; $i<count($_SESSION['datos_bodegas']); $i++){
-                          if($_SESSION['datos_bodegas'][$i]['id_bodega'] == $_SESSION['id_bodega']){
+                        for ($i = 0; $i < count($_SESSION['datos_bodegas']); $i++) {
+                          if ($_SESSION['datos_bodegas'][$i]['id_bodega'] == $_SESSION['id_bodega']) {
                             echo '
-                              <option selected value="'.$_SESSION['datos_bodegas'][$i]['id_bodega'].'">'.$_SESSION['datos_bodegas'][$i]['nombre_bodega'].'</option>
+                              <option selected value="' . $_SESSION['datos_bodegas'][$i]['id_bodega'] . '">' . $_SESSION['datos_bodegas'][$i]['nombre_bodega'] . '</option>
                             ';
-                          }else{
+                          } else {
                             echo '
-                              <option value="'.$_SESSION['datos_bodegas'][$i]['id_bodega'].'">'.$_SESSION['datos_bodegas'][$i]['nombre_bodega'].'</option>
+                              <option value="' . $_SESSION['datos_bodegas'][$i]['id_bodega'] . '">' . $_SESSION['datos_bodegas'][$i]['nombre_bodega'] . '</option>
                             ';
                           }
                         }
-                      ?>
-                    </select>
+                        ?>
+                      </select>
+                    </div>
                   </div>
+                  <!-- /.card-body -->
                 </div>
-                <!-- /.card-body -->
+                <!-- /.card -->
               </div>
-              <!-- /.card -->
             </div>
-          </div>
-          <?php }?>
+          <?php } ?>
 
         </div><!-- /.container-fluid -->
 
@@ -172,9 +262,12 @@ if (!isset($_SESSION['username'])) {
   <!-- ./wrapper -->
 
   <?php include('include/scripts.php'); ?>
-  <?php if($_SESSION['tipo_usuario'] == "Almacenista Multisucursal"){?>
-  <script src="dist/js/pages/cambio_sucursal.js"></script>
-  <?php }?>
+  <?php if ($_SESSION['tipo_usuario'] == "Almacenista Multisucursal") { ?>
+    <script src="dist/js/pages/cambio_sucursal.js"></script>
+  <?php } ?>
+  <?php if ($_SESSION['tipo_usuario'] == "Administrador") { ?>
+    <script src="dist/js/pages/admin.js"></script>
+  <?php } ?>
 
 </body>
 

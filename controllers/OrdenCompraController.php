@@ -75,7 +75,7 @@
         Devuelve el historial de las Ordenes de compra
      ===============================================================*/
      if( isset($_POST['getHistorialOrden']) ){
-        $orden =  OrdenCompraModel::getHistorialOrden($_SESSION['username']);
+        $orden =  OrdenCompraModel::getHistorialOrden();
         echo json_encode($orden);
 
     }
