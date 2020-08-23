@@ -71,4 +71,72 @@
                 return $e->getMessage();
             }
         }
+
+        public function printTotalSolicitudes($id_bodega){
+            try{
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+                
+                $pst = $conn->prepare("SELECT COUNT(id_s) AS total FROM solicitud_p WHERE id_b_sp = ?");
+                $pst->execute([$id_bodega]);
+                $total = $pst->fetch();
+                echo $total['total'];
+
+                $conexion->closeConexion();
+                $conn = null;
+            }catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
+        public function printTotalMaterialesHijas($id_bodega){
+            try{
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+                
+                $pst = $conn->prepare("SELECT COUNT(*) AS total FROM inventario WHERE id_b_i = ?");
+                $pst->execute([$id_bodega]);
+                $total = $pst->fetch();
+                echo $total['total'];
+
+                $conexion->closeConexion();
+                $conn = null;
+            }catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
+        public function printTotalTraslados($id_bodega){
+            try{
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+                
+                $pst = $conn->prepare("SELECT COUNT(*) AS total FROM traslados WHERE salio_de = ?");
+                $pst->execute([$id_bodega]);
+                $total = $pst->fetch();
+                echo $total['total'];
+
+                $conexion->closeConexion();
+                $conn = null;
+            }catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+
+        public function printTotalDespachos($id_bodega){
+            try{
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+                
+                $pst = $conn->prepare("SELECT COUNT(*) AS total FROM orden_trabajo WHERE id_b_ot = ?");
+                $pst->execute([$id_bodega]);
+                $total = $pst->fetch();
+                echo $total['total'];
+
+                $conexion->closeConexion();
+                $conn = null;
+            }catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
     }

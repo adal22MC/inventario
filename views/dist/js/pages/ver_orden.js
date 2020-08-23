@@ -113,7 +113,7 @@ $(document).on('click', '.btnEdit', async function(){
             var resjson = await peticion.json();
 
             if(resjson.respuesta == "OK"){
-                notificacionExitosa('Modificación correcta!');
+                notificacionExitosa('Modificación correcta!',1);
                 table_ordenes.ajax.reload(null, false);
             }else{
                 notificarError(resjson.respuesta);
@@ -138,7 +138,7 @@ document.getElementById('btnAceptar').addEventListener('click', async () => {
 
             var resjson = await peticion.json();
             if(resjson.respuesta == "OK"){
-                notificacionExitosa('La orden de compra ha sido aceptada!');
+                notificacionExitosa('La orden de compra ha sido aceptada!',0);
             }else{
                 notificarError(resjson.respuesta);
             }
@@ -165,7 +165,7 @@ document.getElementById('btnRechazar').addEventListener('click', async () => {
 
             var resjson = await peticion.json();
             if(resjson.respuesta == "OK"){
-                notificacionExitosa('La orden de compra ha sido rechazada!');
+                notificacionExitosa('La orden de compra ha sido rechazada!',0);
             }else{
                 notificarError(resjson.respuesta);
             }
@@ -187,13 +187,15 @@ function validarOrden(){
 
 
 
-function notificacionExitosa(mensaje) {
+function notificacionExitosa(mensaje,ban) {
     Swal.fire(
         mensaje,
         '',
         'success'
     ).then(result => {
-        window.location = "ver_orden.php";
+        if(ban == 0){
+            window.location = "ver_orden.php";
+        }
     });
 }
 

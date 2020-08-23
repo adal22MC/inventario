@@ -46,33 +46,60 @@ require_once "../controllers/EstadisticasController.php";
           <!-- Small boxes (Stat box) -->
           <div class="row">
 
-            <!-- ORDENES DE COMPRA TOTALES -->
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-info">
-                <div class="inner">
-                  <h3><?php $ctr = new EstadisticasControlles();
-                            $ctr->printTotalOrdenesCompra();
-                   ?></h3>
+            <?php if($_SESSION['tipo_usuario'] == "Administrador" ||
+                     $_SESSION['tipo_usuario'] == "Almacenista Principal"){ ?>
+              <!-- ORDENES DE COMPRA TOTALES -->
+              <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-info">
+                  <div class="inner">
+                    <h3><?php $ctr = new EstadisticasControlles();
+                              $ctr->printTotalOrdenesCompra();
+                    ?></h3>
 
-                  <p>Ordenes de compra</p>
+                    <p>Ordenes de compra</p>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-bag"></i>
+                  </div>
+                  <a href="orden_compra.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
-                <div class="icon">
-                  <i class="ion ion-bag"></i>
-                </div>
-                <a href="orden_compra.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
-            </div>
+            <?php }else{?>
+              <!-- SOLICITUDES TOTALES -->
+              <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-info">
+                  <div class="inner">
+                    <h3><?php $ctr = new EstadisticasControlles();
+                              $ctr->printTotalSolicitudes();
+                    ?></h3>
+
+                    <p>Solicitudes</p>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-bag"></i>
+                  </div>
+                  <a href="historial_solicitudes.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+            <?php }?>
             <!-- ./col -->
 
+            
             <!-- MATERIALES -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3><?php //$ctr = new EstadisticasControlles();
-                            $ctr->printTotalMateriales();
-                   ?></h3>
+                  <h3><?php
+                            if($_SESSION['tipo_usuario'] == "Administrador" ||
+                            $_SESSION['tipo_usuario'] == "Almacenista Principal"){
+                              $ctr->printTotalMateriales();
+                            }else{
+                              $ctr->printTotalMaterialesHijas();
+                            }
+                  ?></h3>
 
                   <p>Materiales</p>
                 </div>
@@ -84,6 +111,8 @@ require_once "../controllers/EstadisticasController.php";
             </div>
             <!-- ./col -->
 
+            <?php if($_SESSION['tipo_usuario'] == "Administrador" ||
+                     $_SESSION['tipo_usuario'] == "Almacenista Principal"){ ?>
             <!-- USUARIOS -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
@@ -101,8 +130,29 @@ require_once "../controllers/EstadisticasController.php";
                 <a href="usuarios.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
+            <?php }else{?>
+              <!-- TRASLADOS -->
+              <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-info">
+                  <div class="inner">
+                    <h3><?php
+                              $ctr->printTotalTraslados();
+                    ?></h3>
+
+                    <p>Traslados</p>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-person-add"></i>
+                  </div>
+                  <a href="historial_traslados.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+            <?php }?>
             <!-- ./col -->
 
+            <?php if($_SESSION['tipo_usuario'] == "Administrador" ||
+                     $_SESSION['tipo_usuario'] == "Almacenista Principal"){ ?>
             <!-- CATEGORIAS -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
@@ -120,6 +170,25 @@ require_once "../controllers/EstadisticasController.php";
                 <a href="categorias.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
+            <?php }else{ ?>
+              <!-- DESPACHOS -->
+              <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-danger">
+                  <div class="inner">
+                    <h3><?php
+                              $ctr->printTotalDespachos();
+                    ?></h3>
+
+                    <p>Despachos</p>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-pie-graph"></i>
+                  </div>
+                  <a href="historial_despachos.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+            <?php } ?>
             <!-- ./col -->
 
           </div>
