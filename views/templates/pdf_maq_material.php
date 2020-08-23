@@ -35,7 +35,12 @@
   <!-- Cabecera -->
   <table width="100%">
     <tr>
-      <td valign="top"><img src="../dist/img/logotipo.jpg" alt="logo" width="150" /></td>
+      <td valign="top" align="left" >
+        <!--<img src="../dist/img/logotipo.jpg" alt="logo" width="50" align="center"/>-->
+        <?php
+          SolicitudModelo::imprimirDEmpresa();
+        ?>
+      </td>
       <td align="right">
         <?php
         SolicitudModelo::imprimiDatosEmpresa($_SESSION['id_bodega']);
@@ -53,59 +58,128 @@
     <table width="100%">
 
       <?php
-      MaterialModelo::imprimirDatosUsuario($item["id"], $item["user"]);
+      MaterialModelo::imprimirDatosUsuario( $item["user"]);
       ?>
 
     </table>
     <hr>
     <br />
-    <!-- Resumen de la cotización -->
-    <?php 
-      if (isset($_GET['materiales'])){
-        echo"<h3 align='center'>Productos</h3>";
-      }else{
-        echo"<h3 align='center'>Productos con Stock Bajo</h3>";
-      }
+    <?php
+    if ($_SESSION['tipo_usuario'] == "Administrador" || $_SESSION['tipo_usuario'] == "Almacenista Principal") {
     ?>
-    <br>
-    <table width="100%">
-      <thead style="background-color: lightgray;">
-        <tr>
-          <?php
-          if (isset($_GET['materiales'])){
-            echo"
+      <?php
+      if ($_GET['materiales'] == 1) {
+        foreach ($material as $m) {
+      ?>
+          <table width="100%">
+            <?php
+            MaterialModelo::imprimirDatosM($m["id"], $item["id"]);
+            ?>
+          </table>
+          <br>
+          <table width="100%">
+            <thead style="background-color: lightgray;">
+              <tr>
+                <?php
+                echo "
+                <th>Fecha</th>
+                <th>P.Compra</th>
+                <th>Stock</th>
+                <th>Total</th>";
+
+                ?>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              MaterialModelo::imprimirDetalleMateriales($m["id"], $item["id"]);
+
+              ?>
+            </tbody>
+            <tfoot>
+              <tr>
+                <?php
+                MaterialModelo::imprimirDatosSuma($m["id"], $item["id"]);
+                ?>
+              </tr>
+            </tfoot>
+          </table>
+          <br><br><br><br>
+        <?php
+        }
+      } else {
+        ?>
+        <h3 align='center'>Productos con Stock Bajo</h3>
+        <br>
+        <table width="100%">
+          <thead style="background-color: lightgray;">
+            <tr>
+              <th>Codigo</th>
+              <th>Material</th>
+              <th>Categoria</th>
+              <th>Stock Min</th>
+              <th>Stock</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            MaterialModelo::imprimiDatosTabla($item["id"]);
+            ?>
+          </tbody>
+
+        </table>
+      <?php
+      } ?>
+    <?php
+    } else {
+    ?>
+      <!-- Resumen de la cotización -->
+      <?php
+      if ($_GET['materiales'] == 1) {
+        echo "<h3 align='center'>Productos</h3>";
+      } else {
+        echo "<h3 align='center'>Productos con Stock Bajo</h3>";
+      }
+      ?>
+      <br>
+      <table width="100%">
+        <thead style="background-color: lightgray;">
+          <tr>
+            <?php
+            if ($_GET['materiales'] == 1) {
+
+              echo "
               <th>Codigo</th>
               <th>Material</th>
               <th>Categoria</th>
               <th>Stock</th>";
-          }else{
-            echo"
+            } else {
+              echo "
             <th>Codigo</th>
             <th>Material</th>
             <th>Categoria</th>
             <th>Stock Min</th>
             <th>Stock</th>";
-          }
-          ?>
-          
-        </tr>
-      </thead>
-      <tbody>
-        <?php
-          if (isset($_GET['materiales'])){
+            }
+            ?>
+
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          if ($_GET['materiales'] == 1) {
             MaterialModelo::imprimirDatosMateriales($item["id"]);
-          }else{
+          } else {
             MaterialModelo::imprimiDatosTabla($item["id"]);
           }
-        
-        ?>
-      </tbody>
 
-      <tfoot>
-       
-      </tfoot>
+          ?>
+        </tbody>
 
-    </table>
+      </table>
+    <?php
+    } //fin else
+    ?>
     <br><br><br><br>
   <?php
   }

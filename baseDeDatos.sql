@@ -245,3 +245,20 @@ create or replace table entrada_material(
     primary key(id_em)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+CREATE TABLE `empresa` (
+    id int NOT NULL ,
+  `url` text COLLATE utf8_spanish_ci ,
+  `nit` text COLLATE utf8_spanish_ci ,
+  `correo` varchar(60) COLLATE utf8_spanish_ci ,
+  `tel` text COLLATE utf8_spanish_ci ,
+  `nombre` text COLLATE utf8_spanish_ci ,
+  `direccion` text COLLATE utf8_spanish_ci ,
+  `pagina` text COLLATE utf8_spanish_ci 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+INSERT INTO empresa values (1,"example.png","123ee3","nose@gmail.com","9876654","Super Market","fracc.rr","www.SuperMarket.com");
+--
+-- Volcado de datos para la tabla `Empresa`
+--
+
+

@@ -69,11 +69,7 @@ require_once "../models/MaterialModel.php";
                                             <th>Stock max</th>
                                             <th>Categoria</th>
                                             <th>Serial</th>
-                                            <?php
-                                                if($_SESSION['tipo_usuario'] == "Administrador"){
-                                                    echo '<th>Acciones</th>';
-                                                }
-                                            ?>
+                                            <th>Acciones</th>
                                         </tr>
                                     </thead>
 

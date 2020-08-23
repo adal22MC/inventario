@@ -15,3 +15,8 @@
         echo json_encode(['respuesta'=>$respuesta]);
 
     }
+    if( isset($_POST['obtenerUltimoDespacho']) ){
+        $orden =  DespachoModelo::obtenerUltimoDespacho();
+        echo json_encode($orden);
+
+    }

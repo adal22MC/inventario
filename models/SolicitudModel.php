@@ -135,4 +135,35 @@ class SolicitudModelo
             return $e->getMessage();
         }
     }
+    public static function imprimirDEmpresa(){
+        try {
+            $conexion = new Conexion();
+            $conn = $conexion->getConexion();
+
+            $pst = $conn->prepare("SELECT nombre, correo, tel, direccion, nit, pagina,url FROM empresa where id = 1");
+
+            $pst ->execute();
+            
+            $datosS = $pst->fetchAll();
+            foreach ($datosS as $datos) {
+                echo '  
+                    <img src="../dist/img/logotipo.jpg" alt="logo" width="50" align="center"/>           
+
+                    <pre style="font-size: 9px" align="left">
+<b style="font-size: 11px">'. $datos["nombre"] . '</b>
+Nit: '. $datos["nit"] . '
+'. $datos["correo"] . '
+'. $datos["tel"] . '
+'. $datos["direccion"] . '
+'. $datos["correo"] . '
+'. $datos["pagina"] . '
+                    </pre>';
+            }
+            $conn = null;
+            $conexion->closeConexion();
+
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
 }

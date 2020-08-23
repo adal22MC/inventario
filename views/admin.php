@@ -176,14 +176,14 @@ if (!isset($_SESSION['username'])) {
                           Nit
                         </span>
                       </div>
-                      <input type="text" class="form-control" id="nitS" name="nitS" placeholder="Telefono" required>
+                      <input type="text" class="form-control" id="nitS" name="nitS" placeholder="Nit" required>
 
                       <div class=" input-group-prepend">
                         <span class="input-group-text">
                           Pagina
                         </span>
                       </div>
-                      <input type="text" class="form-control" id="paginaS" name="paginaS" placeholder="Direccion" required>
+                      <input type="text" class="form-control" id="paginaS" name="paginaS" placeholder="Pagina" required>
 
                     </div>
 

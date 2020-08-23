@@ -171,20 +171,25 @@
                             <td>'.$material['s_max'].'</td>
                             <td>'.$material['des'].'</td>
                             <td>'.$material['serial'].'</td>
+                            <td>
+                                <div class="text-center">
+                                    <div class="btn-group">
+                                        <button class="btn btn-danger btn-sm btnMaterialU"><i class="fas fa-file-pdf"></i></button>
                     ';
 
                     if($_SESSION['tipo_usuario'] == "Administrador"){
                         echo '
-                        <td>
-                           <div class="text-center">
-                               <div class="btn-group"><button class="btn   btn-info btn-sm btnEditar"><i class="fas fa-edit"></i></button>
-                               </div>
-                           </div>
-                        </td>
+                        
+                                        <button class="btn   btn-info btn-sm btnEditar"><i class="fas fa-edit"></i></button>
+                               
+                              
                         ';
                     }
 
-                    echo '</tr>';
+                    echo '          </div>
+                                </div>
+                            </td>
+                        </tr>';
 
                 }
 
@@ -385,15 +390,15 @@
          /* ============================================================
             REPORTE DE STOCK BAJO DE MATERIAL DE UNA SUCURSAL 
           ============================================================= */
-        public static function imprimirDatosUsuario($id_bodega,$user){
+        public static function imprimirDatosUsuario($user){
             try {
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
 
-                $pst = $conn->prepare("SELECT u.nombres, u.apellidos
-                FROM usuarios u, bod_usu bu
-                WHERE bu.username_bu = u.username and bu.id_b_bu = ? and u.username =?");
-                $pst->execute([$id_bodega,$user]);
+                $pst = $conn->prepare("SELECT nombres, apellidos
+                FROM usuarios 
+                WHERE username =?");
+                $pst->execute([$user]);
 
                 $usuario = $pst->fetchAll();
 
@@ -462,6 +467,107 @@
                 $conexion->closeConexion();
                 $conn = null;
 
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
+        public static function getIdMaterialB($id_bodega){
+            try {
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT id_m as id
+                FROM material m, inventario i
+                WHERE i.id_m_i = m.id_m and i.id_b_i = ?");
+                $pst->execute([$id_bodega]);
+
+                $material = $pst->fetchAll();
+              
+                $conexion->closeConexion();
+                $conn = null;
+
+                return $material;
+
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
+        public static function imprimirDatosM($id_m,$id_b){
+            try {
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT m.descr, i.s_total
+                FROM material m, inventario i
+                WHERE i.id_m_i = m.id_m and i.id_b_i = ? and m.id_m = ?");
+                $pst->execute([$id_b, $id_m]);
+
+                $material = $pst->fetchAll();
+
+                foreach($material as $m){
+                    echo"
+                        <td><strong>Codigo:</strong> " . $id_m . " </td>
+                        <td><strong>Producto:</strong> " . $m['descr'] . " </td>
+                        <td><strong>Stock:</strong> " . $m['s_total'] . " </td>
+                        ";
+                }
+                $conexion->closeConexion();
+                $conn = null;
+
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
+        public static function imprimirDetalleMateriales($id_m,$id_b){
+            try {
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT di.fecha, di.stock, di.p_compra, di.stock * di.p_compra AS total
+                FROM inventario i, detalle_inventario di
+                WHERE di.id_b_di = i.id_b_i and di.id_m_di = i.id_m_i and di.dispo = 1 and i.id_b_i = ? and i.id_m_i = ?");
+                $pst->execute([$id_b,$id_m]);
+
+                $material = $pst->fetchAll();
+
+                foreach($material  as $ma){
+                    echo '
+                    <tr>
+                        <td align="center">'.$ma["fecha"].'</td>
+                        <td align="center">'.$ma["p_compra"].'</td>
+                        <td align="center">'.$ma["stock"].'</td>
+                        <td align="center">'.$ma["total"].'</td>
+                    </tr>';
+                }
+                $conexion->closeConexion();
+                $conn = null;
+
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
+        public static function imprimirDatosSuma($id_m,$id_b){
+            try {
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+                $pst = $conn->prepare("SELECT SUM(stock * p_compra) AS total
+                FROM detalle_inventario di
+                WHERE id_b_di = ? and id_m_di = ?");
+                $pst->execute([$id_b,$id_m]);
+    
+                $material = $pst->fetchAll();
+                foreach ($material as $ma) {
+                    echo '
+                    <td colspan="2"></td>
+                    <td align="right" >TOTAL: </td>
+                    <td align="center" class="gray">
+                      <h3 style="margin: 0px 0px;">'.$ma["total"].'</h3>
+                    </td>';
+                        
+                }
+                $conexion->closeConexion();
+                $conn = null;
+    
             } catch (PDOException $e) {
                 return $e->getMessage();
             }

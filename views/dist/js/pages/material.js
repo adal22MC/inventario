@@ -240,12 +240,23 @@ document.getElementById('altaMaterial').addEventListener('click', () => {
 
 /* Generar Reporte Stock Bajo*/ 
 $(document).on('click', '.btnS', function(){
-    window.location = "templates/pdf_material.php";
+    window.location = "templates/pdf_material.php?materiales="+2;
 });
 
-/* Generar Reporte Stock Bajo*/ 
+/* Generar Reporte Materiales*/ 
 $(document).on('click', '.btnM', function(){
     window.location = "templates/pdf_material.php?materiales="+1;
+});
+/* Generar Reporte Material Unitario*/ 
+$(document).on('click', '.btnMaterialU', function(){
+    if (tablaMaterial.row(this).child.isShown()) {
+        var data = tablaMaterial.row(this).data();
+    } else {
+        var data = tablaMaterial.row($(this).parents("tr")).data();
+    }
+
+    idMaterial = data[0];
+    window.location = "templates/pdf_material.php?materiales="+1+"&idMaterial="+idMaterial;
 });
 
 

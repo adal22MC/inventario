@@ -79,3 +79,8 @@
         echo json_encode($orden);
 
     }
+    if( isset($_POST['obtenerUltimaOrden']) ){
+        $orden =  OrdenCompraModel::obtenerUltimaOrden();
+        echo json_encode($orden);
+
+    }

@@ -9,7 +9,7 @@
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
 
-                $pst = $conn->prepare("SELECT nombre, correo, tel, direccion, nit, pagina FROM Empresa");
+                $pst = $conn->prepare("SELECT nombre, correo, tel, direccion, nit, pagina FROM empresa where id = 1");
 
                 $pst ->execute();
                 
@@ -28,7 +28,7 @@
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
 
-                $pst = $conn->prepare("UPDATE Empresa set nombre = ?,correo = ?, tel = ?, direccion = ?, nit = ?, pagina = ?");
+                $pst = $conn->prepare("UPDATE empresa set nombre = ?,correo = ?, tel = ?, direccion = ?, nit = ?, pagina = ? where id = 1");
                 $pst->execute([$empresa['nom'],$empresa['coreo'],$empresa['tel'],$empresa['direc'],$empresa['nit'],$empresa['pag']] );              
 
                 $conn = null;

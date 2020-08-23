@@ -142,3 +142,7 @@ WHERE m.id_m = dt.id_m_do and dt.num_orden_do = ot.num_orden and ot.resp = u.use
 SELECT dt.cant, dt.p_compra, dt.total, u.nombres as resp, t.fecha, b.nombre as Destino
 FROM traslados t, material_traslado mt, detalle_traslado dt, material m, usuarios u, bodegas b
 WHERE mt.id_t_mt = t.id_t and dt.id_t_dt = mt.id_t_mt and mt.id_m_mt = m.id_m and dt.id_m_dt = mt.id_m_mt and t.resp = u.username  and t.llego_a = b.id_b and t.salio_de = 2 and t.fecha BETWEEN "2020-08-15 " and "2020-08-20 " and m.id_m = 001 ORDER BY t.fecha ASC
+
+SELECT id_oc FROM orden_compra ORDER BY id_oc DESC LIMIT 1 
+
+SELECT num_orden FROM orden_trabajo ORDER BY num_orden DESC LIMIT 1

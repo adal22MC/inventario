@@ -87,6 +87,7 @@ function procesar_orden () {
                 
                 if(respuesta.respuesta == "OK"){
                     notificacionExitosa('Orden de compra realizado con exito!',1);
+                    obtenerUltimaOrden();
                 }else{
                     notificarError(respuesta.respuesta);
                 }
@@ -341,4 +342,20 @@ function notificarError(mensaje){
         title: 'Oops...',
         text: mensaje
     })
+}
+async function obtenerUltimaOrden(){
+    try {
+        var peticionOrden = new FormData();
+        peticionOrden.append('obtenerUltimaOrden', 'OK');
+
+        var peticion = await fetch('../controllers/OrdenCompraController.php', {
+            method: 'POST',
+            body: peticionOrden
+        });
+
+        var resjson = await peticion.json();
+        window.location = "templates/pdf_orden_compra.php?id_orden="+resjson.id;
+    } catch (error) {
+        console.log(error);
+    }
 }

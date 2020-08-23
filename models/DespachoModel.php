@@ -277,4 +277,23 @@
                 return $e->getMessage();
             }
         }
+        public static function obtenerUltimoDespacho()
+        {
+            try {
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+    
+                $pst = $conn->prepare("SELECT num_orden as id FROM orden_trabajo ORDER BY num_orden DESC LIMIT 1");
+                $pst->execute();
+    
+                $despacho = $pst->fetch();
+    
+                $conexion->closeConexion();
+                $conn = null;
+    
+                return $despacho;
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
     }
