@@ -29,6 +29,7 @@ async function obtenerDatosSucursalMadre(){
     }
 }
 formAddSucursal.addEventListener('submit', async (e) =>{
+    e.preventDefault();
     try {
 
         var datosSucursal = new FormData(formAddSucursal); //obtenemos el formulario y creamos un objeto

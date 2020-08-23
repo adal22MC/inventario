@@ -28,6 +28,16 @@
     .success {
       color: green;
     }
+    .hr {
+      width: 75%;
+    }
+    footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 80px;
+      color: black;
+    }
   </style>
 </head>
 
@@ -77,20 +87,42 @@
       </thead>
       <tbody>
         <?php
-        OrdenCompraModel::imprimiDatosTabla($item["id"],$item["user"]);
+        OrdenCompraModel::imprimiDatosTabla($item["id"]);
         ?>
       </tbody>
     
       <tfoot>
         <tr>
           <?php
-          OrdenCompraModel::imprimirDatosSuma($item["id"],$item["user"]);
+          OrdenCompraModel::imprimirDatosSuma($item["id"]);
           ?>
         </tr>
       </tfoot>
       
     </table>
     <br><br><br><br>
+  <?php
+  }
+  ?>
+  <?php
+  if (empty($_GET['fechaInicial'])) {
+  ?>
+    <footer>
+      <table width="100%">
+        <tr>
+          <td>
+            <hr class="hr">
+          </td>
+          <td>
+            <hr class="hr">
+          </td>
+        </tr>
+        <tr>
+          <td align="center"><strong>Visto Bueno</strong> </td>
+          <td align="center"><strong>Aprobado</strong> </td>
+        </tr>
+      </table>
+    </footer>
   <?php
   }
   ?>

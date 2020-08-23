@@ -271,16 +271,10 @@
                 return $e->getMessage();
             }
         }
-        public static function imprimiDatosTabla($id_orden, $user){
+        public static function imprimiDatosTabla($id_orden){
             try {
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
-
-                $pst = $conn->prepare("SELECT  tu.descr as tipoU
-                FROM usuarios u, tipo_usuario tu
-                WHERE u.id_tu_u = tu.id_tu and u.username  = ?");
-                $pst->execute([$user]);
-                $tipo = $pst->fetch();
 
                 $pst = $conn->prepare("SELECT m.id_m as id, m.descr as nomM, doc.cant, doc.recibi, doc.p_compra, doc.te_producto as total
                 FROM  detalle_orden_compra doc, material m
@@ -288,7 +282,6 @@
                 $pst->execute([$id_orden]);
                 $Detalletraslado = $pst->fetchAll();
 
-                if ($tipo["tipoU"] == "Almacenista Principal" || $tipo["tipoU"] == "Administrador") {
                     foreach ($Detalletraslado as $Dtras) {
                         echo '
                         <tr>
@@ -300,7 +293,7 @@
                             <td align="center">' . $Dtras["total"] . '</td>
                         </tr>';
                     }
-                } 
+
 
                 $conexion->closeConexion();
                 $conn = null;
@@ -308,7 +301,7 @@
                 return $e->getMessage();
             }
         }
-        public static function imprimirDatosSuma($id_orden, $user){
+        public static function imprimirDatosSuma($id_orden){
             try {
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
@@ -318,15 +311,7 @@
                 WHERE id_oc_do = ?");
                 $pst->execute([$id_orden]);
                 $Orden = $pst->fetch();
-
-                $pst = $conn->prepare("SELECT  tu.descr as tipoU
-                FROM usuarios u, tipo_usuario tu
-                WHERE u.id_tu_u = tu.id_tu and u.username  = ?");
-                $pst->execute([$user]);
-                $tipo = $pst->fetch();
-
-
-                if ($tipo["tipoU"] == "Almacenista Principal" || $tipo["tipoU"] == "Administrador") {
+               
                     echo '
                     <td colspan="4"></td>
                     <td align="right" >TOTAL MATERIALES: </td>
@@ -339,7 +324,7 @@
                         <td align="center" class="gray">
                         <h3 style="margin: 0px 0px;">' . $Orden["total"] . '</h3></td>
                     </tr>';
-                }
+                
 
                 $conexion->closeConexion();
                 $conn = null;
@@ -347,14 +332,14 @@
                 return $e->getMessage();
             }
         }
-        public static function OrdenesCompraId($fehcaI, $fehcaF, $user)
+        public static function OrdenesCompraId($fehcaI, $fehcaF)
         {
             try {
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
     
-                $pst = $conn->prepare("SELECT id_oc AS id,resp AS user FROM orden_compra WHERE resp = ? and fecha BETWEEN ? and ?  ORDER BY fecha ASC");
-                $pst->execute([$user, $fehcaI, $fehcaF]);
+                $pst = $conn->prepare("SELECT id_oc AS id FROM orden_compra WHERE fecha BETWEEN ? and ?  ORDER BY fecha ASC");
+                $pst->execute([ $fehcaI, $fehcaF]);
     
                 $orden = $pst->fetchAll();
     
@@ -366,4 +351,24 @@
                 return $e->getMessage();
             }
         }
+        public static function obtenerUltimaOrden()
+        {
+            try {
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+    
+                $pst = $conn->prepare("SELECT id_oc as id FROM orden_compra ORDER BY id_oc DESC LIMIT 1");
+                $pst->execute();
+    
+                $orden = $pst->fetch();
+    
+                $conexion->closeConexion();
+                $conn = null;
+    
+                return $orden;
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
+        
     }

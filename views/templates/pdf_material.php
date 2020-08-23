@@ -14,7 +14,12 @@
         "id" => $_SESSION['id_bodega'],
         "user"=>$_SESSION['username']
     );
-    
+    $material;
+    if (isset($_GET['idMaterial'])){
+        $material[0]= array("id" =>$_GET['idMaterial']);
+    }else{
+        $material = MaterialModelo::getIdMaterialB($_SESSION['id_bodega']);
+    }
     use Dompdf\Dompdf;
 
     ob_start();
@@ -26,7 +31,7 @@
 
     $pdf->setPaper("A4");
     $pdf->render();
-    if (isset($_GET['materiales'])){
+    if ($_GET['materiales']==1){
         $pdf->stream("Reporte Materiales ");
     }else{
         $pdf->stream("Reporte Stock Bajo ");

@@ -11,8 +11,7 @@
    
     $Id;
     if (isset($_GET['id_orden'])) {
-        $Id[0] = array("id" => $_GET['id_orden'],
-                        "user" => $_SESSION['username']);
+        $Id[0] = array("id" => $_GET['id_orden']);
     } else {
         $Id = OrdenCompraModel::OrdenesCompraId($_GET['fechaInicial'], $_GET['fechaFinal'],$_SESSION['username']);
     }

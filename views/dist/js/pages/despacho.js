@@ -101,6 +101,7 @@ $(document).on('submit', "#formDatosDespacho", (e) => {
                 
                 if(respuesta.respuesta == "OK"){
                     notificacionExitosa('Despacho realizado con exito!');
+                    obtenerUltimoDespacho();
                 }else{
                     notificarError(respuesta.respuesta);
                 }
@@ -252,4 +253,20 @@ function notificarError(mensaje){
         title: 'Oops...',
         text: mensaje
     })
+}
+async function obtenerUltimoDespacho(){
+    try {
+        var peticionD = new FormData();
+        peticionD.append('obtenerUltimoDespacho', 'OK');
+
+        var peticion = await fetch('../controllers/DespachoController.php', {
+            method: 'POST',
+            body: peticionD
+        });
+
+        var resjson = await peticion.json();
+        window.location = "templates/pdf_despacho.php?id_despacho="+resjson.id;
+    } catch (error) {
+        console.log(error);
+    }
 }
