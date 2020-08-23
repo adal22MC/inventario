@@ -139,4 +139,23 @@
                 echo $e->getMessage();
             }
         }
+
+        /* Retorno el total de solicitudes pendientes que tienes la madre */
+        public function printTotalSolicitudes_madre(){
+            try{
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+                
+                $pst = $conn->prepare("SELECT COUNT(*) AS total FROM solicitud_p WHERE status = 1");
+                $pst->execute();
+                $total = $pst->fetch();
+
+                $conexion->closeConexion();
+                $conn = null;
+
+                return $total['total'];
+            }catch(PDOException $e){
+                echo $e->getMessage();
+            }
+        }
     }

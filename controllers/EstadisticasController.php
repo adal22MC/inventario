@@ -1,7 +1,6 @@
 <?php   
 
     require_once "../models/EstadisticasModel.php";
-    //session_start();
 
     class EstadisticasControlles {
 
@@ -44,5 +43,12 @@
             $mdl = new EstadisticasModel();
             $mdl->printTotalDespachos($_SESSION['id_bodega']);
         }
+
+        public function printTotalSolicitudes_madre(){
+            $mdl = new EstadisticasModel();
+            $r = $mdl->printTotalSolicitudes_madre();
+            return $r;
+        }
+        
 
     }

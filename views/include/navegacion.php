@@ -211,9 +211,11 @@
                        <li class="nav-item">
                            <a href="solicitudes_madre.php" class="nav-link">
                                <i class="nav-icon fas fa-address-card"></i>
+                               <span class='badge badge-primary navbar-badge'>12</span>
                                <p>
-                                   SOLICITUDES
+                                   SOLICITUDES 
                                </p>
+                               
                            </a>
                        </li>
 
