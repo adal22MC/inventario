@@ -78,7 +78,7 @@ require_once "../controllers/EstadisticasController.php";
                     <p>Solicitudes</p>
                   </div>
                   <div class="icon">
-                    <i class="ion ion-bag"></i>
+                  <i class="fas fa-ambulance"></i>
                   </div>
                   <a href="historial_solicitudes.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
@@ -143,7 +143,7 @@ require_once "../controllers/EstadisticasController.php";
                     <p>Traslados</p>
                   </div>
                   <div class="icon">
-                    <i class="ion ion-person-add"></i>
+                  <i class="fas fa-ambulance"></i>
                   </div>
                   <a href="historial_traslados.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
@@ -183,7 +183,7 @@ require_once "../controllers/EstadisticasController.php";
                     <p>Despachos</p>
                   </div>
                   <div class="icon">
-                    <i class="ion ion-pie-graph"></i>
+                  <i class="far fa-clipboard"></i>
                   </div>
                   <a href="historial_despachos.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
