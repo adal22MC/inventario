@@ -276,7 +276,7 @@
                    <!-- BACKUPS BD -->
                    <li class="nav-item">
                        <a id="backups" href="#" class="nav-link">
-                           <i class="nav-icon fas fa-hotel"></i>
+                           <i class="nav-icon fas fa-database"></i>
                            <p>
                                BACKUPS BD
                            </p>

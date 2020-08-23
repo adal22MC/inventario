@@ -257,8 +257,6 @@ CREATE TABLE `empresa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 INSERT INTO empresa values (1,"example.png","123ee3","nose@gmail.com","9876654","Super Market","fracc.rr","www.SuperMarket.com");
---
--- Volcado de datos para la tabla `Empresa`
---
+
 
 

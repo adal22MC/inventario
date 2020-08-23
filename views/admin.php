@@ -3,6 +3,9 @@ session_start();
 if (!isset($_SESSION['username'])) {
   header('Location: login.php');
 }
+
+require_once "../controllers/EstadisticasController.php";
+
 ?>
 
 <!DOCTYPE html>
@@ -43,53 +46,59 @@ if (!isset($_SESSION['username'])) {
           <!-- Small boxes (Stat box) -->
           <div class="row">
 
-            <!-- VENTAS TOTALES -->
+            <!-- ORDENES DE COMPRA TOTALES -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <h3></h3>
+                  <h3><?php $ctr = new EstadisticasControlles();
+                            $ctr->printTotalOrdenesCompra();
+                   ?></h3>
 
-                  <p>Ventas</p>
+                  <p>Ordenes de compra</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="historial_ventas.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="orden_compra.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
 
-            <!-- PRODUCTOS -->
+            <!-- MATERIALES -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3></h3>
+                  <h3><?php //$ctr = new EstadisticasControlles();
+                            $ctr->printTotalMateriales();
+                   ?></h3>
 
-                  <p>Productos</p>
+                  <p>Materiales</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-stats-bars"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="materiales.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
 
-            <!-- CLIENTES -->
+            <!-- USUARIOS -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <h3></h3>
+                  <h3><?php //$ctr = new EstadisticasControlles();
+                            $ctr->printTotalUsuarios();
+                   ?></h3>
 
-                  <p>Clientes Registrados</p>
+                  <p>Usuarios</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="usuarios.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -99,14 +108,16 @@ if (!isset($_SESSION['username'])) {
               <!-- small box -->
               <div class="small-box bg-danger">
                 <div class="inner">
-                  <h3></h3>
+                  <h3><?php //$ctr = new EstadisticasControlles();
+                            $ctr->printTotalCategorias();
+                   ?></h3>
 
                   <p>Categorias</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-pie-graph"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="categorias.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -114,89 +125,87 @@ if (!isset($_SESSION['username'])) {
           </div>
           <!-- /.row -->
           <?php if ($_SESSION['tipo_usuario'] == "Administrador") { ?>
-            <div class="row-cols-12">
-              <div class="col-md-12">
-                <form id="formAddSucursal">
 
-                  <!--=====================================
-                    HEADER DEL MODAL
-                    ======================================-->
-
-                  <div class="modal-header">
-
-                    <h5 class="modal-title" id="exampleModalLabel">Sucursal</h5>
-
+            <div class="row">
+              <div class="col-8">
+                <div class="card card-primary">
+                  <div class="card-header">
+                    <h3 class="card-title">Información de la Empresa</h3>
                   </div>
+                  <!-- /.card-header -->
 
-                  <!--=====================================
-                    CUERPO DEL MODAL
-                    ====================================== -->
+                  <!-- form start -->
+                  <form id="formAddSucursal">
+                    <div class="card-body">
 
-                  <div class="modal-body">
+                      <div class="row">
 
-                    <!-- ENTRADA PARA LA DESCRIPCION DE LA CATEGORIA -->
-                    <div class="input-group pt-2 col-md-12">
+                        <div class="col-6">
+                          <!-- ENTRADA PARA EL NOMBRE DE LA EMPRESA -->
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Nombre de la Empresa</label>
+                            <input name="nombreS" type="text" class="form-control" id="nombreS" placeholder="Nombre empresa" required>
+                          </div>
+                        </div>
 
-                      <div class=" input-group-prepend">
-                        <span class="input-group-text">
-                          Nombre
-                        </span>
+                        <div class="col-6">
+                          <!-- ENTRADA PARA EL TELEFONO DE LA EMPRESA -->
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Telefono</label>
+                            <input name="telefonoS" type="text" class="form-control" id="telefonoS" placeholder="Telefono" required>
+                          </div>
+                        </div>
+
                       </div>
-                      <input type="text" class="form-control col-md-6" id="nombreS" name="nombreS" placeholder="Nombre" required>
 
-                      <div class=" input-group-prepend">
-                        <span class="input-group-text">
-                          Correo
-                        </span>
+                      <div class="row">
+
+                        <div class="col-6">
+                          <!-- ENTRADA PARA EL NIT DE LA EMPRESA -->
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Nit</label>
+                            <input name="nitS" type="text" class="form-control" id="nitS" placeholder="Nit" required>
+                          </div>
+                        </div>
+
+                        <div class="col-6">
+                          <!-- ENTRADA PARA LA DIRECCION DE LA EMPRESA -->
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Dirección</label>
+                            <input name="direccionS" type="text" class="form-control" id="direccionS" placeholder="Dirección" required>
+                          </div>
+                        </div>
                       </div>
-                      <input type="text" class="form-control col-md-6" id="correoS" name="correoS" placeholder="Correo" required>
+
+                      <div class="row">
+
+                        <div class="col-6">
+                          <!-- ENTRADA PARA EL CORREO DE LA EMPRESA -->
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Correo</label>
+                            <input name="correoS" type="email" class="form-control" id="correoS" placeholder="Email" required>
+                          </div>
+                        </div>
+
+                        <div class="col-6">
+                          <!-- ENTRADA PARA LA PAGIN WEB DE LA EMPRESA -->
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Pagina web</label>
+                            <input name="paginaS" type="text" class="form-control" id="paginaS" placeholder="Pagina web" required>
+                          </div>
+                        </div>
+                      </div>
+
 
                     </div>
-                    <div class="input-group pt-2 col-md-12">
+                    <!-- /.card-body -->
 
-                      <div class=" input-group-prepend">
-                        <span class="input-group-text">
-                          Telefono
-                        </span>
-                      </div>
-                      <input type="text" class="form-control" id="telefonoS" name="telefonoS" placeholder="Telefono" required>
-
-                      <div class=" input-group-prepend">
-                        <span class="input-group-text">
-                          Direccion
-                        </span>
-                      </div>
-                      <input type="text" class="form-control" id="direccionS" name="direccionS" placeholder="Direccion" required>
-
+                    <div class="card-footer">
+                      <button type="submit" class="btn btn-primary float-right">Modificar</button>
                     </div>
-                    <div class="input-group pt-2 col-md-12">
+                  </form>
 
-                      <div class=" input-group-prepend">
-                        <span class="input-group-text">
-                          Nit
-                        </span>
-                      </div>
-                      <input type="text" class="form-control" id="nitS" name="nitS" placeholder="Nit" required>
-
-                      <div class=" input-group-prepend">
-                        <span class="input-group-text">
-                          Pagina
-                        </span>
-                      </div>
-                      <input type="text" class="form-control" id="paginaS" name="paginaS" placeholder="Pagina" required>
-
-                    </div>
-
-                  </div>
-                  <!--=====================================
-                    PIE DEL MODAL
-                    ======================================-->
-                  <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">
-                      Actualizar Datos
-                    </button>
-                  </div>
-                </form>
+                </div>
               </div>
             </div>
           <?php } ?>
