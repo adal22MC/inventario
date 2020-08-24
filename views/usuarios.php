@@ -132,6 +132,10 @@ if (!($_SESSION['tipo_usuario'] == "Administrador")) {
                                         </span>
                                     </div>
                                     <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-primary"><span class="fas fa-eye-slash icon" onclick="mostrarPass()"></span> </button>
+                                    </div>
                                 </div>
 
                                 <!-- ENTRADA PARA EL CORREO -->

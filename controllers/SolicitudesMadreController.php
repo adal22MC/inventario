@@ -13,9 +13,16 @@
      ============================================= */
      if( isset($_POST['aceptarSolicitud'])){
 
-        $respuesta = SolicitudesMadreModel::aceptarSolicitud($_POST['idSolicitud'], $_SESSION['id_bodega']);
+        $ban = SolicitudesMadreModel::verificarSolicitud($_POST['idSolicitud'], $_SESSION['id_bodega']);
 
-        echo json_encode(['respuesta'=>$respuesta]);
+        if($ban){
+            $respuesta = SolicitudesMadreModel::aceptarSolicitud($_POST['idSolicitud'], $_SESSION['id_bodega']);
+
+            echo json_encode(['respuesta'=>$respuesta]);
+        }else{
+            echo json_encode(['respuesta'=>'Algunos productos no tienen stock sufuciente para satisfacer la solicitud!']);
+        }
+        
     }
 
     /* ===========================================

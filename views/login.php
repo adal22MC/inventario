@@ -27,8 +27,11 @@ if (isset($_SESSION['username'])) {
                             <div class="form-group">
                                 <input name="usuario" id="username" class="form-control text" type="text" placeholder="Username" required>
                             </div>
-                            <div class="form-group">
+                            <div class="input-group mb-3">
                                 <input name="pass" id="password" class="form-control text" type="password" placeholder="Password" required>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary"><span class="fas fa-eye-slash icon" onclick="mostrarPass()"></span> </button>                           
+                                </div>
                             </div>
                             <button id="entrar" type="submit" class="btn btn-block btn-primary">Acceder</button>
                         </form>

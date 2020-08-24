@@ -122,4 +122,38 @@
                 return $e->getMessage();
             }
         }
+
+        /* Metodo que verifica que la cantidad que solicita la unidad operativ hija este disponible en la
+           sucursal Madre */
+        public static function verificarSolicitud($id_s, $id_b){
+            try{
+
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT * FROM solicitud_p WHERE id_s = ?");
+                $pst->execute([$id_s]);
+
+                $pst = $conn->prepare("SELECT * FROM detalle_solicitud WHERE id_s_ds = ?");
+                $pst->execute([$id_s]);
+
+                $detalle = $pst->fetchAll();
+
+                $ban = true;
+                foreach($detalle as $d){
+                    $pst = $conn->prepare("SELECT * FROM inventario WHERE id_b_i = ? and id_m_i = ?");
+                    $pst->execute([$id_b,$d['id_m_ds']]);
+                    $stocK = $pst->fetch();
+                    if($stocK['s_total'] < $d['cant']){
+                        $ban = false;
+                        break;
+                    }
+                }
+
+                return $ban;
+                
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
     }

@@ -280,3 +280,14 @@ function notificarError(mensaje) {
         text: mensaje
     })
 }
+
+function mostrarPass() {
+    var cambio = document.getElementById("password");
+    if (cambio.type == "password") {
+        cambio.type = "text";
+        $('.icon').removeClass('fas fa-eye-slash').addClass('fa fa-eye');
+    } else {
+        cambio.type = "password";
+        $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+    }
+}
