@@ -572,5 +572,45 @@
                 return $e->getMessage();
             }
         }
+        public static function getSucursales(){
+            try {
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+                $pst = $conn->prepare("SELECT id_b AS id, nombre FROM bodegas WHERE tipo = 0");
+                $pst->execute();
+                $sucursal = $pst->fetchAll();
+
+                $conexion->closeConexion();
+                $conn = null;
+
+                return $sucursal;
+            } catch (PDOException $e) {
+               return $e->getMessage();
+            }
+        }
+        public static function imprimirDatosSucursal($id_b){
+            try {
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT nombre
+                FROM bodegas 
+                WHERE id_b =?");
+                $pst->execute([$id_b]);
+
+                $sucursal = $pst->fetchAll();
+
+                foreach($sucursal as $su){
+                    echo"
+                        <td><strong>Sucursal:</strong> " . $su['nombre'] . "</td>
+                        ";
+                }
+                $conexion->closeConexion();
+                $conn = null;
+
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
         
     }

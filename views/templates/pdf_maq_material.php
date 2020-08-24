@@ -35,12 +35,9 @@
   <!-- Cabecera -->
   <table width="100%">
     <tr>
-      <td valign="top" align="left" >
-        <!--<img src="../dist/img/logotipo.jpg" alt="logo" width="50" align="center"/>-->
         <?php
           SolicitudModelo::imprimirDEmpresa();
-        ?>
-      </td>
+        ?>     
       <td align="right">
         <?php
         SolicitudModelo::imprimiDatosEmpresa($_SESSION['id_bodega']);
@@ -59,6 +56,9 @@
 
       <?php
       MaterialModelo::imprimirDatosUsuario( $item["user"]);
+      if(isset($_GET['idS'])){
+        MaterialModelo::imprimirDatosSucursal($item["id"]);
+      }
       ?>
 
     </table>
