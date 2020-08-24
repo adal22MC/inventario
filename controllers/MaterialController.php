@@ -11,7 +11,6 @@
         if(
 
             preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_ ]+$/', $_POST['idM']) &&
-            preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ.,_ ]+$/', $_POST['desMaterial']) &&
             preg_match('/^[()\-0-9 ]+$/', $_POST['categoria']) 
 
         ){
@@ -82,7 +81,6 @@
 
             preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_ ]+$/', $_POST['idMaterial']) &&
             preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_ ]+$/', $_POST['idM']) &&
-            preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ.,_ ]+$/', $_POST['desMaterial']) &&
             preg_match('/^[()\-0-9 ]+$/', $_POST['categoria']) 
 
         ){

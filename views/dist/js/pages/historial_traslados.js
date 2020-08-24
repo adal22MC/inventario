@@ -38,9 +38,11 @@ $(document).on('click', '.btnTraslado', function(){
     window.location = "templates/pdf_traslado.php?id_traslado="+id_traslado;
     
 });
+
 $(document).on('click', '.btnfechas', function(){
     var fecha = $('#Date').val();
     var fecha2 = $('#Date2').val();
 
     window.location = "templates/pdf_traslado.php?fechaInicial="+fecha+"&fechaFinal="+fecha2;
 });
+

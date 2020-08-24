@@ -59,10 +59,11 @@ selectSucursal.addEventListener('change', async () => {
                         <td>${item.nombre}</td>
                         <td>${item.serial}</td>
                         <td>
-                        <div class='text-center'><div class='btn-group'><button class='btn btn-info btn-sm btnTrazabilidad' value="${item.id}"><i class='fas fa-reply'></i></button></div></div>
+                        <div class='text-center'><div class='btn-group'><button class='btn btn-info btn-sm btnTrazabilidad' value="${item.id}"><i class='fas fa-chart-line'></i></button></div></div>
                         </td>
                     </tr>
                 `);
+               
             }
 
         } catch (error) {

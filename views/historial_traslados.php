@@ -47,13 +47,20 @@ if (!isset($_SESSION['username'])) {
                                 <table id="h_traslados" class="table table-bordered table-striped tablaModulos">
                                     <thead>
                                         <tr>
-                                            <th>No Orden</th>
+                                            <th>No Traslado</th>
                                             <th>Fecha</th>
                                             <th>Hora</th>
                                             <th>Responsable</th>
                                             <th>Destino</th>
-                                            <th>Cantridad</th>
-                                            <th>Total</th>
+                                            <th>Cantidad</th>
+                                            <?php 
+                                            /*
+                                            if($_SESSION['tipo_usuario'] == "Administrador"){
+                                                echo '<th>Total usu</th>';
+                                            }else{
+                                                echo '<th  style="display: none;">Total uni</th>';
+                                            }*/?>
+                                            <th  style="display: none !important;">Total uni</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
