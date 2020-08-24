@@ -134,7 +134,7 @@
                        <li class="nav-item">
                            <a href="categorias.php" class="nav-link">
                                <i class="nav-icon fab fa-cuttlefish"></i>
-                               
+
                                <p>
                                    CATEGORIAS
                                </p>
@@ -211,13 +211,19 @@
                     ) { ?>
                        <li class="nav-item">
                            <a href="solicitudes_madre.php" class="nav-link">
-                               <i class="nav-icon fas fa-address-card"></i>
-                               <span class='badge badge-primary navbar-badge'>12</span>
+                               <span class='badge badge-danger navbar-badge'>
+                                   <?php
+                                    require_once "../config.php";
+                                    require_once CONTROLLERS . 'EstadisticasController.php';
+                                    $ctrEstadistica = new EstadisticasControlles();
+                                    $total = $ctrEstadistica->printTotalSolicitudes_madre();
+                                    echo "<b>{$total}</b>";
+                                    ?></span>
                                <i class="nav-icon fas fa-file-alt"></i>
                                <p>
-                                   SOLICITUDES 
+                                   SOLICITUDES
                                </p>
-                               
+
                            </a>
                        </li>
 
@@ -225,68 +231,72 @@
 
 
                    <!-- ORDEN DE COMPRA -->
-                   <?php if ($_SESSION['tipo_usuario'] == "Administrador" ||
-                             $_SESSION['tipo_usuario'] == "Almacenista Principal"){ 
-                   ?>
-                   <li class="nav-item">
-                       <a href="#" class="nav-link">
-                           <i class="nav-icon fas fa-shipping-fast"></i>
-                           <p>
-                               ORDEN DE COMPRA
-                               <i class="right fas fa-angle-left"></i>
-                           </p>
-                       </a>
-                       <ul class="nav nav-treeview">
-                           <li class="nav-item">
-                               <a href="orden_compra.php" class="nav-link">
-                                   <i class="fas fa-minus-3x nav-icon"></i>
-                                   <p>Realizar orden</p>
-                               </a>
-                           </li>
-                           <li class="nav-item">
-                               <a href="ver_orden.php" class="nav-link">
-                                   <i class="fas fa-minus-3x nav-icon"></i>
-                                   <p>Ver ordenes</p>
-                               </a>
-                           </li>
-                           <li class="nav-item">
+                   <?php if (
+                        $_SESSION['tipo_usuario'] == "Administrador" ||
+                        $_SESSION['tipo_usuario'] == "Almacenista Principal"
+                    ) {
+                    ?>
+                       <li class="nav-item">
+                           <a href="#" class="nav-link">
+                               <i class="nav-icon fas fa-shipping-fast"></i>
+                               <p>
+                                   ORDEN DE COMPRA
+                                   <i class="right fas fa-angle-left"></i>
+                               </p>
+                           </a>
+                           <ul class="nav nav-treeview">
+                               <li class="nav-item">
+                                   <a href="orden_compra.php" class="nav-link">
+                                       <i class="fas fa-minus-3x nav-icon"></i>
+                                       <p>Realizar orden</p>
+                                   </a>
+                               </li>
+                               <li class="nav-item">
+                                   <a href="ver_orden.php" class="nav-link">
+                                       <i class="fas fa-minus-3x nav-icon"></i>
+                                       <p>Ver ordenes</p>
+                                   </a>
+                               </li>
+                               <li class="nav-item">
 
-                               <a href="historial_orden_compra.php" class="nav-link">
-                                   <i class="fas fa-minus-3x nav-icon"></i>
-                                   <p>Historial de ordenes</p>
-                               </a>
-                           </li>
-                       </ul>
-                   </li>
+                                   <a href="historial_orden_compra.php" class="nav-link">
+                                       <i class="fas fa-minus-3x nav-icon"></i>
+                                       <p>Historial de ordenes</p>
+                                   </a>
+                               </li>
+                           </ul>
+                       </li>
 
                    <?php } ?>
 
-                   <?php if ($_SESSION['tipo_usuario'] == "Administrador" ||
-                             $_SESSION['tipo_usuario'] == "Almacenista Principal"){ 
-                   ?>
-                   <!-- TRAZABILIDAD -->
-                   <li class="nav-item">
-                       <a href="trazabilidad.php" class="nav-link">
-                           <i class="nav-icon fas fa-chart-line"></i>
-                           <p>
-                               TRAZABILIDAD
-                           </p>
-                       </a>
-                   </li>
+                   <?php if (
+                        $_SESSION['tipo_usuario'] == "Administrador" ||
+                        $_SESSION['tipo_usuario'] == "Almacenista Principal"
+                    ) {
+                    ?>
+                       <!-- TRAZABILIDAD -->
+                       <li class="nav-item">
+                           <a href="trazabilidad.php" class="nav-link">
+                               <i class="nav-icon fas fa-chart-line"></i>
+                               <p>
+                                   TRAZABILIDAD
+                               </p>
+                           </a>
+                       </li>
                    <?php } ?>
 
-                   <?php if ($_SESSION['tipo_usuario'] == "Administrador"){ 
-                   ?>
-                   <!-- BACKUPS BD -->
-                   <li class="nav-item">
-                       <a id="backups" href="#" class="nav-link">
-                           <i class="nav-icon fas fa-database"></i>
-                           <p>
-                               BACKUPS BD
-                           </p>
-                       </a>
-                       <a id="enlace"></a>
-                   </li>
+                   <?php if ($_SESSION['tipo_usuario'] == "Administrador") {
+                    ?>
+                       <!-- BACKUPS BD -->
+                       <li class="nav-item">
+                           <a id="backups" href="#" class="nav-link">
+                               <i class="nav-icon fas fa-database"></i>
+                               <p>
+                                   BACKUPS BD
+                               </p>
+                           </a>
+                           <a id="enlace"></a>
+                       </li>
                    <?php } ?>
 
                </ul>
