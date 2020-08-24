@@ -146,18 +146,20 @@ class SolicitudModelo
             
             $datosS = $pst->fetchAll();
             foreach ($datosS as $datos) {
-                echo '  
-                    <img src="../dist/img/logotipo.jpg" alt="logo" width="50" align="center"/>           
-
-                    <pre style="font-size: 9px" align="left">
-<b style="font-size: 11px">'. $datos["nombre"] . '</b>
-Nit: '. $datos["nit"] . '
-'. $datos["correo"] . '
-'. $datos["tel"] . '
-'. $datos["direccion"] . '
-'. $datos["correo"] . '
-'. $datos["pagina"] . '
-                    </pre>';
+                echo ' 
+                <td valign="top" align="left" > 
+                    <img src="../dist/img/logotipo.jpg" alt="logo" width="150" align="center"/>           
+                </td>
+                <td valign="top" align="center" >
+                    <pre style="font-size: 14px" align="center">
+                            '. $datos["nombre"] . '
+                            Nit: '. $datos["nit"] . '
+                            '. $datos["tel"] . '
+                            '. $datos["direccion"] . '
+                            '. $datos["correo"] . '
+                            '. $datos["pagina"] . '
+                    </pre>
+                </td>   ';
             }
             $conn = null;
             $conexion->closeConexion();

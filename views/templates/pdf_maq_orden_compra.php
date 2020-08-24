@@ -45,7 +45,9 @@
   <!-- Cabecera -->
   <table width="100%">
     <tr>
-      <td valign="top"><img src="../dist/img/logotipo.jpg" alt="logo" width="150" /></td>
+        <?php
+          SolicitudModelo::imprimirDEmpresa();
+        ?> 
       <td align="right">
         <?php
         SolicitudModelo::imprimiDatosEmpresa($_SESSION['id_bodega']);
