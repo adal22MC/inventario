@@ -168,7 +168,7 @@
                         echo '
                         <a class="nav-link" data-toggle="dropdown" href="#">
                             <i class="far fa-bell"></i>
-                            <span class="badge badge-info navbar-badge">'.$total_materiales_bajos.'</span>
+                            <b><span class="badge badge-danger navbar-badge">'.$total_materiales_bajos.'</span></b>
                         </a>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <span class="dropdown-item dropdown-header">Notificaciones</span>
