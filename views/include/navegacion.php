@@ -103,7 +103,7 @@
                    <!-- DESPACHOS -->
                    <li class="nav-item has-treeview menu-close">
                        <a href="#" class="nav-link">
-                           <i class="nav-icon fas fa-address-card"></i>
+                           <i class="nav-icon fas fa-dolly-flatbed"></i>
                            <p>
                                DESPACHOS
                                <i class="right fas fa-angle-left"></i>
@@ -133,7 +133,8 @@
                        <!-- CATEGORIAS -->
                        <li class="nav-item">
                            <a href="categorias.php" class="nav-link">
-                               <i class="nav-icon fas fa-hotel"></i>
+                               <i class="nav-icon fab fa-cuttlefish"></i>
+                               
                                <p>
                                    CATEGORIAS
                                </p>
@@ -144,7 +145,7 @@
                    <!-- MATERIALES -->
                    <li class="nav-item">
                        <a href="materiales.php" class="nav-link">
-                           <i class="nav-icon fas fa-hotel"></i>
+                           <i class="nav-icon fas fa-box"></i>
                            <p>
                                MATERIALES
                            </p>
@@ -154,7 +155,7 @@
                    <!-- TRASLADOS -->
                    <li class="nav-item">
                        <a href="#" class="nav-link">
-                           <i class="nav-icon fas fa-address-card"></i>
+                           <i class="nav-icon fas fa-truck"></i>
                            <p>
                                TRASLADOS
                                <i class="right fas fa-angle-left"></i>
@@ -180,7 +181,7 @@
                    <?php if ($_SESSION['tipo_usuario'] == "Administrador") { ?>
                        <li class="nav-item">
                            <a href="#" class="nav-link">
-                               <i class="nav-icon fas fa-address-card"></i>
+                               <i class="nav-icon fas fa-users"></i>
                                <p>
                                    USUARIOS
                                    <i class="right fas fa-angle-left"></i>
@@ -212,6 +213,7 @@
                            <a href="solicitudes_madre.php" class="nav-link">
                                <i class="nav-icon fas fa-address-card"></i>
                                <span class='badge badge-primary navbar-badge'>12</span>
+                               <i class="nav-icon fas fa-file-alt"></i>
                                <p>
                                    SOLICITUDES 
                                </p>
@@ -228,7 +230,7 @@
                    ?>
                    <li class="nav-item">
                        <a href="#" class="nav-link">
-                           <i class="nav-icon fas fa-address-card"></i>
+                           <i class="nav-icon fas fa-shipping-fast"></i>
                            <p>
                                ORDEN DE COMPRA
                                <i class="right fas fa-angle-left"></i>
@@ -265,7 +267,7 @@
                    <!-- TRAZABILIDAD -->
                    <li class="nav-item">
                        <a href="trazabilidad.php" class="nav-link">
-                           <i class="nav-icon fas fa-hotel"></i>
+                           <i class="nav-icon fas fa-chart-line"></i>
                            <p>
                                TRAZABILIDAD
                            </p>

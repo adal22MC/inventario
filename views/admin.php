@@ -78,7 +78,7 @@ require_once "../controllers/EstadisticasController.php";
                     <p>Solicitudes</p>
                   </div>
                   <div class="icon">
-                  <i class="fas fa-ambulance"></i>
+                  <i class="fas fa-file-alt"></i>
                   </div>
                   <a href="historial_solicitudes.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
@@ -104,7 +104,7 @@ require_once "../controllers/EstadisticasController.php";
                   <p>Materiales</p>
                 </div>
                 <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
+                  <i class="fas fa-box"></i>
                 </div>
                 <a href="materiales.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
@@ -143,7 +143,7 @@ require_once "../controllers/EstadisticasController.php";
                     <p>Traslados</p>
                   </div>
                   <div class="icon">
-                  <i class="fas fa-ambulance"></i>
+                  <i class="fas fa-truck"></i>
                   </div>
                   <a href="historial_traslados.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
@@ -183,7 +183,8 @@ require_once "../controllers/EstadisticasController.php";
                     <p>Despachos</p>
                   </div>
                   <div class="icon">
-                  <i class="far fa-clipboard"></i>
+                  
+                  <i class=" fas fa-dolly-flatbed"></i>
                   </div>
                   <a href="historial_despachos.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>

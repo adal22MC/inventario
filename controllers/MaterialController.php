@@ -160,3 +160,8 @@
         echo json_encode($respuesta);
     }
 
+    if( isset($_POST['getSursales'])){
+        $respuesta = MaterialModelo::getSucursales();
+        echo json_encode($respuesta);
+    }
+

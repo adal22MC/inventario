@@ -10,15 +10,28 @@
     }
    
     $Id;
-    $Id[0] = array(
-        "id" => $_SESSION['id_bodega'],
-        "user"=>$_SESSION['username']
-    );
+    if(isset($_GET['idS'])){
+        $Id[0] = array(
+            "id" => $_GET['idS'],
+            "user"=>$_SESSION['username']
+        );
+    }else{
+        $Id[0] = array(
+            "id" => $_SESSION['id_bodega'],
+            "user"=>$_SESSION['username']
+        );
+    }
+    
     $material;
     if (isset($_GET['idMaterial'])){
         $material[0]= array("id" =>$_GET['idMaterial']);
     }else{
-        $material = MaterialModelo::getIdMaterialB($_SESSION['id_bodega']);
+        if(isset($_GET['idS'])){
+            $material = MaterialModelo::getIdMaterialB($_GET['idS']);
+        }else{
+            $material = MaterialModelo::getIdMaterialB($_SESSION['id_bodega']);
+        }
+        
     }
     use Dompdf\Dompdf;
 

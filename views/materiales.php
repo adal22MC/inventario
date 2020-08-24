@@ -52,6 +52,18 @@ require_once "../models/MaterialModel.php";
                                     <button id="altaMaterial" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalAgregarMaterial">
                                         Agregar Nuevo Material
                                     </button>
+                                    <div class="input-group pt-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fab fa-cuttlefish"></i>
+                                        </span>
+                                    </div>
+                                    <select class="form-control" name="sucursal" id="selectSucursal">
+                                        <option value="default" >Seleccione una Sucursal</option>
+                                    </select>
+                                    <button title="Reporte Sucursal" class='btn btn-danger btn-sm btnSucursal '><i class='fas fa-file-pdf'></i>
+                                    </button>
+                                </div>
                                 <?php
                                 }
                                 ?>

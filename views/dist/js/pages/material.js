@@ -4,11 +4,34 @@ const formEditMaterial = document.getElementById('formEditMaterial');
 var tablaMaterial;
 var idMaterial;
 
-function init() {
+async function init() {
     tablaMaterial = $("#material").DataTable({
         "responsive": true,
         "autoWidth": false
     });
+    var datosS = new FormData();
+    datosS.append('getSursales', 'OK');
+
+    try {
+
+        var peticion = await fetch('../controllers/MaterialController.php', {
+            method: 'POST',
+            body: datosS
+        });
+
+        var resjson = await peticion.json();
+
+        var selectOrden = document.getElementById('selectSucursal');
+        for (let item of resjson) {
+            var option = document.createElement('option');
+            option.text = item['nombre'];
+            option.value = item['id'];
+            selectOrden.appendChild(option)
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 init();
@@ -257,6 +280,16 @@ $(document).on('click', '.btnMaterialU', function(){
 
     idMaterial = data[0];
     window.location = "templates/pdf_material.php?materiales="+1+"&idMaterial="+idMaterial;
+});
+/* Generar Reporte Materiales Sucursales*/ 
+$(document).on('click', '.btnSucursal', function(){
+    const selectSucursal = document.getElementById('selectSucursal').value;
+    if(selectSucursal != "default"){
+      
+        window.location = "templates/pdf_material.php?materiales="+1+"&idS="+selectSucursal;
+    }else{
+        notificarError("No has Seleccionado una Sucursal!!");
+    }
 });
 
 
