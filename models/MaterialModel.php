@@ -181,10 +181,11 @@
                         echo '
                         
                                         <button class="btn   btn-info btn-sm btnEditar"><i class="fas fa-edit"></i></button>
-                                        <button title="Historial de Precios" class="btn btn-danger btn-sm btnMaterialP"><i class="fas fa-file-pdf"></i></button>
+                                        <button title="Historial de Precios" class="btn btn-danger btn-sm btnMaterialP"><i class="fas fa-tags"></i></button>
                               
                         ';
                     }
+                    
 
                     echo '          </div>
                                 </div>

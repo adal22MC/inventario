@@ -62,7 +62,6 @@ function notificacionExitosa(mensaje) {
         formaddMaterial.reset();
         document.getElementById('closeAdd').click();
         document.getElementById('closeEdit').click();
-        window.location = "materiales.php";
     });
 }
 

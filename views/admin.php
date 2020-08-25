@@ -205,7 +205,7 @@ require_once "../controllers/EstadisticasController.php";
           <?php if ($_SESSION['tipo_usuario'] == "Administrador") { ?>
 
             <div class="row">
-              <div class="col-8">
+              <div class="col-lg-8 col-sm-12">
                 <div class="card card-primary">
                   <div class="card-header">
                     <h3 class="card-title">Información de la Empresa</h3>
@@ -218,7 +218,7 @@ require_once "../controllers/EstadisticasController.php";
 
                       <div class="row">
 
-                        <div class="col-6">
+                        <div class="col-lg-6 col-sm-12">
                           <!-- ENTRADA PARA EL NOMBRE DE LA EMPRESA -->
                           <div class="form-group">
                             <label for="exampleInputEmail1">Nombre de la Empresa</label>
@@ -226,7 +226,7 @@ require_once "../controllers/EstadisticasController.php";
                           </div>
                         </div>
 
-                        <div class="col-6">
+                        <div class="col-lg-6 col-sm-12">
                           <!-- ENTRADA PARA EL TELEFONO DE LA EMPRESA -->
                           <div class="form-group">
                             <label for="exampleInputEmail1">Telefono</label>
@@ -238,7 +238,7 @@ require_once "../controllers/EstadisticasController.php";
 
                       <div class="row">
 
-                        <div class="col-6">
+                        <div class="col-lg-6 col-sm-12">
                           <!-- ENTRADA PARA EL NIT DE LA EMPRESA -->
                           <div class="form-group">
                             <label for="exampleInputEmail1">Nit</label>
@@ -246,7 +246,7 @@ require_once "../controllers/EstadisticasController.php";
                           </div>
                         </div>
 
-                        <div class="col-6">
+                        <div class="col-lg-6 col-sm-12">
                           <!-- ENTRADA PARA LA DIRECCION DE LA EMPRESA -->
                           <div class="form-group">
                             <label for="exampleInputEmail1">Dirección</label>
@@ -257,7 +257,7 @@ require_once "../controllers/EstadisticasController.php";
 
                       <div class="row">
 
-                        <div class="col-6">
+                        <div class="col-lg-6 col-sm-12">
                           <!-- ENTRADA PARA EL CORREO DE LA EMPRESA -->
                           <div class="form-group">
                             <label for="exampleInputEmail1">Correo</label>
@@ -265,7 +265,7 @@ require_once "../controllers/EstadisticasController.php";
                           </div>
                         </div>
 
-                        <div class="col-6">
+                        <div class="col-lg-6 col-sm-12">
                           <!-- ENTRADA PARA LA PAGIN WEB DE LA EMPRESA -->
                           <div class="form-group">
                             <label for="exampleInputEmail1">Pagina web</label>
@@ -273,6 +273,18 @@ require_once "../controllers/EstadisticasController.php";
                           </div>
                         </div>
                       </div>
+
+                      <!--
+                      <div class="row">
+                        <div class="col-12">
+                          
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Logo</label>
+                            <input name="logo" type="file" class="form-control" id="logo" placeholder="Logo" required>
+                          </div>
+                        </div>
+                      </div>
+                      -->
 
 
                     </div>
