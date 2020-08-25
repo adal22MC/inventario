@@ -5,9 +5,9 @@ class Conexion
 {
 
 	private $servername = "localhost";
-	private $username = "u459103069_inventario"; // u459103069_inventario
-	private $password = "Inventario2020"; // Inventario2020
-	private $bd_name = "u459103069_inventario"; // u459103069_inventario
+	private $username = "root"; // u459103069_inventario
+	private $password = ""; // Inventario2020
+	private $bd_name = "inventario"; // u459103069_inventario
 	private $conn;
 
 	public function __construct()
