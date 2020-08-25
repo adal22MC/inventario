@@ -161,19 +161,19 @@ require_once "../controllers/EstadisticasController.php";
               $_SESSION['tipo_usuario'] == "Administrador" ||
               $_SESSION['tipo_usuario'] == "Almacenista Principal"
             ) { ?>
-              <!-- CATEGORIAS -->
+              <!-- BODEGAS -->
               <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <div class="small-box bg-danger">
                   <div class="inner">
-                    <h3><?php //$ctr = new EstadisticasControlles();
-                        $ctr->printTotalCategorias();
+                    <h3><?php
+                        $ctr->printTotalBodegas();
                         ?></h3>
 
-                    <p>Categorias</p>
+                    <p>Unidades Operativas</p>
                   </div>
                   <div class="icon">
-                    <i class="ion ion-pie-graph"></i>
+                    <i class="nav-icon fas fa-hotel"></i>
                   </div>
                   <a href="categorias.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>

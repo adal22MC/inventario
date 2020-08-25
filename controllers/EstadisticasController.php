@@ -24,6 +24,11 @@
             $mdl->printTotalCategorias();
         }
 
+        public function printTotalBodegas(){
+            $mdl = new EstadisticasModel();
+            $mdl->printTotalBodegas();
+        }
+
         public function printTotalSolicitudes(){
             $mdl = new EstadisticasModel();
             $mdl->printTotalSolicitudes($_SESSION['id_bodega']);

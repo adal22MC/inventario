@@ -72,6 +72,23 @@
             }
         }
 
+        public function printTotalBodegas(){
+            try{
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT COUNT(*) AS total FROM bodegas WHERE tipo = 0");
+                $pst->execute();
+                $total = $pst->fetch();
+                echo $total['total'];
+
+                $conexion->closeConexion();
+                $conn = null;
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
         public function printTotalSolicitudes($id_bodega){
             try{
                 $conexion = new Conexion();
