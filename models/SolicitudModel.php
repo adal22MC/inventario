@@ -150,16 +150,16 @@ class SolicitudModelo
                 <td valign="top" align="left" > 
                     <img src="../dist/img/logotipo.jpg" alt="logo" width="150" align="center"/>           
                 </td>
-                <td valign="top" align="center" >
-                    <pre style="font-size: 14px" align="center">
-                            '. $datos["nombre"] . '
-                            Nit: '. $datos["nit"] . '
-                            '. $datos["tel"] . '
-                            '. $datos["direccion"] . '
-                            '. $datos["correo"] . '
-                            '. $datos["pagina"] . '
-                    </pre>
-                </td>   ';
+                <td valign="top" align="center" > 
+                
+            <p style="font-size: 14px" align="center">
+            <h3>'. $datos["nombre"] . '</h3>
+            NIT: '. $datos["nit"] . '
+            '. $datos["tel"] . '
+            '. $datos["direccion"] . '
+            '. $datos["correo"] . '
+            '. $datos["pagina"] . '</p>
+                </td> ';
             }
             $conn = null;
             $conexion->closeConexion();

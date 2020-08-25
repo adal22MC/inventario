@@ -16,7 +16,7 @@
 
     }
     if( isset($_POST['obtenerUltimoDespacho']) ){
-        $orden =  DespachoModelo::obtenerUltimoDespacho();
+        $orden =  DespachoModelo::obtenerUltimoDespacho($_SESSION['id_despacho_actual']);
         echo json_encode($orden);
 
     }

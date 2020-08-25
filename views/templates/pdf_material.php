@@ -44,8 +44,10 @@
 
     $pdf->setPaper("A4");
     $pdf->render();
-    if ($_GET['materiales']==1){
+    if ($_GET['materiales']==1 && empty($_GET['HMaterial'])){
         $pdf->stream("Reporte Materiales ");
+    }else if(isset($_GET['HMaterial'])){
+        $pdf->stream("Reporte Historial Material");
     }else{
         $pdf->stream("Reporte Stock Bajo ");
     }

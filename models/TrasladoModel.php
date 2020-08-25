@@ -53,7 +53,7 @@ class TrasladoModelo
             WHERE mt.id_t_mt = t.id_t and mt.id_m_mt = m.id_m and t.id_t = ?");
             $pst->execute([$id_traslado]);
             $traslado = $pst->fetchAll();
-            if ($tipo["tipoU"] == "Almacenista Principal" || $tipo["tipoU"] == "Administrador") {
+            if ($tipo["tipoU"] == "Administrador") {
                 foreach ($Detalletraslado as $Dtras) {
                     echo '
                     <tr>
@@ -105,7 +105,7 @@ class TrasladoModelo
             $pst->execute([$id_traslado]);
             $Traslado = $pst->fetch();
 
-            if ($tipo["tipoU"] == "Almacenista Principal" || $tipo["tipoU"] == "Administrador") {
+            if ( $tipo["tipoU"] == "Administrador") {
                 echo '
                 <td colspan="3"></td>
                 <td align="right" >TOTAL: </td>

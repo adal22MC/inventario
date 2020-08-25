@@ -174,14 +174,14 @@
                             <td>
                                 <div class="text-center">
                                     <div class="btn-group">
-                                        <button class="btn btn-danger btn-sm btnMaterialU"><i class="fas fa-file-pdf"></i></button>
+                                        <button title="Reporte Individual" class="btn btn-danger btn-sm btnMaterialU"><i class="fas fa-file-pdf"></i></button>
                     ';
 
                     if($_SESSION['tipo_usuario'] == "Administrador"){
                         echo '
                         
                                         <button class="btn   btn-info btn-sm btnEditar"><i class="fas fa-edit"></i></button>
-                               
+                                        <button title="Historial de Precios" class="btn btn-danger btn-sm btnMaterialP"><i class="fas fa-file-pdf"></i></button>
                               
                         ';
                     }
@@ -612,5 +612,55 @@
                 return $e->getMessage();
             }
         }
-        
+        public static function imprimirHistorialMaterial($id_m,$id_b){
+            try {
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT di.fecha, di.p_compra
+                FROM inventario i, detalle_inventario di
+                WHERE di.id_b_di = i.id_b_i and di.id_m_di = i.id_m_i and i.id_b_i = ? and i.id_m_i = ?");
+                $pst->execute([$id_b,$id_m]);
+
+                $material = $pst->fetchAll();
+
+                foreach($material  as $ma){
+                    echo '
+                    <tr>
+                        <td align="center">'.$ma["fecha"].'</td>
+                        <td align="center">'.$ma["p_compra"].'</td>
+                    </tr>';
+                }
+                $conexion->closeConexion();
+                $conn = null;
+
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
+        public static function imprimirDatosMH($id_m,$id_b){
+            try {
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT m.descr
+                FROM material m, inventario i
+                WHERE i.id_m_i = m.id_m and i.id_b_i = ? and m.id_m = ?");
+                $pst->execute([$id_b, $id_m]);
+
+                $material = $pst->fetchAll();
+
+                foreach($material as $m){
+                    echo"
+                        <td><strong>Codigo:</strong> " . $id_m . " </td>
+                        <td><strong>Material:</strong> " . $m['descr'] . " </td>
+                        ";
+                }
+                $conexion->closeConexion();
+                $conn = null;
+
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
     }

@@ -11,7 +11,6 @@
       font-size: 14px;
 
     }
-
     table {
       font-size: x-small;
     }
@@ -70,7 +69,35 @@
       <?php
       if ($_GET['materiales'] == 1) {
         foreach ($material as $m) {
+          if(isset($_GET['HMaterial'])){         
       ?>
+        <table width="100%">
+            <?php
+            MaterialModelo::imprimirDatosMH($m["id"], $item["id"]);
+            ?>
+          </table>
+          <br>
+          <table width="100%">
+            <thead style="background-color: lightgray;">
+              <tr>
+                <?php
+                echo "
+                <th>Fecha</th>
+                <th>P.Compra</th>";
+                ?>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              MaterialModelo::imprimirHistorialMaterial($m["id"], $item["id"]);
+              ?>
+            </tbody>
+            
+          </table>
+          <br><br><br><br>
+        <?php
+        }else{
+        ?>
           <table width="100%">
             <?php
             MaterialModelo::imprimirDatosM($m["id"], $item["id"]);
@@ -106,6 +133,7 @@
           </table>
           <br><br><br><br>
         <?php
+          }
         }
       } else {
         ?>
