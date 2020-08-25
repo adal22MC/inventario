@@ -291,6 +291,17 @@ $(document).on('click', '.btnSucursal', function(){
         notificarError("No has Seleccionado una Sucursal!!");
     }
 });
+/* Generar Reporte Material Historial*/ 
+$(document).on('click', '.btnMaterialP', function(){
+    if (tablaMaterial.row(this).child.isShown()) {
+        var data = tablaMaterial.row(this).data();
+    } else {
+        var data = tablaMaterial.row($(this).parents("tr")).data();
+    }
+
+    idMaterial = data[0];
+    window.location = "templates/pdf_material.php?materiales="+1+"&idMaterial="+idMaterial+"&HMaterial="+1;
+});
 
 
 

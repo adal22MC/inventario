@@ -41,10 +41,6 @@
       <td align="right">
         <?php
         SolicitudModelo::imprimiDatosEmpresa($_SESSION['id_bodega']);
-        if (isset($_GET['fechaInicial'])) {
-          echo "<pre>
-            <b>Inicio: </b> " . $_GET['fechaInicial'] . "   <b>Final: </b>" . $_GET['fechaFinal'] . "</pre>";
-        }
         ?>  
       </td>
     </tr>
@@ -57,7 +53,15 @@
 
   ?>
     <table width="100%">
-    
+    <?php
+         if (isset($_GET['fechaInicial'])) {
+          echo "
+          <tr>
+          <td><strong>Inicio:</strong>" . $_GET['fechaInicial'] . "</td>
+          <td><strong>Final:</strong>" . $_GET['fechaFinal'] . "</td>
+          </tr> ";
+        }
+        ?>
         <?php
         SolicitudModelo::imprimiDatosSolicitud($item["id"]);
         ?>

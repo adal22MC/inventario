@@ -279,14 +279,14 @@
                 return $e->getMessage();
             }
         }
-        public static function obtenerUltimoDespacho()
+        public static function obtenerUltimoDespacho($id_despacho)
         {
             try {
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
     
-                $pst = $conn->prepare("SELECT num_orden as id FROM orden_trabajo ORDER BY num_orden DESC LIMIT 1");
-                $pst->execute();
+                $pst = $conn->prepare("SELECT num_orden as id FROM orden_trabajo Where num_orden = ?");
+                $pst->execute([$id_despacho]);
     
                 $despacho = $pst->fetch();
     
