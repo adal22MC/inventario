@@ -11,6 +11,9 @@
       font-size: 14px;
 
     }
+    .pre{
+      font-weight: bold;
+    }
     table {
       font-size: x-small;
     }
@@ -37,7 +40,7 @@
         <?php
           SolicitudModelo::imprimirDEmpresa();
         ?>     
-      <td align="right">
+      <td align="right" WIDTH="100">
         <?php
         SolicitudModelo::imprimiDatosEmpresa($_SESSION['id_bodega']);
         ?>
