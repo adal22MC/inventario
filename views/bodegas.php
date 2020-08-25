@@ -106,7 +106,7 @@ if(!($_SESSION['tipo_usuario'] == "Administrador")){
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                        <i class="fas fa-sort-numeric-up-alt"></i>
                                     </span>
                                 </div>
                                 <input type="text" class="form-control" name="idBodega" placeholder="No Bodega" required>
@@ -116,7 +116,7 @@ if(!($_SESSION['tipo_usuario'] == "Administrador")){
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                        <i class="fas fa-file-signature"></i>
                                     </span>
                                 </div>
                                 <input type="text" class="form-control" name="nomBodega" placeholder="Nombre" required>
@@ -126,7 +126,7 @@ if(!($_SESSION['tipo_usuario'] == "Administrador")){
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                        <i class="fas fa-at"></i>
                                     </span>
                                 </div>
                                 <input type="email" class="form-control" name="correoBodega" placeholder="Correo" required>
@@ -136,7 +136,7 @@ if(!($_SESSION['tipo_usuario'] == "Administrador")){
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                        <i class="fas fa-phone"></i>
                                     </span>
                                 </div>
                                 <input type="number" class="form-control" name="numBodega" placeholder="Numero de Telefono" required>
@@ -146,7 +146,7 @@ if(!($_SESSION['tipo_usuario'] == "Administrador")){
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                        <i class="fas fa-route"></i>
                                     </span>
                                 </div>
                                 <input type="text" class="form-control" name="direcBodega" placeholder="Direccion" required>
@@ -218,18 +218,17 @@ if(!($_SESSION['tipo_usuario'] == "Administrador")){
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                        <i class="fas fa-sort-numeric-up-alt"></i>
                                     </span>
                                 </div>
                                 <input type="text" class="form-control" id="idBodega" name="idBodega" placeholder="No Bodega" required>
                             </div>
 
-
                             <!-- ENTRADA PARA LA NOMBRE DE LA BODEGA -->
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                        <i class="fas fa-file-signature"></i>
                                     </span>
                                 </div>
                                 <input type="text" class="form-control" id="nomBodega" name="nomBodega" placeholder="Nombre" required>
@@ -239,7 +238,7 @@ if(!($_SESSION['tipo_usuario'] == "Administrador")){
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                    <i class="fas fa-at"></i>
                                     </span>
                                 </div>
                                 <input type="email" class="form-control" id="correoBodega" name="correoBodega" placeholder="Correo" required>
@@ -249,7 +248,7 @@ if(!($_SESSION['tipo_usuario'] == "Administrador")){
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                        <i class="fas fa-phone"></i>
                                     </span>
                                 </div>
                                 <input type="number" class="form-control" id="numBodega" name="numBodega" placeholder="Numero de Telefono" required>
@@ -259,7 +258,7 @@ if(!($_SESSION['tipo_usuario'] == "Administrador")){
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                    <i class="fas fa-route"></i>
                                     </span>
                                 </div>
                                 <input type="text" class="form-control" id="direcBodega" name="direcBodega" placeholder="Dirección" required>

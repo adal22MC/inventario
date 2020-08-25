@@ -28,7 +28,7 @@
    <aside class="main-sidebar sidebar-dark-primary elevation-4">
        <!-- Brand Logo -->
        <a href="admin.php" class="brand-link">
-           <img src="dist/img/logo_unidades.jpeg" alt="Inventario Logo" class="brand-image img-circle elevation-3">
+           <img src="dist/img/logo_unidades1.jpeg" alt="Inventario Logo" class="brand-image img-circle elevation-3">
            <span class="brand-text font-weight-light text-center">
                <b>
                    <?php

@@ -143,7 +143,7 @@ require_once "../models/MaterialModel.php";
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                        <i class="fas fa-sort-numeric-up-alt"></i>
                                     </span>
                                 </div>
                                 <input type="text" class="form-control" name="idM" placeholder="ID Material" required>
@@ -153,7 +153,7 @@ require_once "../models/MaterialModel.php";
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                        <i class="fas fa-info"></i>
                                     </span>
                                 </div>
                                 <input type="text" class="form-control" name="desMaterial" placeholder="Descripción" required>
@@ -176,7 +176,7 @@ require_once "../models/MaterialModel.php";
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                        <i class="fab fa-stripe-s"></i>
                                     </span>
                                 </div>
                                 <input type="text" class="form-control" name="serialMaterial" placeholder="Serial (Opcional)">
@@ -186,7 +186,7 @@ require_once "../models/MaterialModel.php";
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                        <i class="fas fa-battery-full"></i>
                                     </span>
                                 </div>
                                 <input type="text" class="form-control" name="stock_max" placeholder="Stock maximo" required>
@@ -196,7 +196,7 @@ require_once "../models/MaterialModel.php";
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                        <i class="fas fa-battery-quarter"></i>
                                     </span>
                                 </div>
                                 <input type="text" class="form-control" name="stock_min" placeholder="Stock minimo" required>
@@ -255,7 +255,7 @@ require_once "../models/MaterialModel.php";
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                    <i class="fas fa-sort-numeric-up-alt"></i>
                                     </span>
                                 </div>
                                 <input type="text" class="form-control" name="idM" id="idM" placeholder="ID Material" required>
@@ -265,7 +265,7 @@ require_once "../models/MaterialModel.php";
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                    <i class="fas fa-info"></i>
                                     </span>
                                 </div>
                                 <input type="text" class="form-control" id="desMaterial" name="desMaterial" placeholder="Descripción" required>
@@ -287,7 +287,7 @@ require_once "../models/MaterialModel.php";
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                    <i class="fab fa-stripe-s"></i>
                                     </span>
                                 </div>
                                 <input type="text" class="form-control" id="SerialMaterial" name="serialMaterial" placeholder="Serial (Opcional)">
@@ -297,7 +297,7 @@ require_once "../models/MaterialModel.php";
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                        <i class="fas fa-battery-full"></i>
                                     </span>
                                 </div>
                                 <input type="text" class="form-control" id="stock_max" name="stock_max" placeholder="Stock maximo" required>
@@ -307,7 +307,7 @@ require_once "../models/MaterialModel.php";
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                        <i class="fas fa-battery-quarter"></i>
                                     </span>
                                 </div>
                                 <input type="text" class="form-control" id="stock_min" name="stock_min" placeholder="Stock minimo" required>
