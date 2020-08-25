@@ -21,6 +21,8 @@
                 $conexion->closeConexion();
                 $conn = null;
 
+                $_SESSION['id_despacho_actual'] = $despacho[0]['num_orden'];
+
                 return "OK";
 
             }catch(PDOException $e){
