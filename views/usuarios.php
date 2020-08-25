@@ -128,7 +128,7 @@ if (!($_SESSION['tipo_usuario'] == "Administrador")) {
                                 <div class="input-group pt-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
-                                            <i class="fas fa-user"></i>
+                                            <i class="fas fa-key"></i>
                                         </span>
                                     </div>
                                     <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
@@ -142,7 +142,7 @@ if (!($_SESSION['tipo_usuario'] == "Administrador")) {
                                 <div class="input-group pt-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
-                                            <i class="fas fa-user"></i>
+                                            <i class="fas fa-at"></i>
                                         </span>
                                     </div>
                                     <input type="email" class="form-control" name="correo" id="correo" placeholder="Correo" required>
