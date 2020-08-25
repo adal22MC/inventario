@@ -236,6 +236,7 @@
                 return $e->getMessage();
             }
         }
+
         public static function imprimiDatosOrden($id_orden){
             try {
                 $conexion = new Conexion();
@@ -271,6 +272,7 @@
                 return $e->getMessage();
             }
         }
+
         public static function imprimiDatosTabla($id_orden){
             try {
                 $conexion = new Conexion();
@@ -301,6 +303,7 @@
                 return $e->getMessage();
             }
         }
+
         public static function imprimirDatosSuma($id_orden){
             try {
                 $conexion = new Conexion();
@@ -332,6 +335,7 @@
                 return $e->getMessage();
             }
         }
+
         public static function OrdenesCompraId($fehcaI, $fehcaF)
         {
             try {
@@ -351,6 +355,7 @@
                 return $e->getMessage();
             }
         }
+        
         public static function obtenerUltimaOrden()
         {
             try {
