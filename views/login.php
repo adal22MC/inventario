@@ -20,7 +20,7 @@ if (isset($_SESSION['username'])) {
             <div class="col-sm-11 col-ms-12 col-lg-6" id="contenedor">
                 <div class="card border-0">
                     <div class="card-header text-center">
-                        <img src="dist/img/avatar5.png" alt="logo">
+                        <img src="dist/img/logo.jpeg" alt="logo">
                     </div>
                     <div class="card-body form">
                         <form id="formIngresar">

@@ -5,9 +5,9 @@ class Conexion
 {
 
 	private $servername = "localhost";
-	private $username = "root";
-	private $password = "";
-	private $bd_name = "inventario";
+	private $username = "u459103069_inventario"; // u459103069_inventario
+	private $password = "Inventario2020"; // Inventario2020
+	private $bd_name = "u459103069_inventario"; // u459103069_inventario
 	private $conn;
 
 	public function __construct()
@@ -45,7 +45,7 @@ class Conexion
 		$nombre_backups = "backups_{$fecha}.sql";
 
 		$return = '';
-		$link = new mysqli("localhost", "root", "", "inventario");
+		$link = new mysqli($this->servername, $this->username, $this->password, $this->bd_name);
 		// mysql_select_db($name,$link);
 
 		//get all of the tables
