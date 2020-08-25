@@ -4,6 +4,8 @@ if (!isset($_SESSION['username'])) {
     header('Location: login.php');
 }
 
+require_once "../models/BodegaModel.php";
+
 ?>
 
 <!doctype html>
@@ -54,20 +56,42 @@ if (!isset($_SESSION['username'])) {
                                             <th>Destino</th>
                                             <th>Cantidad</th>
                                             <?php 
-                                            /*
                                             if($_SESSION['tipo_usuario'] == "Administrador"){
-                                                echo '<th>Total usu</th>';
-                                            }else{
-                                                echo '<th  style="display: none;">Total uni</th>';
-                                            }*/?>
-                                            <th  style="display: none !important;">Total uni</th>
+                                                echo "<th>Total</th>";
+                                            }
+                                            ?>  
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
                                         <?php
-                                        //MaterialModelo::obtenerMateriales($_SESSION['id_bodega']);
+                                            $traslados = BodegaModelo::getHistorialTraslados($_SESSION['id_bodega']);
+                                            foreach($traslados as $row){
+                                                echo "<tr>
+                                                        <td>{$row['id']}</td>
+                                                        <td>{$row['fecha']}</td>
+                                                        <td>{$row['hora']}</td>
+                                                        <td>{$row['resp']}</td>
+                                                        <td>{$row['nombre']}</td>
+                                                        <td>{$row['cant']}</td>";
+                                                
+                                                        if($_SESSION['tipo_usuario'] == "Administrador"){
+                                                            echo "<td>{$row['total']}</td>";
+                                                        }
+                                                echo "
+                                                        <td>
+                                                            <div class='text-center'>
+                                                                <div class='btn-group'>
+                                                                    <button class='btn  btn-danger btn-sm btnTraslado'>
+                                                                        <i class='fas fa-file-pdf'></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>";
+                                            }
+
                                         ?>
                                     </tbody>
 

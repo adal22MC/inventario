@@ -4,6 +4,7 @@ function init(){
     tablaHistorialTraslados = $("#h_traslados").DataTable({
         "responsive": true,
         "autoWidth": false,
+        /*
         "ajax" : {
             "url" : "../controllers/BodegaController.php",
             "type": "POST",
@@ -22,6 +23,7 @@ function init(){
             {"data" : "total"},
             {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-danger btn-sm btnTraslado'><i class='fas fa-file-pdf'></i></button></div></div>"}
         ]
+        */
     })
 }
 init();
