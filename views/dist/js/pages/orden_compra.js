@@ -24,6 +24,7 @@ function initTablaMateriales(){
             {"data" : "s_max", 
              "visible" :false},
             {"data" : "categoria"},
+            {"data" : "s_min", "visible" : false},
             {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-info btn-sm btnAddListDespacho'><i class='fas fa-reply'></i></button></div></div>"}
         ]
     })

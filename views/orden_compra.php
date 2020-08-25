@@ -98,6 +98,7 @@ if (
                                                             <th>Stock</th>
                                                             <th>Stock Max</th>
                                                             <th>Categoria</th>
+                                                            <th>Stock Min</th>
                                                             <th>Acciones</th>
                                                         </tr>
                                                     </thead>
