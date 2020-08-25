@@ -86,7 +86,7 @@
         ){
             if($_POST["serialMaterial"] != ""){
                 if(!preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ.,_ ]+$/', $_POST['serialMaterial'])){
-                    echo json_encode(['respuesta'=>'Eror en el campo serial']);
+                    echo json_encode(['respuesta'=>'Eror en el campo serial (caracteres).']);
                 }
             }
             
@@ -131,7 +131,7 @@
             preg_match('/^[()\-0-9 ]+$/', $_POST['s_min']) &&
             preg_match('/^[()\-0-9 ]+$/', $_POST['s_max'])
         ){
-            $respuesta = MaterialModelo::modificarStock($_POST['s_min'],$_POST['s_max'], $_SESSION['id_bodega'], $_POST['idMaterial']);
+            $respuesta = MaterialModelo::modificarStock($_POST['s_min'],$_POST['s_max'], $_POST['id_bodega'], $_POST['idMaterial']);
             echo json_encode(['respuesta'=>$respuesta]);
         }else{
             echo json_encode(['respuesta'=>'Caracteres no admitidos']);
@@ -150,11 +150,20 @@
         echo json_encode(['respuesta'=>$respuesta]);
     }
 
-    /* =======================================================================
-        RETORNA ID MATERIAL, NOMBRE MATERIAL, STOCK, STOCK_MAX ,CATEGORIA
-    ========================================================================= */
+    /* ===============================================================================
+        RETORNA ID MATERIAL, NOMBRE MATERIAL, STOCK, STOCK_MAX ,CATEGORIA, STOCK_MIN
+    ================================================================================== */
     if( isset($_POST['getMateriales'])){
         $respuesta = MaterialModelo::getMateriales($_SESSION['id_bodega']);
+        echo json_encode($respuesta);
+    }
+
+    /* ===============================================================================
+        RETORNA ID MATERIAL, NOMBRE MATERIAL, STOCK, STOCK_MAX ,CATEGORIA, STOCK_MIN
+        (RECIBE EL ID DE BODEGA DE LA CUAL QUIERES OBTENER EL MATERIAL)
+    ================================================================================== */
+    if( isset($_POST['getMaterialesByIdBodega'])){
+        $respuesta = MaterialModelo::getMateriales($_POST['id_bodega']);
         echo json_encode($respuesta);
     }
 

@@ -95,7 +95,7 @@
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
 
-                $pst = $conn->prepare("SELECT  i.id_m_i as id, m.descr as nombre,i.s_total as stock, i.s_max, c.descr as categoria
+                $pst = $conn->prepare("SELECT  i.id_m_i as id, m.descr as nombre,i.s_total as stock, i.s_max, c.descr as categoria,i.s_min
                 FROM  material m, categorias c, inventario i
                 WHERE m.id_c_m = c.id_c and i.id_m_i = m.id_m and i.id_b_i = ?");
 
@@ -248,17 +248,24 @@
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
 
-                $pst = $conn->prepare(self::$UPDATE_MATERIAL);
-                $pst->execute([$material['idNew'],$material['descr'],$material['serial'],$material['id_c'],$material['id']] );
 
-                $pst = $conn->prepare("UPDATE inventario set s_max = ?, s_min = ? WHERE id_b_i = ? and id_m_i = ?");
-                $pst->execute([$material['s_max'],$material['s_min'],$_SESSION['id_bodega'],$material['idNew']]);
-                
+                $respuesta = self::modificarStock($material['s_min'],$material['s_max'],$_SESSION['id_bodega'],$material['id']);
+                if($respuesta == "OK"){
 
-                $conn = null;
-                $conexion->closeConexion();
+                    $pst = $conn->prepare("UPDATE inventario set s_max = ?, s_min = ? WHERE id_b_i = ? and id_m_i = ?");
+                    $pst->execute([$material['s_max'],$material['s_min'],$_SESSION['id_bodega'],$material['idNew']]);
 
-                return "OK";
+                    $pst = $conn->prepare(self::$UPDATE_MATERIAL);
+                    $pst->execute([$material['idNew'],$material['descr'],$material['serial'],$material['id_c'],$material['id']] );
+
+                    $conn = null;
+                    $conexion->closeConexion();
+
+                    return "OK";
+
+                }else{
+                    return $respuesta;
+                }
             } catch(PDOException $e){
                 return $e->getMessage();
             }
@@ -310,7 +317,7 @@
 
                     return "OK";
                 }
-                return "Lo sentimos, parametros no aceptados!";
+                return "Lo sentimos, parametros de stock no aceptados!";
             }catch(PDOException $e){
                 return $e->getMessage();
             }
@@ -414,6 +421,7 @@
                 return $e->getMessage();
             }
         }
+
         public static function imprimiDatosTabla($id_bodega){
             try {
                 $conexion = new Conexion();
@@ -443,6 +451,7 @@
                 return $e->getMessage();
             }
         }
+
         public static function imprimirDatosMateriales($id_bodega){
             try {
                 $conexion = new Conexion();

@@ -287,6 +287,20 @@
 
                    <?php if ($_SESSION['tipo_usuario'] == "Administrador") {
                     ?>
+                       <!-- MODIFICAR STOCK MIN Y MAX DE BODEGAS HIJAS -->
+                       <li class="nav-item">
+                           <a href="config_stock_hijas.php" class="nav-link">
+                                <i class="nav-icon fas fa-tools"></i>
+                                <p>
+                                   STOCK MAX Y MIN HIJAS
+                                </p>
+                           </a>
+                           <a id="enlace"></a>
+                       </li>
+                   <?php } ?>
+
+                   <?php if ($_SESSION['tipo_usuario'] == "Administrador") {
+                    ?>
                        <!-- BACKUPS BD -->
                        <li class="nav-item">
                            <a id="backups" href="#" class="nav-link">
