@@ -207,6 +207,32 @@
             }
         }
 
+        /* Devuelve la cantidad de materiales con stock bajo de la bodega que este en sesion */
+        public static function getStockBajoBodega(){
+            try{
+
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT descr FROM material, inventario WHERE s_total <= s_min and id_b_i = ? and id_m_i = id_m");
+
+                $pst->execute([$_SESSION['id_bodega']]);
+                
+                $materiales = $pst->fetchAll();
+
+                $total_materiales_bajos = count($materiales);
+                
+
+                $conn = null;
+                $conexion->closeConexion();
+
+                return $total_materiales_bajos;
+
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
         public static function insertarTraslado($traslado, $id_bo_salio){
             try{
 

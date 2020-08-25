@@ -48,6 +48,9 @@
                     }
                 }
 
+                // Variable para las notificaciones de stock y solicitudes
+                $_SESSION['notificaciones'] = 1;
+
                 // Verificamos el tipo de usuario
                 if($tipoUsuario['descr'] == "Almacenista Por Unidad"){
 
@@ -64,6 +67,7 @@
                     $_SESSION['id_bodega'] = $datos_bodega['id_b'];
                     $_SESSION['nombre_bodega'] = $datos_bodega['nombre'];
                     $_SESSION['tipo_usuario'] = "Almacenista Por Unidad";
+
                     return "OK";
 
                 }else if($tipoUsuario['descr'] == "Almacenista Multisucursal"){
@@ -127,25 +131,6 @@
                     $_SESSION['id_bodega'] = $datos_bodega['id_b'];
                     $_SESSION['nombre_bodega'] = $datos_bodega['nombre'];
                 }
-
-
-                
-
-
-
-
-
-                /*
-                session_start();
-                $_SESSION['username'] = $datosUsuario['username'];
-                $_SESSION['id_bodega'] = $datosUsuario['id_b'];
-                $_SESSION['nombre_bodega'] = $datosUsuario['nombre'];
-                if ($datosUsuario['tipo'] == 0){
-                    $_SESSION['tipo_usuario'] = 'almacenista_unidad'; 
-                }else{
-                    $_SESSION['tipo_usuario'] = 'administrador';
-                }
-                */
                 return "OK";
                 
 
