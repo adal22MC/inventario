@@ -6,34 +6,23 @@ img {
 
 input {
     background: none !important;
-    color: rgb(11, 216, 206) !important;
+    color: black !important;
     border: none !important;
     outline: 0px !important;
-    border-bottom: 2px solid rgb(11, 216, 206) !important;
+    border-bottom: 2px solid#0275d8 !important; 
     border-radius: 0px !important;
 }
 
 input:focus{
     background:white;
-    color: rgb(11, 216, 206);
+    color: #0275d8;
     border: none;
     outline: 0;
-    border-bottom: 1px solid rgb(11, 216, 206);
+    border-bottom: 1px solid #0275d8;
 }
 
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    background: rgb(11, 216, 206);
-    color: white;
-}
 
-.btn {
-    background: rgb(11, 216, 206);
-    color: #ffffff;
-}
+
 
 
 

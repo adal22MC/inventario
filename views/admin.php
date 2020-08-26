@@ -213,7 +213,7 @@ require_once "../controllers/EstadisticasController.php";
                   <!-- /.card-header -->
 
                   <!-- form start -->
-                  <form id="formAddSucursal">
+                  <form id="formAddSucursal" enctype="multipart/form-data">
                     <div class="card-body">
 
                       <div class="row">
@@ -274,17 +274,17 @@ require_once "../controllers/EstadisticasController.php";
                         </div>
                       </div>
 
-                      <!--
+                      
                       <div class="row">
                         <div class="col-12">
-                          
+                          <!-- ENTRADA PARA EL LOGO DE LA EMPRESA -->
                           <div class="form-group">
                             <label for="exampleInputEmail1">Logo</label>
-                            <input name="logo" type="file" class="form-control" id="logo" placeholder="Logo" required>
+                            <input name="logo" type="file" class="form-control" id="logo" placeholder="Logo">
                           </div>
                         </div>
                       </div>
-                      -->
+                      
 
 
                     </div>

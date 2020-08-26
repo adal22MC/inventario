@@ -20,7 +20,7 @@ define("TEMPLATES", VIEWS.'templates'.DS);
 
 // Para archivos que vayamos a incluir en header o footer (css o js)
 //define('CSS'      , URL.'assets/css/');
-//define('IMG'      , URL.'assets/img/');
+define('IMG'      , VIEWS.'dist/img/');
 //define('JS'       , URL.'assets/js/');
 
 
@@ -28,5 +28,4 @@ define("TEMPLATES", VIEWS.'templates'.DS);
 // Autoload Composer
 //require_once VENDOR.'autoload.php';
 
-// Cargar todas las funciones
-//require_once APP.'functions.php';
+
