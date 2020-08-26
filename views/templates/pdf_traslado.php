@@ -16,7 +16,7 @@
                         "user" => $_SESSION['username']);
     } else {
         $van = 1;
-        $Id = TrasladoModelo::TrasladosId($_GET['fechaInicial'], $_GET['fechaFinal'], $_SESSION['id_bodega'],$_SESSION['username']);
+        $Id = TrasladoModelo::TrasladosId($_GET['fechaInicial'], $_GET['fechaFinal'], $_SESSION['id_bodega']);
     }
 
     use Dompdf\Dompdf;

@@ -148,7 +148,7 @@ class SolicitudModelo
             foreach ($datosS as $datos) {
                 echo ' 
                 <td valign="top" align="left" > 
-                    <img src="../dist/img/logo.jpeg" alt="logo" width="150" align="center"/>           
+                    <img src="../dist/img/logo_empresa.jpeg" alt="logo" width="150" align="center" class="imgE"/>           
                 </td>
                 <td valign="top" align="center" WIDTH="100"> 
                      
