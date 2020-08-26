@@ -283,16 +283,20 @@
                 WHERE doc.id_m_do = m.id_m and doc.id_oc_do = ?");
                 $pst->execute([$id_orden]);
                 $Detalletraslado = $pst->fetchAll();
-
+                $curr='COP';
                     foreach ($Detalletraslado as $Dtras) {
+                        $currencies['COP'] = array(0, '.', '.');
+
+                        $pre = number_format($Dtras["p_compra"], ...$currencies[$curr]);
+                        $to = number_format($Dtras["total"], ...$currencies[$curr]);
                         echo '
                         <tr>
                             <th scope="row">' . $Dtras["id"] . '</th>
                             <td align="center">' . $Dtras["nomM"] . '</td>
                             <td align="center">' . $Dtras["cant"] . '</td>
                             <td align="center">' . $Dtras["recibi"] . '</td>
-                            <td align="center">' . $Dtras["p_compra"] . '</td>
-                            <td align="center">' . $Dtras["total"] . '</td>
+                            <td align="center">' . $pre . '</td>
+                            <td align="center">' . $to. '</td>
                         </tr>';
                     }
 
@@ -314,18 +318,22 @@
                 WHERE id_oc_do = ?");
                 $pst->execute([$id_orden]);
                 $Orden = $pst->fetch();
-               
+                $curr='COP';
+                $currencies['COP'] = array(0, '.', '.');
+
+                        $cant = number_format($Orden["cant"], ...$currencies[$curr]);
+                        $to = number_format($Orden["total"], ...$currencies[$curr]);
                     echo '
                     <td colspan="4"></td>
                     <td align="right" >TOTAL MATERIALES: </td>
                     <td align="center" class="gray">
-                    <h3 style="margin: 0px 0px;">' . $Orden["cant"] . '</h3>
+                    <h3 style="margin: 0px 0px;">' . $cant. '</h3>
                     </td>
                     <tr>
                         <td colspan="4"></td>
                         <td align="right" >TOTAL EFECTIVO: </td>
                         <td align="center" class="gray">
-                        <h3 style="margin: 0px 0px;">' . $Orden["total"] . '</h3></td>
+                        <h3 style="margin: 0px 0px;">' . $to. '</h3></td>
                     </tr>';
                 
 

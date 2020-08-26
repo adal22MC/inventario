@@ -517,7 +517,7 @@
                 foreach($material as $m){
                     echo"
                         <td><strong>Codigo:</strong> " . $id_m . " </td>
-                        <td><strong>Producto:</strong> " . $m['descr'] . " </td>
+                        <td><strong>Material:</strong> " . $m['descr'] . " </td>
                         <td><strong>Stock:</strong> " . $m['s_total'] . " </td>
                         ";
                 }
@@ -539,14 +539,18 @@
                 $pst->execute([$id_b,$id_m]);
 
                 $material = $pst->fetchAll();
-
+                $curr='COP';
                 foreach($material  as $ma){
+                    $currencies['COP'] = array(0, '.', '.');
+
+                    $pre = number_format($ma["p_compra"], ...$currencies[$curr]);
+                    $to = number_format($ma["total"], ...$currencies[$curr]);
                     echo '
                     <tr>
                         <td align="center">'.$ma["fecha"].'</td>
-                        <td align="center">'.$ma["p_compra"].'</td>
+                        <td align="center">'.$pre.'</td>
                         <td align="center">'.$ma["stock"].'</td>
-                        <td align="center">'.$ma["total"].'</td>
+                        <td align="center">'.$to.'</td>
                     </tr>';
                 }
                 $conexion->closeConexion();
@@ -566,12 +570,15 @@
                 $pst->execute([$id_b,$id_m]);
     
                 $material = $pst->fetchAll();
+                $curr='COP';
                 foreach ($material as $ma) {
+                    $currencies['COP'] = array(0, '.', '.');
+                    $to = number_format($ma["total"], ...$currencies[$curr]);
                     echo '
                     <td colspan="2"></td>
                     <td align="right" >TOTAL: </td>
                     <td align="center" class="gray">
-                      <h3 style="margin: 0px 0px;">'.$ma["total"].'</h3>
+                      <h3 style="margin: 0px 0px;">'.$to.'</h3>
                     </td>';
                         
                 }

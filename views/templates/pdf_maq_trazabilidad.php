@@ -11,6 +11,9 @@
       font-size: 14px;
 
     }
+    .imgE{
+      margin-top: 15px;
+    }
     .pre{
       font-weight: bold;
     }

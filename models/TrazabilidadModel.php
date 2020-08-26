@@ -60,7 +60,7 @@ class TrazabilidadModelo
                     <tr>
                     <td><strong>Codigo: </strong>" . $id. "</td>
                     <td><strong>Material: </strong> " . $Dm['descr'] . "</td>
-                    <td><strong>Sucursal: </strong>" . $Sucursal['nombre']. "</td>
+                    <td><strong>Bodega: </strong>" . $Sucursal['nombre']. "</td>
                     </tr>";
             }
             $conexion->closeConexion();
@@ -82,15 +82,20 @@ class TrazabilidadModelo
 
             $DetalleM = $pst->fetchAll();
             if($DetalleM != null){
+                $curr='COP';
                 foreach ($DetalleM as $Dtras) {
+                    $currencies['COP'] = array(0, '.', '.');
+
+                    $pre = number_format($Dtras["p_compra"], ...$currencies[$curr]);
+                    $to = number_format($Dtras["total"], ...$currencies[$curr]);
                     echo '
                     <tr>
                         <td align="center">' . $Dtras["realizado"] . '</td>
                         <td align="center">' . $Dtras["resp"] . '</td>
                         <td align="center">' . $Dtras["fecha"] . '</td>
                         <td align="center">' . $Dtras["cant"] . '</td>
-                        <td align="center">' . $Dtras["p_compra"] . '</td>
-                        <td align="center">' . $Dtras["total"] . '</td>
+                        <td align="center">' . $pre. '</td>
+                        <td align="center">' . $to. '</td>
                     </tr>';
                 }
             }else{
@@ -119,12 +124,15 @@ class TrazabilidadModelo
 
             $DetalleD = $pst->fetchAll();
             if($DetalleD != null){
+                $curr='COP';
                 foreach ($DetalleD as $Ddes) {
+                    $currencies['COP'] = array(0, '.', '.');
+                    $cant = number_format($Ddes["cant"], ...$currencies[$curr]);
                     echo '
                     <tr>
                         <td align="center">' . $Ddes["resp"] . '</td>
                         <td align="center">' . $Ddes["fecha"] . '</td>
-                        <td align="center">' . $Ddes["cant"] . '</td>
+                        <td align="center">' . $cant. '</td>
                         
                     </tr>';
                 }
@@ -154,15 +162,20 @@ class TrazabilidadModelo
 
             $DetalleM = $pst->fetchAll();
             if($DetalleM != null){
+                $curr='COP';
                 foreach ($DetalleM as $Dtras) {
+                    $currencies['COP'] = array(0, '.', '.');
+
+                    $pre = number_format($Dtras["p_compra"], ...$currencies[$curr]);
+                    $to = number_format($Dtras["total"], ...$currencies[$curr]);
                     echo '
                     <tr>
                         <td align="center">' . $Dtras["Destino"] . '</td>
                         <td align="center">' . $Dtras["resp"] . '</td>
                         <td align="center">' . $Dtras["fecha"] . '</td>
                         <td align="center">' . $Dtras["cant"] . '</td>
-                        <td align="center">' . $Dtras["p_compra"] . '</td>
-                        <td align="center">' . $Dtras["total"] . '</td>
+                        <td align="center">' . $pre . '</td>
+                        <td align="center">' . $to . '</td>
                     </tr>';
                 }
             }else{

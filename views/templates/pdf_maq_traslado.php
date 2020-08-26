@@ -11,6 +11,9 @@
       font-size: 14px;
 
     }
+    .imgE{
+      margin-top: 15px;
+    }
     .pre{
       font-weight: bold;
     }
@@ -90,15 +93,23 @@
       </thead>
       <tbody>
         <?php
-            TrasladoModelo::imprimiDatosTabla($item["id"], $item["user"]);
+          if( $_SESSION['tipo_usuario']== "Administrador"){
+            TrasladoModelo::imprimiDatosTablaDetalle($item["id"]);
+          }else{
+            TrasladoModelo::imprimiDatosTabla($item["id"]);
+          }
+            
         ?>
       </tbody>
       <tfoot>
-        <tr>
           <?php
-            TrasladoModelo::imprimirDatosSuma($item["id"],$item["user"]);
+            if( $_SESSION['tipo_usuario']== "Administrador"){
+              TrasladoModelo::imprimirDatosSumaDetalle($item["id"]);
+            }else{
+              TrasladoModelo::imprimirDatosSuma($item["id"]);
+            }           
           ?>
-        </tr>
+       
       </tfoot>
       
     </table>

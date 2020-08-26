@@ -152,7 +152,7 @@ if (!($_SESSION['tipo_usuario'] == "Administrador")) {
                                 <div class="input-group pt-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
-                                            <i class="fas fa-user"></i>
+                                        <i class="fas fa-sort-numeric-up-alt"></i>
                                         </span>
                                     </div>
                                     <input type="text" class="form-control" id="num_iden" name="num_iden" placeholder="Número de identificación" required>
@@ -162,7 +162,7 @@ if (!($_SESSION['tipo_usuario'] == "Administrador")) {
                                 <div class="input-group pt-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
-                                            <i class="fas fa-user"></i>
+                                        <i class="far fa-user"></i>
                                         </span>
                                     </div>
                                     <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Nombre" required>
@@ -172,7 +172,7 @@ if (!($_SESSION['tipo_usuario'] == "Administrador")) {
                                 <div class="input-group pt-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
-                                            <i class="fas fa-user"></i>
+                                        <i class="far fa-user"></i>
                                         </span>
                                     </div>
                                     <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Apellidos" required>
