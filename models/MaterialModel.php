@@ -627,7 +627,7 @@
 
                 foreach($sucursal as $su){
                     echo"
-                        <td><strong>Sucursal:</strong> " . $su['nombre'] . "</td>
+                        <td><strong>Bodega:</strong> " . $su['nombre'] . "</td>
                         ";
                 }
                 $conexion->closeConexion();
@@ -637,6 +637,7 @@
                 return $e->getMessage();
             }
         }
+
         public static function imprimirHistorialMaterial($id_m,$id_b){
             try {
                 $conexion = new Conexion();
@@ -649,11 +650,14 @@
 
                 $material = $pst->fetchAll();
 
+                $curr='COP';
                 foreach($material  as $ma){
+                    $currencies['COP'] = array(0, '.', '.');
+                    $pre = number_format($ma["p_compra"], ...$currencies[$curr]);
                     echo '
                     <tr>
                         <td align="center">'.$ma["fecha"].'</td>
-                        <td align="center">'.$ma["p_compra"].'</td>
+                        <td align="center">'.$pre.'</td>
                     </tr>';
                 }
                 $conexion->closeConexion();

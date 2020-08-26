@@ -116,7 +116,7 @@
                 <?php
                 echo "
                 <th>Fecha</th>
-                <th>P.Compra</th>
+                <th>P. Compra</th>
                 <th>Stock</th>
                 <th>Total</th>";
 
@@ -143,7 +143,7 @@
         }
       } else {
         ?>
-        <h3 align='center'>Productos con Stock Bajo</h3>
+        <h3 align='center'>Materiales con Stock Bajo</h3>
         <br>
         <table width="100%">
           <thead style="background-color: lightgray;">
@@ -170,9 +170,9 @@
       <!-- Resumen de la cotización -->
       <?php
       if ($_GET['materiales'] == 1) {
-        echo "<h3 align='center'>Productos</h3>";
+        echo "<h3 align='center'>Materiales</h3>";
       } else {
-        echo "<h3 align='center'>Productos con Stock Bajo</h3>";
+        echo "<h3 align='center'>Materiales con Stock Bajo</h3>";
       }
       ?>
       <br>
