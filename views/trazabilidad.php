@@ -24,73 +24,69 @@ if (!isset($_SESSION['username'])) {
 
             <section>
                 <div class="container-fluid pt-4">
-                    <div class="row">
-
-                        <div class="col-md-5">
-
+                    <div class="row container-fluid">
+                        <div class="col-md-6">
                             <!-- ENTRADA PARA SELECCIONAR EL USUARIO -->
-                            <div class="input-group pb-3">
+                            <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         <i class="fab fa-cuttlefish"></i>
                                     </span>
                                 </div>
                                 <select class="form-control" name="selectSucursal" id="selectSucursal">
-                                    <option value="default">Selecciona una Sucursal</option>
+                                    <option value="default">Selecciona una Bodega</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-6">
-
-                            <!-- ENTRADA PARA SELECCIONAR EL USUARIO -->
+                            <!-- ENTRADA PARA EL RANGO DE FECHAS -->
                             <div class="input-group pb-3">
-                              
-                                <label for="card-header">De:</label>
+                                <label class="mr-2">De:</label>
                                 <input type="date" name="" id="Date" min="2000-01-01" max="2100-12-31">
 
-                                <label for="card-header"> A:</label>
+                                <label class="mr-2 ml-3">A:</label>
                                 <input type="date" name="" id="Date2" min="2000-01-01" max="2100-12-31">
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <!-- TABLA SUCURSALES -->
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-12">
+                    </div>
+                    <!-- TABLA SUCURSALES -->
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
 
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h2 class="card-title">Materiales</h2>
-                                            </div>
-                                            <!-- /.card-header -->
-                                            <div class="card-body">
-                                                <table id="tablaMaterialesH" class="table table-bordered table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Codigo</th>
-                                                            <th>Material</th>
-                                                            <th>Serial</th>
-                                                            <th>Acciones</th>
-                                                        </tr>
-                                                    </thead>
-
-                                                    <tbody>
-
-                                                    </tbody>
-
-                                                </table>
-                                            </div>
-                                            <!-- /.card-body -->
-                                        </div>
-                                        <!-- /.card -->
-
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h2 class="card-title">Materiales</h2>
                                     </div>
-                                    <!-- /.col -->
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        <table id="tablaMaterialesH" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Codigo</th>
+                                                    <th>Material</th>
+                                                    <th>Serial</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                    <!-- /.card-body -->
                                 </div>
-                                <!-- /.row -->
+                                <!-- /.card -->
+
                             </div>
-                            <!-- /. TABLA PRODUCTOS -->
+                            <!-- /.col -->
                         </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /. TABLA PRODUCTOS -->
+                        
 
                     </div>
                 </div>

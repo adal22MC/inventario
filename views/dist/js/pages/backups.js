@@ -1,38 +1,50 @@
 const backup = document.getElementById('backups');
 
 backup.addEventListener('click',async function(){
-    try {
+    const result = await Swal.fire({
+        title: 'CONFIRMAR BACKUPS DE BASE DE DATOS',
+        text: "Si no lo esta puede cancelar la acción!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#5bc0de',
+        cancelButtonColor: '#d9534f',
+        confirmButtonText: 'Realizar Backups!'
+    });
 
-        let datos = new FormData();
-        datos.append('backups', 'OK');
+    if (result.value) {
+        try {
 
-        let peticion = await fetch('../controllers/conexionController.php', {
-            method : 'POST',
-            body : datos
-        });
+            let datos = new FormData();
+            datos.append('backups', 'OK');
 
-        let resjson = await peticion.json();
+            let peticion = await fetch('../controllers/conexionController.php', {
+                method : 'POST',
+                body : datos
+            });
 
-        
-        let enlace = document.getElementById('enlace');
-        enlace.setAttribute('href', '../models/backups/'+resjson.nombre);
-        enlace.setAttribute('download', resjson.nombre);
-        enlace.click();
+            let resjson = await peticion.json();
 
-        let datoss = new FormData();
-        datoss.append('backups_remove', 'OK');
-        datoss.append('ruta', resjson.nombre);
+            
+            let enlace = document.getElementById('enlace');
+            enlace.setAttribute('href', '../models/backups/'+resjson.nombre);
+            enlace.setAttribute('download', resjson.nombre);
+            enlace.click();
 
-        let peticionn = await fetch('../controllers/conexionController.php', {
-            method : 'POST',
-            body : datoss
-        });
+            let datoss = new FormData();
+            datoss.append('backups_remove', 'OK');
+            datoss.append('ruta', resjson.nombre);
 
-        let resjsonn = await peticionn.json();
-        console.log(resjsonn)
+            let peticionn = await fetch('../controllers/conexionController.php', {
+                method : 'POST',
+                body : datoss
+            });
+
+            let resjsonn = await peticionn.json();
+            console.log(resjsonn)
 
 
-    } catch (error) {
-        console.log(error);
+        } catch (error) {
+            console.log(error);
+        }
     }
 });

@@ -149,6 +149,7 @@ class SolicitudModelo
                 echo ' 
                 <td valign="top" align="left" > 
                     <img src="../dist/img/logo_empresa.jpeg" alt="logo" width="150" align="center" class="imgE"/>           
+
                 </td>
                 <td valign="top" align="center" WIDTH="100"> 
                      

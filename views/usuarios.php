@@ -227,7 +227,7 @@ if (!($_SESSION['tipo_usuario'] == "Administrador")) {
                         ======================================-->
 
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Unidades Operativas Acceso</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Bodegas Acceso</h5>
                         </div>
 
                         <!--=====================================
@@ -240,7 +240,7 @@ if (!($_SESSION['tipo_usuario'] == "Administrador")) {
                                 <thead>
                                     <tr>
                                         <th>Codigo</th>
-                                        <th>Nombre Sucursal</th>
+                                        <th>Nombre Bodega</th>
                                     </tr>
                                 </thead>
 

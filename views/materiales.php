@@ -59,9 +59,9 @@ require_once "../models/MaterialModel.php";
                                         </span>
                                     </div>
                                     <select class="form-control" name="sucursal" id="selectSucursal">
-                                        <option value="default" >Seleccione una Sucursal</option>
+                                        <option value="default" >Seleccione una Bodega</option>
                                     </select>
-                                    <button title="Reporte Sucursal" class='btn btn-danger btn-sm btnSucursal '><i class='fas fa-file-pdf'></i>
+                                    <button title="Reporte Sucursal" class='btn btn-danger btn-sm btnSucursal ml-3'><i class='fas fa-file-pdf'></i>
                                     </button>
                                 </div>
                                 <?php

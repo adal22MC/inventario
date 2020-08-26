@@ -127,7 +127,7 @@ $(document).on('click', '#procesarVenta', (e) => {
     }else{
         var select = document.getElementById('selectSucursales');
         if(select.value == "default"){
-            notificarError('Selecciona una sucursal')
+            notificarError('Selecciona una bodega')
         }else{
             try {
 

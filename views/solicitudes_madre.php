@@ -50,7 +50,7 @@ require_once "../models/SolicitudesMadreModel.php";
                                                     <thead>
                                                         <tr>
                                                             <th>No Solicitud</th>
-                                                            <th>Sucursal</th>
+                                                            <th>Bodega</th>
                                                             <th>Fecha</th>
                                                             <th>Hora</th>
                                                             <th>Responsable</th>

@@ -31,7 +31,7 @@
                             <!-- TABLE: DESPACHOS -->
                             <div class="card">
                                 <div class="card-header border-transparent">
-                                    <h3 id="totalApagar" class="card-title">Lista de productos a despachar</h3>
+                                    <h3 id="totalApagar" class="card-title">Lista de materiales a despachar</h3>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-minus"></i>
