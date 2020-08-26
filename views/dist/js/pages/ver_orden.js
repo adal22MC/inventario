@@ -95,7 +95,7 @@ $(document).on('click', '.btnEdit', async function(){
 
 
     if(cantidad.value){
-        if(cantidad.value <= 0){
+        if(cantidad.value < 0){
             notificarError('Ingresa una cantidad valida!');
         }else if(cantidad.value > parseInt(data['cant'])){
             notificarError('No puedes sobrepasar la cantidad que solicitaste!');

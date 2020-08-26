@@ -213,8 +213,12 @@
                         $pst = $conn->prepare("UPDATE detalle_inventario set stock = ? WHERE cns = ?");
                         $pst->execute([$total,$invetario['cns']]);
                     }else{
-                        $pst = $conn->prepare("INSERT INTO detalle_inventario (dispo, p_compra, stock, id_b_di, id_m_di) VALUES (1,?, ?, ?, ?)");
-                        $pst->execute([$row['p_compra'],$row['recibi'],$_SESSION['id_bodega'],$row['id_m']]);
+                        $dispo = 1;
+                        if($row['recibi'] == 0){
+                            $dispo = 0;
+                        }
+                        $pst = $conn->prepare("INSERT INTO detalle_inventario (dispo, p_compra, stock, id_b_di, id_m_di) VALUES (?,?, ?, ?, ?)");
+                        $pst->execute([$dispo,$row['p_compra'],$row['recibi'],$_SESSION['id_bodega'],$row['id_m']]);
                     }
 
                     $pst = $conn->prepare("SELECT SUM(stock) as suma FROM detalle_inventario WHERE id_b_di = ? and id_m_di = ?");

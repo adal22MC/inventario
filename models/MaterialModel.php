@@ -212,8 +212,16 @@
 
                 $pst->execute([$material['id'], $material['descr'], $material['serial'], $material['id_c']]);
 
-                $pst = $conn->prepare("INSERT INTO inventario VALUES (0,?,?,?,?)");
-                $pst->execute([$material['s_min'],$material['s_max'],$_SESSION['id_bodega'],$material['id']]);
+                
+                // Obtnemos todas las bodegas
+                $pst = $conn->prepare("SELECT * FROM bodegas");
+                $pst->execute();
+                $bodegas = $pst->fetchAll();
+
+                foreach($bodegas as $bo){
+                    $pst = $conn->prepare("INSERT INTO inventario VALUES (0,?,?,?,?)");
+                    $pst->execute([$material['s_min'],$material['s_max'],$bo['id_b'],$material['id']]);
+                }
 
                 $conn = null;
                 $conexion->closeConexion();
