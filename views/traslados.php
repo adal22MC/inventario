@@ -33,7 +33,7 @@ require_once "../models/MaterialModel.php";
                             <!-- TABLE: TRASLADO -->
                             <div class="card">
                                 <div class="card-header border-transparent">
-                                    <h3 id="totalApagar" class="card-title">Lista de productos a trasladar</h3>
+                                    <h3 id="totalApagar" class="card-title">Lista de materiales a trasladar</h3>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-minus"></i>
@@ -48,7 +48,7 @@ require_once "../models/MaterialModel.php";
                                             <thead>
                                                 <tr>
                                                     <th>Eliminar</th>
-                                                    <th>Producto</th>
+                                                    <th>Material</th>
                                                     <th>Cantidad</th>
                                                 </tr>
                                             </thead>

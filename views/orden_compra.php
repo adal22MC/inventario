@@ -37,10 +37,10 @@ if (
                             <!-- TABLE: ORDEN -->
                             <div class="card">
                                 <div class="card-header border-transparent">
-                                    <h3 id="totalApagar" class="card-title">Lista de productos a ordenar</h3>
+                                    <h3 id="totalApagar" class="card-title">Lista de Materiales a ordenar</h3>
                                     <div class="card-tools">
                                         <button id="altaMaterial" type="button" class="btn btn-primary btn-sm mr-2" data-toggle="modal" data-target="#modalAgregarMaterial">
-                                            + Producto
+                                        <b>+</b> Material
                                         </button>
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-minus"></i>
@@ -55,7 +55,7 @@ if (
                                             <thead>
                                                 <tr>
                                                     <th>Eliminar</th>
-                                                    <th>Producto</th>
+                                                    <th>Material</th>
                                                     <th>Cantidad</th>
                                                     <th>P. Compra</th>
                                                 </tr>
