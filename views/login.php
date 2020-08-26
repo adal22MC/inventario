@@ -17,8 +17,8 @@ if (isset($_SESSION['username'])) {
 <body class="bg-dark">
 
     <div class="container pt-4">
-        <div class="row justify-content-md-center  mt-5">
-            <div class="col-sm-11 col-ms-12 col-lg-6" id="contenedor">
+        <div class="row justify-content-md-center justify-content-sm-center  mt-5">
+            <div class="col-sm-8 col-md-5 col-lg-4" id="contenedor">
                 <div class="card border-0">
                     <div class="card-header text-center">
                         <img src="dist/img/logo_empresa.jpeg" alt="logo">

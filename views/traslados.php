@@ -63,7 +63,7 @@ require_once "../models/MaterialModel.php";
 
                                 <div class="card-footer clearfix">
                                     <a href="solicitudes_p.php" class="btn btn-sm btn-danger float-left">Cancelar todo</a>
-                                    <button id="procesarVenta" class="btn btn-sm btn-info float-right">Procesar tralado</button>
+                                    <button id="procesarVenta" class="btn btn-sm btn-info float-right">Procesar traslado</button>
                                 </div>
                                 <!-- /.card-footer -->
                             </div>
@@ -87,7 +87,7 @@ require_once "../models/MaterialModel.php";
                                                         </span>
                                                     </div>
                                                     <select class="form-control" id="selectSucursales">
-                                                        <option value="default" selected>Seleccione una sucursal</option>
+                                                        <option value="default" selected>Seleccione una Bodega</option>
                                                     </select>
                                                 </div>
 
