@@ -53,7 +53,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Eliminar</th>
-                                                    <th>Producto</th>
+                                                    <th>Material</th>
                                                     <th>Cantidad</th>
                                                 </tr>
                                             </thead>
