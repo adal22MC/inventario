@@ -87,7 +87,7 @@ require_once "../models/MaterialModel.php";
                                                         </span>
                                                     </div>
                                                     <select class="form-control" id="selectSucursales">
-                                                        <option value="default" selected>Seleccione una Bodega</option>
+                                                        <option value="default" selected>Seleccione Bodega destino</option>
                                                     </select>
                                                 </div>
 
