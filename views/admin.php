@@ -175,7 +175,7 @@ require_once "../controllers/EstadisticasController.php";
                   <div class="icon">
                     <i class="nav-icon fas fa-hotel"></i>
                   </div>
-                  <a href="categorias.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                  <a href="bodegas.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
               </div>
             <?php } else { ?>

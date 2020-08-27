@@ -14,7 +14,7 @@ if (isset($_SESSION['username'])) {
     <link rel="stylesheet" href="dist/css/index.css">
 </head>
 
-<body class="bg-dark">
+<body background="dist/img/fondo_degradado.jpeg">
 
     <div class="container pt-4">
         <div class="row justify-content-md-center justify-content-sm-center  mt-5">
