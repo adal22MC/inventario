@@ -1,12 +1,17 @@
-Cambiar texto de select de traslado a "Seleccione Bodega destino" (LISTO)
+Cambiar texto de select de traslado a "Seleccione Bodega destino" 
+(LISTO)
 
 Realizar Reporte de Materiales por Categoria (Mostrar precio de compra en principal y en 
-unidades hijas no Mostrar) PENDIENTE
+unidades hijas no Mostrar) 
+PENDIENTE
 
-Corregir error en reporte individual de materiales a nivel unidad operativ hija PENDIENTE
+Corregir error en reporte individual de materiales a nivel unidad operativ hija 
+PENDIENTE
 
 Cuando se acepta una solicitud de materiales en la bodega Madre, la bodega hija tiene que
-aceptar tambien (Y AGREGAR UN CAMPO OBSERVACIONES) PENDIENTE
+aceptar tambien (Y AGREGAR UN CAMPO OBSERVACIONES) 
+PENDIENTE
 
 Cuando se hara una solicitud de producto en una unidad hija  calcular automaticamente la
-cantidad que falta para el stock maximo
+cantidad que falta para el stock maximo 
+PENDIENTE
