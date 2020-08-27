@@ -202,7 +202,12 @@
         <tbody>
           <?php
           if ($_GET['materiales'] == 1) {
-            MaterialModelo::imprimirDatosMateriales($item["id"]);
+            if(isset($_GET["idMaterial"])){
+              MaterialModelo::imprimirDatosMaterial($item["id"],$_GET["idMaterial"]);
+            }else{
+              MaterialModelo::imprimirDatosMateriales($item["id"]);
+            }
+           
           } else {
             MaterialModelo::imprimiDatosTabla($item["id"]);
           }

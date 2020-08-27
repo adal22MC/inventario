@@ -692,4 +692,32 @@
                 return $e->getMessage();
             }
         }
+        public static function imprimirDatosMaterial($id_bodega,$material){
+            try {
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT m.id_m as id, m.descr as nombre, c.descr as categoria, i.s_total as stock
+                FROM inventario i, material m, categorias c
+                WHERE i.id_m_i = m.id_m and m.id_c_m = c.id_c and m.id_m = ? and i.id_b_i = ?");
+                $pst->execute([$material,$id_bodega]);
+
+                $material = $pst->fetchAll();
+
+                foreach($material  as $ma){
+                    echo '
+                    <tr>
+                        <th scope="row">'.$ma["id"].'</th>
+                        <td align="center">'.$ma["nombre"].'</td>
+                        <td align="center">'.$ma["categoria"].'</td>
+                        <td align="center">'.$ma["stock"].'</td>
+                    </tr>';
+                }
+                $conexion->closeConexion();
+                $conn = null;
+
+            } catch (PDOException $e) {
+                return $e->getMessage();
+            }
+        }
     }
