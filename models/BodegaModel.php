@@ -22,8 +22,10 @@
 
                 $pst->execute([$bodega['id'],$bodega['correo'], $bodega['tel'], $bodega['nombre'],$bodega['direc']]);
 
+                /*
                 $pst = $conn->prepare("INSERT INTO bod_usu VALUES (?,?)");
                 $pst->execute([$bodega['id'],$bodega['username']]);
+                */
 
                 $conn = null;
                 $conexion->closeConexion();

@@ -47,8 +47,7 @@ CREATE OR REPLACE TABLE tipo_usuario(
 INSERT INTO tipo_usuario VALUES 
 (NULL, 'Administrador'),
 (NULL, 'Almacenista Principal'),
-(NULL, 'Almacenista Por Unidad'),
-(NULL, 'Almacenista Multisucursal');
+(NULL, 'Almacenista Por Unidad');
 
 CREATE OR REPLACE TABLE usuarios(
 

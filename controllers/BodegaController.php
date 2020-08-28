@@ -13,8 +13,7 @@
                 "correo" => $_POST['correoBodega'],
                 "tel" => $_POST['numBodega'],
                 "direc" => $_POST['direcBodega'],
-                "id" => $_POST['idBodega'],
-                "username" => $_POST["selectUsuario"]
+                "id" => $_POST['idBodega']
             );
 
             $respuesta = BodegaModelo::agregarBodeja($bodega);

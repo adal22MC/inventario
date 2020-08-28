@@ -60,27 +60,22 @@ formaddBodega.addEventListener('submit', async (e) =>{
 
     try {
 
-        let selectUsuario = document.getElementById('selectUsuario');
+        var datosBodega = new FormData(formaddBodega); //obtenemos el formulario y creamos un objeto
+        datosBodega.append('agregarBodega', 'OK');
+    
+        var peticion = await fetch('../controllers/BodegaController.php', {
+            method : 'POST',
+            body : datosBodega
+        });
 
-        if(selectUsuario.value != "default"){
-            var datosBodega = new FormData(formaddBodega); //obtenemos el formulario y creamos un objeto
-            datosBodega.append('agregarBodega', 'OK');
-        
-            var peticion = await fetch('../controllers/BodegaController.php', {
-                method : 'POST',
-                body : datosBodega
-            });
+        var resjson = await peticion.json();
 
-            var resjson = await peticion.json();
-
-            if(resjson.respuesta == "OK"){
-                notificacionExitosa('¡Alta de bodega exitosa!');
-            }else{
-                notificarError(resjson.respuesta);
-            }
+        if(resjson.respuesta == "OK"){
+            notificacionExitosa('¡Alta de bodega exitosa!');
         }else{
-            notificarError("Selecciona un usuario para esta bodega");
+            notificarError(resjson.respuesta);
         }
+       
         
     } catch (error) {
         console.log(error);

@@ -65,7 +65,7 @@
     }
 
     /* =======================================================
-        DEVUELVE LOS USUARIOS POR UNIDAD QUE ESTAN LIBRES
+        DEVUELVE LOS USUARIOS POR UNIDAD QUE ESTAN LIBRES (SIN USO)
     ========================================================== */
     if(isset($_POST['getUsuariosUnidadLibres'])){
         $usuarios = UsuarioModel::getUsuariosUnidadLibres();

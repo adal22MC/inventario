@@ -20,12 +20,20 @@ $(document).on("click", ".btnAgregarASolicitud", async function(){
     }
 
     let idProducto = data[0]; 
-    let nomProducto = data[2]; console.log(nomProducto)
-    
-    
+    let nomProducto = data[2]; 
+
+    let botonStock = document.createElement("button");
+    botonStock.innerHTML = data[3];
+
+    let botonStockMax = document.createElement("button");
+    botonStockMax.innerHTML = data[4];
+    //console.log(botonStock.lastChild.innerText);
+    let cantidad_sugerencia = parseInt(botonStockMax.lastChild.innerText) - parseInt(botonStock.lastChild.innerText);
+
     cantidad = await Swal.fire({
         title: 'Ingresa la cantidad a solicitar',
-        input: 'number',
+        input: "number",
+        inputValue : cantidad_sugerencia,
         inputAttributes: {
           autocapitalize: 'off'
         },

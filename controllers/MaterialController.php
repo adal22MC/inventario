@@ -7,35 +7,19 @@
         AGREGAR MATERIAL
      ============================= */
      if( isset($_POST['agregarMaterial']) ){
-       
-        if(
-
-            preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_ ]+$/', $_POST['idM']) &&
-            preg_match('/^[()\-0-9 ]+$/', $_POST['categoria']) 
-
-        ){
-            if($_POST["serialMaterial"] != ""){
-                if(!preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ.,_ ]+$/', $_POST['serialMaterial'])){
-                    echo json_encode(['respuesta'=>'Eror en el campo serial']);
-                }
-            }
-            
-            $Material = array(
-                "id" => $_POST['idM'],
-                "descr" => $_POST['desMaterial'],
-                "serial" => $_POST['serialMaterial'],
-                "id_c" => $_POST['categoria'],
-                "s_max" => $_POST['stock_max'],
-                "s_min" => $_POST['stock_min']
-            );
          
-            $respuesta = MaterialModelo::agregarMaterial($Material);
-            echo json_encode(['respuesta'=>$respuesta]);
-          
-        }else{
-            echo json_encode(['respuesta'=>'Error en caracteres.']);
-        }
+        $Material = array(
+            "id" => $_POST['idM'],
+            "descr" => $_POST['desMaterial'],
+            "serial" => $_POST['serialMaterial'],
+            "id_c" => $_POST['categoria'],
+            "s_max" => $_POST['stock_max'],
+            "s_min" => $_POST['stock_min']
+        );
         
+        $respuesta = MaterialModelo::agregarMaterial($Material);
+        echo json_encode(['respuesta'=>$respuesta]);
+    
     }
 
     

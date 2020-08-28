@@ -152,7 +152,7 @@ if(!($_SESSION['tipo_usuario'] == "Administrador")){
                                 <input type="text" class="form-control" name="direcBodega" placeholder="Direccion" required>
                             </div>
 
-                            <!-- ENTRADA PARA EL USUARIO A NIVEL UNIDAD -->
+                            <!-- ENTRADA PARA EL USUARIO A NIVEL UNIDAD 
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
@@ -163,6 +163,7 @@ if(!($_SESSION['tipo_usuario'] == "Administrador")){
                                     <option value="default">Selecciona un usuario para esta bodega</option>
                                 </select>
                             </div>
+                            -->
 
 
                         </div>

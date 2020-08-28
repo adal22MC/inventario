@@ -300,7 +300,7 @@ require_once "../controllers/EstadisticasController.php";
             </div>
           <?php } ?>
 
-          <?php if ($_SESSION['tipo_usuario'] == "Almacenista Multisucursal") { ?>
+          <?php if ($_SESSION['tipo_usuario'] == "Almacenista Por Unidad") { ?>
             <div class="row">
               <div class="col-md-5">
                 <div class="card">
@@ -361,7 +361,7 @@ require_once "../controllers/EstadisticasController.php";
   <!-- ./wrapper -->
 
   <?php include('include/scripts.php'); ?>
-  <?php if ($_SESSION['tipo_usuario'] == "Almacenista Multisucursal") { ?>
+  <?php if ($_SESSION['tipo_usuario'] == "Almacenista Por Unidad") { ?>
     <script src="dist/js/pages/cambio_sucursal.js"></script>
   <?php } ?>
   <?php if ($_SESSION['tipo_usuario'] == "Administrador") { ?>
