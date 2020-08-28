@@ -144,16 +144,6 @@ $(document).on('click', '.btnVerAccesos', async function(){
             title: 'Mensaje',
             text: 'Para ver los acceso selecciona un usuario de tipo Unidad o Multisucursal.',
         }); 
-        /*$("#tablaAcceso tbody").children().remove();
-        $("#tablaAcceso").find('tbody').append(`
-            <tr>
-                <td>*</td>
-                <td>Unidad Pricipal</td>
-            </tr>
-        `);
-        $("#modalSucursalesAcceso").modal('show'); */
-            
-        
     }else{
         try {
             let data_form = new FormData();
@@ -175,14 +165,20 @@ $(document).on('click', '.btnVerAccesos', async function(){
                     text: 'Sin acceso a sucursales',
                 }); 
             }else{
+                console.log(resjson)
                 $("#tablaAcceso tbody").children().remove();
-                for(let item of resjson){
+                let i = 0;
+                for(let item of resjson[0]){
+                    
+                    
                     $("#tablaAcceso").find('tbody').append(`
                         <tr>
-                            <td>${item[0].id_b}</td>
-                            <td>${item[0].nombre}</td>
+                            <td>${item.id_b}</td>
+                            <td>${item.nombre}</td>
                         </tr>
                     `);
+                    
+                    
                 }
                 $("#modalSucursalesAcceso").modal('show');
             }
