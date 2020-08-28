@@ -1,14 +1,15 @@
 <?php
-  session_start();
-  if (!isset($_SESSION['username']) ){
+session_start();
+if (!isset($_SESSION['username'])) {
     header('Location: login.php');
-  }
+}
 
-  if ($_SESSION['tipo_usuario'] != "Administrador" &&
-      $_SESSION['tipo_usuario'] != "Almacenista Principal"
-    ) {
+if (
+    $_SESSION['tipo_usuario'] != "Administrador" &&
+    $_SESSION['tipo_usuario'] != "Almacenista Principal"
+) {
     header('Location: login.php');
-  }
+}
 
 ?>
 
@@ -27,6 +28,27 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+
+            <div class="container-fluid pt-4">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-10">
+                        <!-- ENTRADA PARA EL TIPO DE CATEGORIA -->
+                        <div class="input-group pt-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fab fa-cuttlefish"></i>
+                                </span>
+                            </div>
+                            <select class="form-control" name="categoria" id="selectCategoria">
+                                <option value="show" selected="selected">Seleccione una categoria</option>
+
+                            </select>
+                            <button title="Reporte Por Categoria" class='btn btn-danger btn-sm btnSucursal ml-3'><i class='fas fa-file-pdf'></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- TABLA CATEGORIA -->
             <div class="container-fluid pt-4">
@@ -165,10 +187,10 @@
                             <div class="input-group pt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                    <i class="nav-icon fab fa-cuttlefish"></i>
+                                        <i class="nav-icon fab fa-cuttlefish"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control"  id ="desCategoria" name="desCategoria" placeholder="Descripción" required>
+                                <input type="text" class="form-control" id="desCategoria" name="desCategoria" placeholder="Descripción" required>
                             </div>
 
                         </div>
@@ -187,7 +209,7 @@
                     </form>
                 </div>
             </div>
-        </div>       
+        </div>
 
         <?php include("include/footer.php") ?>
 

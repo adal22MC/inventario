@@ -131,10 +131,9 @@
                         $_SESSION['tipo_usuario'] == "Almacenista Principal"
                     ) { ?>
                        <!-- CATEGORIAS -->
-                       <li class="nav-item">
+                       <li class="nav-item"> 
                            <a href="categorias.php" class="nav-link">
                                <i class="nav-icon fab fa-cuttlefish"></i>
-
                                <p>
                                    CATEGORIAS
                                </p>

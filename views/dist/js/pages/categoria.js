@@ -22,8 +22,10 @@ function init(){
             {"data" : "descr"},
             {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-info btn-sm btnEditar'><i class='fas fa-edit'></i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='fas fa-trash-alt'></i></button></div></div>"}
         ]
+    });
 
-    })
+    // Llenar select categorias
+
 }
 init();
 
@@ -80,7 +82,6 @@ formEditCategoria.addEventListener('submit', async (e) =>{
         console.log(error);
     }
 })
-
 
 /* CUANDO SE PRESIONA EL BOTON EDITAR */     
 $(document).on("click", ".btnEditar", function(){
