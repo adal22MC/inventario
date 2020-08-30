@@ -118,6 +118,7 @@ CREATE OR REPLACE TABLE solicitud_p(
     resp varchar(255) COLLATE utf8_spanish_ci NOT NULL,
     status INT NOT NULL,
     id_b_sp VARCHAR(50) COLLATE utf8_spanish_ci NOT NULL,
+    observaciones TEXT COLLATE utf8_spanish_ci NOT NULL,
     FOREIGN KEY (id_b_sp) REFERENCES bodegas(id_b) ON UPDATE CASCADE,
     FOREIGN KEY (resp) REFERENCES usuarios(username),
     PRIMARY KEY (id_s)
@@ -146,6 +147,7 @@ CREATE OR REPLACE TABLE traslados(
     t_materiales INT NOT NULL, -- cantidad de materiales
     te_traslado FLOAT NOT NULL, -- total efectivo
     resp VARCHAR(60) COLLATE utf8_spanish_ci NOT NULL,
+    observaciones TEXT COLLATE utf8_spanish_ci NOT NULL,
     FOREIGN KEY (resp) REFERENCES usuarios (username),
     FOREIGN KEY (llego_a) REFERENCES bodegas(id_b) ON UPDATE CASCADE,
     FOREIGN KEY (salio_de) REFERENCES bodegas (id_b) ON UPDATE CASCADE,

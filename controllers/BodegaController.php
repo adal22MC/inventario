@@ -83,7 +83,7 @@
     if( isset($_POST['traslado'])){
         $traslado = $_POST['traslado'];
 
-        $respuesta = BodegaModelo::insertarTraslado($traslado, $_SESSION['id_bodega']);
+        $respuesta = BodegaModelo::guardarTraslado($traslado, $_SESSION['id_bodega']);
 
         echo json_encode(['respuesta'=>$respuesta]);
     }

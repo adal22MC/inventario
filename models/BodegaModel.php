@@ -235,6 +235,39 @@
             }
         }
 
+        /* Guardamos el traslado en la tabla traslados pendientes */
+        public static function guardarTraslado($traslado, $id_bo_salio){
+            try{
+
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("INSERT INTO traslados_pendientes 
+                (resp,status,llego_a,salio_de) VALUES (?,1,?,?)");
+                $pst->execute([$_SESSION['username'],$traslado[0]['id_bodega'],$id_bo_salio]);
+
+                // Obtenemos el id del traslado que acabamos de insertar
+                $pst = $conn->prepare("SELECT MAX(id) as id FROM traslados_pendientes");
+                $pst->execute();
+                $id = $pst->fetch();
+
+                // Insertamos en el detalle del traslado
+                for($i=1; $i<count($traslado); $i++){
+                    $pst = $conn->prepare("INSERT INTO detalle_traslado_pendientes 
+                    (id_tp_dtp,id_m_dtp,cant,recibi) VALUES (?,?,?,?)");
+                    $pst->execute([$id['id'],$traslado[$i]['id'],$traslado[$i]['cantidad'],$traslado[$i]['cantidad']]);
+                }
+
+                $conexion->closeConexion();
+                $con = null;
+
+                return "OK";
+
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
         public static function insertarTraslado($traslado, $id_bo_salio){
             try{
 
@@ -250,8 +283,8 @@
                 $total_materiaes = self::getTotalMaterialesTraslado($traslado);
 
                 // Insertamos en la tabla traslado
-                $pst = $conn->prepare("INSERT INTO traslados (llego_a, salio_de,t_materiales,te_traslado, resp) VALUES (?,?,?,?,?)");
-                $pst->execute([$traslado[0]['id_bodega'],$id_bo_salio,$total_materiaes,0,$_SESSION['username']]);
+                $pst = $conn->prepare("INSERT INTO traslados (llego_a, salio_de,t_materiales,te_traslado, resp,observaciones) VALUES (?,?,?,?,?,?)");
+                $pst->execute([$traslado[0]['id_bodega'],$id_bo_salio,$total_materiaes,0,$_SESSION['username'],$traslado[0]['observaciones']]);
 
                 // Obtenemos el id del traslado
                 $pst = $conn->prepare("SELECT MAX(id_t) as id_t FROM traslados"); 

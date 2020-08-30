@@ -103,9 +103,6 @@
                                </li>
                            </ul>
                        </li>
-
-                       
-
                    <?php } ?>
 
 
@@ -176,6 +173,12 @@
                                    <p>Realizar Traslado</p>
                                </a>
                            </li>
+                           <li class="nav-item">
+                                   <a href="traslados_pendientes.php" class="nav-link">
+                                       <i class="fas fa-minus-3x nav-icon"></i>
+                                       <p>Traslados Pendientes</p>
+                                   </a>
+                               </li>
                            <li class="nav-item">
                                <a href="historial_traslados.php" class="nav-link">
                                    <i class="fas fa-minus-3x nav-icon"></i>

@@ -4,8 +4,7 @@ require_once "conexion.php";
 class TrasladoModelo
 {
 
-    public static function imprimirDatosTraslado($id_traslado)
-    {
+    public static function imprimirDatosTraslado($id_traslado){
         try {
             $conexion = new Conexion();
             $conn = $conexion->getConexion();
@@ -30,8 +29,8 @@ class TrasladoModelo
             return $e->getMessage();
         }
     }
-    public static function imprimiDatosTabla($id_traslado)
-    {
+
+    public static function imprimiDatosTabla($id_traslado){
         try {
             $conexion = new Conexion();
             $conn = $conexion->getConexion();
@@ -179,4 +178,5 @@ class TrasladoModelo
             return $e->getMessage();
         }
     }
+
 }

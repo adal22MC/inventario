@@ -367,14 +367,14 @@
                  * 3 -> rechazada
                  * 4 -> completada
                  */
-
+                
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
-
+                
                 // Insertamos en la tabla solicitud_p
-                $pst = $conn->prepare("INSERT INTO solicitud_p (resp,status,id_b_sp) VALUES (?,?,?)");
-                $pst->execute([$_SESSION['username'],1,$id_b]);
-
+                $pst = $conn->prepare("INSERT INTO solicitud_p (resp,status,id_b_sp,observaciones) VALUES (?,?,?,?)");
+                $pst->execute([$_SESSION['username'],1,$id_b,"Sin observaciones"]);
+                
                 // Obtenemos el id de la soliciitud que acabamos de insertar
                 $pst = $conn->prepare("SELECT MAX(id_s) as id_s FROM solicitud_p");
                 $pst->execute();

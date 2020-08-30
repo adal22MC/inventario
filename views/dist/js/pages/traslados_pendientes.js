@@ -8,23 +8,27 @@ async function init() {
     })
 
     var datos = new FormData();
-    datos.append('getSolicitudesAceptadas', 'OK');
+    datos.append('getTrasladosPendientes', 'OK');
 
     try {
 
-        var peticion = await fetch('../controllers/SolicitudesMadreController.php', {
+        var peticion = await fetch('../controllers/TrasladosPendientesController.php', {
             method: 'POST',
             body: datos
         });
 
         var resjson = await peticion.json();
+
+        console.log(resjson);
+
         
         for (let item of resjson) {
             var option = document.createElement('option');
-            option.text = item['id_s'];
-            option.value = item['id_s'];
+            option.text = item['id'];
+            option.value = item['id'];
             selectSolicitud.appendChild(option)
         }
+        
 
     } catch (error) {
         console.log(error);
@@ -36,7 +40,7 @@ init();
 
 selectSolicitud.addEventListener('change', async (e) => {
     if (e.target.value === "default") {
-        notificarError("Selecciona un número de solicitud");
+        notificarError("Selecciona un número de traslado");
     } else {
         try {
 
@@ -45,11 +49,11 @@ selectSolicitud.addEventListener('change', async (e) => {
                 "responsive": true,
                 "autoWidth": false,
                 "ajax": {
-                    "url": "../controllers/SolicitudesMadreController.php",
+                    "url": "../controllers/TrasladosPendientesController.php",
                     "type": "POST",
                     "data": {
-                        "getDetalleSolicitud": "OK",
-                        "idSolicitud": e.target.value
+                        "getDetalleTraslado": "OK",
+                        "id_traslado": e.target.value
                     },
                     "dataSrc": ""
                 },
@@ -94,12 +98,12 @@ $(document).on('click', '.btnEdit', async function(){
                 notificarError('No puedes sobrepasar la cantidad que solicitaste!');
             }else{
                 var datos = new FormData();
-                datos.append('editRecibiDetalleSolicitud', 'OK');
-                datos.append('id_s', selectSolicitud.value);
+                datos.append('editarRecibiTrasladoPendiente', 'OK');
+                datos.append('id_traslado', selectSolicitud.value);
                 datos.append('id_m', data['id_m']);
                 datos.append('recibi', cantidad.value);
 
-                var peticion = await fetch('../controllers/SolicitudesMadreController.php', {
+                var peticion = await fetch('../controllers/TrasladosPendientesController.php', {
                     method : 'POST',
                     body : datos
                 });
@@ -120,42 +124,44 @@ $(document).on('click', '.btnEdit', async function(){
 
 document.getElementById('btnAceptar').addEventListener('click', async () => {
     if(validarOrden() != "default"){
-        try {
 
-            const result = await Swal.fire({
-                title: 'Observaciones',
-                input: 'textarea',
-                inputValue : 'Sin observaciones',
-                inputAttributes: {
-                  autocapitalize: 'off'
-                },
-                showCancelButton: true,
-                confirmButtonText: 'Confirmar',
-            });
-
-            if(result.value){
+        const result = await Swal.fire({
+            title: 'Observaciones',
+            input: 'textarea',
+            inputValue : 'Sin observaciones',
+            inputAttributes: {
+              autocapitalize: 'off'
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+        })
+    
+        if (result.value) {
+            
+            try {
                 
                 let datos = new FormData();
-                datos.append('aceptarSolicitud_hija', 'OK');
-                datos.append('idSolicitud', validarOrden());
+                datos.append('aceptar_traslado', 'OK');
+                datos.append('id_traslado', validarOrden());
                 datos.append('observaciones', result.value);
-
-                var peticion = await fetch('../controllers/SolicitudesMadreController.php', {
+    
+                var peticion = await fetch('../controllers/TrasladosPendientesController.php', {
                     method : 'POST',
                     body : datos
                 });
-
+    
                 var resjson = await peticion.json();
                 if(resjson.respuesta == "OK"){
-                    notificacionExitosa('La solicitud ha sido aceptada y finalizada!',0);
+                    notificacionExitosa('El traslado ha sido aceptado y finalizado!',0);
                 }else{
                     notificarError(resjson.respuesta);
                 }
                 
+    
+            } catch (error) {
+                console.log(error);
             }
-
-        } catch (error) {
-            console.log(error);
+            
         }
     }
     
@@ -166,17 +172,17 @@ document.getElementById('btnRechazar').addEventListener('click', async () => {
         try {
             
             let datos = new FormData();
-            datos.append('rechazarSolicitud', 'OK');
-            datos.append('idSolicitud', validarOrden());
+            datos.append('rechazar_traslado', 'OK');
+            datos.append('id_traslado', validarOrden());
 
-            var peticion = await fetch('../controllers/SolicitudesMadreController.php', {
+            var peticion = await fetch('../controllers/TrasladosPendientesController.php', {
                 method : 'POST',
                 body : datos
             });
 
             var resjson = await peticion.json();
             if(resjson.respuesta == "OK"){
-                notificacionExitosa('La solicitud a sido rechazada!',0);
+                notificacionExitosa('El traslado a sido rechazado!',0);
             }else{
                 notificarError(resjson.respuesta);
             }
@@ -205,7 +211,7 @@ function notificacionExitosa(mensaje,ban) {
         'success'
     ).then(result => {
         if(ban == 0){
-            window.location = "solicitudes_pendientes.php";
+            window.location = "traslados_pendientes.php";
         }
     });
 }

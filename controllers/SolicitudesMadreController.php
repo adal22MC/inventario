@@ -16,7 +16,7 @@
         $ban = SolicitudesMadreModel::verificarSolicitud($_POST['idSolicitud'], $_SESSION['id_bodega']);
 
         if($ban){
-            $respuesta = SolicitudesMadreModel::aceptarSolicitud($_POST['idSolicitud'], $_SESSION['id_bodega']);
+            $respuesta = SolicitudesMadreModel::aceptarSolicitud($_POST['idSolicitud'], $_SESSION['id_bodega'], $_POST['observaciones']);
 
             echo json_encode(['respuesta'=>$respuesta]);
         }else{

@@ -92,9 +92,9 @@
         /* ======================================================
             SE EJECUTA CUANDO SE ACEPTA UNA SOLICITUD FINALMENTE
          ======================================================== */
-         public static function aceptarSolicitud($id_s,$id_b_salio){
+         public static function aceptarSolicitud($id_s,$id_b_salio,$observaciones){
             try{
-
+              
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
 
@@ -111,6 +111,13 @@
                 $solicitud = $pst->fetch();
                 $traslado[0]['id_bodega'] = $solicitud['id_b_sp'];
 
+                // Establecemos las observacioens
+                $traslado[0]['observaciones'] = $observaciones;
+
+                // Modificamos las observaciones a nivel tabla solicitud_p
+                $pst = $conn->prepare("UPDATE solicitud_p set observaciones = ? WHERE id_s = ?");
+                $pst->execute([$observaciones,$id_s]);
+
                 $pst = $conn->prepare("SELECT * FROM detalle_solicitud WHERE id_s_ds = ?");
                 $pst->execute([$id_s]);
 
@@ -119,7 +126,7 @@
                 $i = 1;
                 foreach($detalle as $d){
                     $traslado[$i]['id'] = $d['id_m_ds'];
-                    $traslado[$i]['cantidad'] = $d['cant'];
+                    $traslado[$i]['cantidad'] = $d['recibi'];
 
                     $i++;
                 }
