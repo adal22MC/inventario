@@ -245,8 +245,9 @@ create or replace table entrada_material(
     primary key(id_em)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
 CREATE TABLE `empresa` (
-    id int NOT NULL ,
+  id int NOT NULL ,
   `url` text COLLATE utf8_spanish_ci ,
   `nit` text COLLATE utf8_spanish_ci ,
   `correo` varchar(60) COLLATE utf8_spanish_ci ,
@@ -258,5 +259,30 @@ CREATE TABLE `empresa` (
 
 INSERT INTO empresa values (1,"example.png","123ee3","nose@gmail.com","9876654","Super Market","fracc.rr","www.SuperMarket.com");
 
+CREATE TABLE traslados_pendientes(
 
+    id int NOT NULL AUTO_INCREMENT,
+    resp VARCHAR(60) COLLATE utf8_spanish_ci NOT NULL,
+    FOREIGN KEY (resp) REFERENCES usuarios(username),
+    status int NOT NULL,
+    llego_a VARCHAR(50) COLLATE utf8_spanish_ci NOT NULL,
+    salio_de VARCHAR(50) COLLATE utf8_spanish_ci NOT NULL,
+    FOREIGN KEY (llego_a) REFERENCES bodegas(id_b) ON UPDATE CASCADE,
+    FOREIGN KEY (salio_de) REFERENCES bodegas (id_b) ON UPDATE CASCADE,
+    PRIMARY KEY (id)
+
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+CREATE TABLE detalle_traslado_pendientes(
+
+    id_tp_dtp int NOT NULL,
+    id_m_dtp varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+    cant int NOT NULL,
+    recibi int NOT NULL,
+    FOREIGN KEY (id_m_dtp) REFERENCES material(id_m) ON UPDATE CASCADE,
+    FOREIGN KEY (id_tp_dtp) REFERENCES traslados_pendientes(id),
+    PRIMARY KEY (id_tp_dtp, id_m_dtp)
+
+
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
