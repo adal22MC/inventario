@@ -63,7 +63,7 @@
   <br>
   <!-- Información de la Solicitud -->
   <?php
-
+  $t = 0; $ct = 0;
   foreach ($Id as $item) {
 
   ?>
@@ -105,7 +105,9 @@
       <tfoot>
         <tr>
           <?php
-          OrdenCompraModel::imprimirDatosSuma($item["id"]);
+            $total_e = OrdenCompraModel::imprimirDatosSuma($item["id"]);
+            $t += $total_e["total"];
+            $ct += $total_e["cant"];
           ?>
         </tr>
       </tfoot>
@@ -114,6 +116,14 @@
     <br><br><br><br>
   <?php
   }
+    if(empty($_GET['id_orden'])){
+      $currencies['COP'] = array(0, '.', '.');
+      $to = number_format($t, ...$currencies['COP']);
+      $can = number_format($ct, ...$currencies['COP']);
+      echo "<h3 align='center'>TOTAL CANTIDAD = ". $can ."</h3>";
+      echo "<h3 align='center'>TOTAL EFECTIVO = ". $to."</h3>";
+    }
+    
   ?>
   <?php
   if (empty($_GET['fechaInicial'])) {

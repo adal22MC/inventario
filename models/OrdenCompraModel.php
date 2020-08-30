@@ -324,6 +324,9 @@
                 $Orden = $pst->fetch();
                 $curr='COP';
                 $currencies['COP'] = array(0, '.', '.');
+                
+                $total = array("cant" => $Orden["cant"],
+                                "total" => $Orden["total"]);
 
                         $cant = number_format($Orden["cant"], ...$currencies[$curr]);
                         $to = number_format($Orden["total"], ...$currencies[$curr]);
@@ -343,6 +346,7 @@
 
                 $conexion->closeConexion();
                 $conn = null;
+                return $total;
             } catch (PDOException $e) {
                 return $e->getMessage();
             }

@@ -72,7 +72,7 @@
     <hr>
     <br />
   <?php
-    
+    $t = 0; $ct = 0; $ctD = 0; $tT = 0; $ctT = 0;
   foreach ($Id as $item) {
 
   ?>
@@ -92,7 +92,9 @@
         </thead>
         <tbody>
           <?php
-                TrazabilidadModelo::imprimirDatosEntrada($item["id"],$item["FechaI"],$item["FechaF"],$item["idS"]);
+                $total_E = TrazabilidadModelo::imprimirDatosEntrada($item["id"],$item["FechaI"],$item["FechaF"],$item["idS"]);
+                $t += $total_E["total"];
+                $ct += $total_E["cant"];
           ?>
         </tbody>
         
@@ -112,7 +114,8 @@
         </thead>
         <tbody>
           <?php
-                TrazabilidadModelo::imprimirDatosDespacho($item["id"],$item["FechaI"],$item["FechaF"],$item["idS"]);
+                $total_D = TrazabilidadModelo::imprimirDatosDespacho($item["id"],$item["FechaI"],$item["FechaF"],$item["idS"]);
+                $ctD += $total_D["cant"];
           ?>
         </tbody>
         
@@ -135,7 +138,9 @@
         </thead>
         <tbody>
           <?php
-                TrazabilidadModelo::imprimirDatosTraslados($item["id"],$item["FechaI"],$item["FechaF"],$item["idS"]);
+                $total_T =TrazabilidadModelo::imprimirDatosTraslados($item["id"],$item["FechaI"],$item["FechaF"],$item["idS"]);
+                $tT += $total_T["total"];
+                $ctT += $total_T["cant"];
           ?>
         </tbody>
         
@@ -144,6 +149,13 @@
    <br><br><br><br>
   <?php
   }
+    $t += $tT;
+    $ct += $ctT + $ctD;
+    $currencies['COP'] = array(0, '.', '.');
+    $to = number_format($t, ...$currencies['COP']);
+    $can = number_format($ct, ...$currencies['COP']);
+    echo "<h3 align='center'>TOTAL CANTIDAD = ". $can ."</h3>";
+    echo "<h3 align='center'>TOTAL EFECTIVO = ". $to."</h3>";
   ?>
 </body>
 

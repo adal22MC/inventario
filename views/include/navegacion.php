@@ -97,6 +97,7 @@
                                </li>
                            </ul>
                        </li>
+                      
                    <?php } ?>
 
 
@@ -131,7 +132,7 @@
                         $_SESSION['tipo_usuario'] == "Almacenista Principal"
                     ) { ?>
                        <!-- CATEGORIAS -->
-                       <li class="nav-item"> 
+                       <li class="nav-item">
                            <a href="categorias.php" class="nav-link">
                                <i class="nav-icon fab fa-cuttlefish"></i>
                                <p>
@@ -289,10 +290,10 @@
                        <!-- MODIFICAR STOCK MIN Y MAX DE BODEGAS HIJAS -->
                        <li class="nav-item">
                            <a href="config_stock_hijas.php" class="nav-link">
-                                <i class="nav-icon fas fa-tools"></i>
-                                <p>
+                               <i class="nav-icon fas fa-tools"></i>
+                               <p>
                                    STOCK MAX Y MIN UND
-                                </p>
+                               </p>
                            </a>
                            <a id="enlace"></a>
                        </li>

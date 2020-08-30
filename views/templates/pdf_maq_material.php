@@ -53,7 +53,7 @@
   <br>
   <!-- Información de los Materiales -->
   <?php
-
+  $cant = 0;
   foreach ($Id as $item) {
 
   ?>
@@ -74,6 +74,7 @@
     ?>
       <?php
       if ($_GET['materiales'] == 1) {
+        $t=0; $ct=0;
         foreach ($material as $m) {
           if(isset($_GET['HMaterial'])){         
       ?>
@@ -106,7 +107,8 @@
         ?>
           <table width="100%">
             <?php
-            MaterialModelo::imprimirDatosM($m["id"], $item["id"]);
+              $cantidad_T = MaterialModelo::imprimirDatosM($m["id"], $item["id"]);
+              $ct += $cantidad_T;
             ?>
           </table>
           <br>
@@ -132,7 +134,8 @@
             <tfoot>
               <tr>
                 <?php
-                MaterialModelo::imprimirDatosSuma($m["id"], $item["id"]);
+                $total_e = MaterialModelo::imprimirDatosSuma($m["id"], $item["id"]);
+                $t += $total_e;
                 ?>
               </tr>
             </tfoot>
@@ -140,7 +143,14 @@
           <br><br><br><br>
         <?php
           }
+        } if(empty($_GET['idMaterial'])){
+            $currencies['COP'] = array(0, '.', '.');
+            $to = number_format($t, ...$currencies['COP']);
+            $can = number_format($ct, ...$currencies['COP']);
+            echo "<h3 align='center'>TOTAL CANTIDAD = ". $can ."</h3>";
+            echo "<h3 align='center'>TOTAL EFECTIVO = ". $to ."</h3>";
         }
+        
       } else {
         ?>
         <h3 align='center'>Materiales con Stock Bajo</h3>
@@ -205,7 +215,8 @@
             if(isset($_GET["idMaterial"])){
               MaterialModelo::imprimirDatosMaterial($item["id"],$_GET["idMaterial"]);
             }else{
-              MaterialModelo::imprimirDatosMateriales($item["id"]);
+              $total_C =MaterialModelo::imprimirDatosMateriales($item["id"]);
+              $cant = $total_C["cant"];
             }
            
           } else {
@@ -214,7 +225,20 @@
 
           ?>
         </tbody>
-
+        <tfoot>
+          <?php
+            if ($_GET['materiales'] == 1){
+              if(empty($_GET["idMaterial"])){
+                echo '
+                    <td colspan="2"></td>
+                    <td align="right" >TOTAL: </td>
+                    <td align="center" class="gray">
+                      <h3 style="margin: 0px 0px;">'.$cant.'</h3>
+                    </td>';
+              }
+            }
+          ?>
+        </tfoot>
       </table>
     <?php
     } //fin else
