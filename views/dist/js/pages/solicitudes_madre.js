@@ -60,7 +60,7 @@ $(document).on('click', '.btnAceptar', async function(e){
             var resjson = await peticion.json();
     
             if(resjson.respuesta == "OK"){
-                notificacionExitosa('¡Traslado exitoso!');
+                notificacionExitosa('¡Solicitud aceptada!');
             }else{
                 notificarError(resjson.respuesta);
             }

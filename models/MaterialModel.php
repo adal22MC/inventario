@@ -364,6 +364,8 @@
                  * Estatus
                  * 1 -> pendiente
                  * 2 -> ya aceptada
+                 * 3 -> rechazada
+                 * 4 -> completada
                  */
 
                 $conexion = new Conexion();
@@ -394,8 +396,8 @@
                 $conn = $conexion->getConexion();
 
                 foreach($solicitud as $item){
-                    $pst = $conn->prepare("INSERT INTO detalle_solicitud (id_s_ds,id_m_ds,cant) VALUES (?,?,?)");
-                    $pst->execute([$id_s,$item['id_material'],$item['cantidad']]);
+                    $pst = $conn->prepare("INSERT INTO detalle_solicitud (id_s_ds,id_m_ds,cant,recibi) VALUES (?,?,?,?)");
+                    $pst->execute([$id_s,$item['id_material'],$item['cantidad'],$item['cantidad']]);
                 }
 
 
@@ -489,6 +491,7 @@
                 return $e->getMessage();
             }
         }
+
         public static function getIdMaterialB($id_bodega){
             try {
                 $conexion = new Conexion();
@@ -510,6 +513,7 @@
                 return $e->getMessage();
             }
         }
+
         public static function imprimirDatosM($id_m,$id_b){
             try {
                 $conexion = new Conexion();
@@ -536,6 +540,7 @@
                 return $e->getMessage();
             }
         }
+
         public static function imprimirDetalleMateriales($id_m,$id_b){
             try {
                 $conexion = new Conexion();
@@ -568,6 +573,7 @@
                 return $e->getMessage();
             }
         }
+
         public static function imprimirDatosSuma($id_m,$id_b){
             try {
                 $conexion = new Conexion();
@@ -597,6 +603,7 @@
                 return $e->getMessage();
             }
         }
+
         public static function getSucursales(){
             try {
                 $conexion = new Conexion();
@@ -613,6 +620,7 @@
                return $e->getMessage();
             }
         }
+
         public static function imprimirDatosSucursal($id_b){
             try {
                 $conexion = new Conexion();
@@ -667,6 +675,7 @@
                 return $e->getMessage();
             }
         }
+
         public static function imprimirDatosMH($id_m,$id_b){
             try {
                 $conexion = new Conexion();
@@ -692,6 +701,7 @@
                 return $e->getMessage();
             }
         }
+
         public static function imprimirDatosMaterial($id_bodega,$material){
             try {
                 $conexion = new Conexion();

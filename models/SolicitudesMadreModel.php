@@ -3,6 +3,13 @@
     require_once "conexion.php";
     require_once "../models/BodegaModel.php";
 
+    /**
+     * ESTATUS 1 -> SOLICITUD PENDIENTE
+     * ESTATUS 2 -> SOLICITUD ACEPTADA POR LA U. PRINCIPAL
+     * ESTATUS 3 -> RECHAZADA 
+     * ESTATUS 4 -> COMPLETADA FINALMENTE 
+     */
+
     class SolicitudesMadreModel {
 
         /* Imprime directamente las solicitudes que hacen las bodegas
@@ -49,7 +56,7 @@
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
 
-                $pst = $conn->prepare("SELECT descr, cant FROM detalle_solicitud, material WHERE id_s_ds = ? and id_m = id_m_ds");
+                $pst = $conn->prepare("SELECT descr,cant,recibi,id_m FROM detalle_solicitud, material WHERE id_s_ds = ? and id_m = id_m_ds");
                 $pst->execute([$id]);
 
                 $detalle = $pst->fetchAll();
@@ -82,14 +89,20 @@
             }
         }
 
-        /* ===========================================
-            SE EJECUTA CUANDO SE ACEPTA UNA SOLICITUD
-         =============================================*/
-         public static function aceptarSolicitud($id_s, $id_b_salio){
+        /* ======================================================
+            SE EJECUTA CUANDO SE ACEPTA UNA SOLICITUD FINALMENTE
+         ======================================================== */
+         public static function aceptarSolicitud($id_s,$id_b_salio){
             try{
 
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
+
+                // Obtenemos el id de la bodega Madre
+                $pst = $conn->prepare("SELECT * FROM bodegas WHERE tipo = 1");
+                $pst->execute();
+                $bodegaMadre = $pst->fetch();
+                $id_b_salio = $bodegaMadre['id_b'];
 
                 $pst = $conn->prepare("SELECT * FROM solicitud_p WHERE id_s = ?");
                 $pst->execute([$id_s]);
@@ -113,7 +126,7 @@
 
                 $res = BodegaModelo::insertarTraslado($traslado, $id_b_salio);
                 
-                $pst = $conn->prepare("UPDATE solicitud_p set status = 2 WHERE id_s = ?");
+                $pst = $conn->prepare("UPDATE solicitud_p set status = 4 WHERE id_s = ?");
                 $pst->execute([$id_s]);
 
 
@@ -123,13 +136,40 @@
             }
         }
 
-        /* Metodo que verifica que la cantidad que solicita la unidad operativ hija este disponible en la
-           sucursal Madre */
+        /* ==============================================
+          CUANDO LA U. PRINCIPAL ACEPTA LA SOLICITUD
+         ================================================= */
+        public static function aceptarSolicitudMadre($id_solicitud){
+            try{
+
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+                
+                $pst = $conn->prepare("UPDATE solicitud_p set status = 2 WHERE id_s = ?");
+                $pst->execute([$id_solicitud]);
+
+
+                return "OK";
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
+        /* ===========================================================
+            Metodo que verifica que la cantidad que solicita la unidad 
+            operativ hija este disponible en la sucursal Madre 
+        =====================================================================*/
         public static function verificarSolicitud($id_s, $id_b){
             try{
 
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
+
+                // Obtenemos el id de la bodega Madre
+                $pst = $conn->prepare("SELECT * FROM bodegas WHERE tipo = 1");
+                $pst->execute();
+                $bodegaMadre = $pst->fetch();
+                $id_b = $bodegaMadre['id_b'];
 
                 $pst = $conn->prepare("SELECT * FROM solicitud_p WHERE id_s = ?");
                 $pst->execute([$id_s]);
@@ -151,6 +191,51 @@
                 }
 
                 return $ban;
+                
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
+        /* ===========================================================
+            RETORNA LAS SOLICITUDES EN ESTATUS 2
+         =============================================================*/
+         public static function getSolicitudesStatus2(){
+            try{
+
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("SELECT * FROM solicitud_p WHERE status = 2");
+                $pst->execute();
+                $solicitudes = $pst->fetchAll();
+
+                $conexion->closeConexion();
+                $conn = null;
+
+                return $solicitudes;
+                
+            }catch(PDOException $e){
+                return $e->getMessage();
+            }
+        }
+
+        /* ====================================================================================
+                MODIFICA LA CANTIDAD QUE SE RECIBIO DE UNA SOLICITUD QUE HIZO LA HIJA A LA MADRE
+        ======================================================================================*/
+        public static function modificarCantidadRecibi($id_s, $id_m, $recibi){
+            try{
+
+                $conexion = new Conexion();
+                $conn = $conexion->getConexion();
+
+                $pst = $conn->prepare("UPDATE detalle_solicitud set recibi = ? WHERE id_s_ds = ? and id_m_ds = ?");
+                $pst->execute([$recibi,$id_s,$id_m]);
+
+                $conexion->closeConexion();
+                $conn = null;
+
+                return "OK";
                 
             }catch(PDOException $e){
                 return $e->getMessage();

@@ -129,6 +129,7 @@ CREATE OR REPLACE TABLE detalle_solicitud(
     id_s_ds INT NOT NULL,
     id_m_ds varchar(50) COLLATE utf8_spanish_ci NOT NULL,
     cant INT NOT NULL,
+    recibi INT NOT NULL,
     FOREIGN KEY (id_s_ds) REFERENCES solicitud_p (id_s),
     FOREIGN KEY (id_m_ds) REFERENCES material (id_m) ON UPDATE CASCADE,
     PRIMARY KEY (id_s_ds, id_m_ds)
