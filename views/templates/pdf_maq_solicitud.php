@@ -100,8 +100,20 @@
 
           ?>
         </tr>
-      </tfoot>
-      
+      </tfoot>    
+    </table>
+    <br>
+    <table width="100%">
+      <thead style="background-color: lightgray;">
+        <tr>
+          <th>Observaciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        SolicitudModelo::imprimirDatosObservacionesS($item["id"]);
+        ?>
+      </tbody>
     </table>
     <br><br><br><br>
   <?php

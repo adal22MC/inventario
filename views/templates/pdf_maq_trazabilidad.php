@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Traslado</title>
+  <title>Trazabilidad</title>
 
   <style type="text/css">
     * {
@@ -97,6 +97,24 @@
                 $ct += $total_E["cant"];
           ?>
         </tbody>
+        <tfoot>
+            <?php
+                $currencies['COP'] = array(0, '.', '.');
+                $toE = number_format($t, ...$currencies['COP']);
+                $canE = number_format($ct, ...$currencies['COP']);
+                echo '
+                <tr>
+                    <td colspan="4"></td>
+                    <td align="right" >TOTAL: </td>
+                    <td align="center" class="gray"> <h3 style="margin: 0px 0px;">' . $toE . '</h3> </td>
+                </tr>
+                <tr>
+                    <td colspan="4"></td>
+                    <td align="right" >CANTIDAD TOTAL: </td>
+                    <td align="center" class="gray"> <h3 style="margin: 0px 0px;">' . $canE . '</h3> </td>
+                </tr>'
+            ?>        
+        </tfoot>
         
       </table>
     </div>
@@ -118,7 +136,18 @@
                 $ctD += $total_D["cant"];
           ?>
         </tbody>
-        
+        <tfoot>
+            <?php
+                $currencies['COP'] = array(0, '.', '.');
+                $canD = number_format($ctD, ...$currencies['COP']);
+                echo '
+                <tr>
+                    <td colspan="1"></td>
+                    <td align="right" >CANTIDAD TOTAL: </td>
+                    <td align="center" class="gray"> <h3 style="margin: 0px 0px;">' . $canD . '</h3> </td>
+                </tr>'
+            ?>        
+        </tfoot>
       </table>
     </div>
    <br><br><br><br>
@@ -143,7 +172,24 @@
                 $ctT += $total_T["cant"];
           ?>
         </tbody>
-        
+        <tfoot>
+            <?php
+                $currencies['COP'] = array(0, '.', '.');
+                $toT = number_format($tT, ...$currencies['COP']);
+                $canT = number_format($ctT, ...$currencies['COP']);
+                echo '
+                <tr>
+                    <td colspan="4"></td>
+                    <td align="right" >TOTAL: </td>
+                    <td align="center" class="gray"> <h3 style="margin: 0px 0px;">' . $toT . '</h3> </td>
+                </tr>
+                <tr>
+                    <td colspan="4"></td>
+                    <td align="right" >CANTIDAD TOTAL: </td>
+                    <td align="center" class="gray"> <h3 style="margin: 0px 0px;">' . $canT . '</h3> </td>
+                </tr>'
+            ?>        
+        </tfoot>
       </table>
     </div>
    <br><br><br><br>

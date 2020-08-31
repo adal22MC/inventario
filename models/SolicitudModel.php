@@ -170,4 +170,26 @@ NIT: '. $datos["nit"] . '
             return $e->getMessage();
         }
     }
+    public static function imprimirDatosObservacionesS($id_solicitud){
+        try {
+            $conexion = new Conexion();
+            $conn = $conexion->getConexion();
+            $pst = $conn->prepare("SELECT observaciones FROM solicitud_p  WHERE  id_s = ?");
+            $pst->execute([$id_solicitud]);
+
+            $Solicitud = $pst->fetchAll();
+            foreach ($Solicitud as $Soli) {
+                echo '
+                <tr>
+                    <td align="center">'.$Soli["observaciones"].'</td>
+                </tr>';
+                    
+            }
+            $conexion->closeConexion();
+            $conn = null;
+
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
 }

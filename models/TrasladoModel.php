@@ -157,7 +157,8 @@ class TrasladoModelo
 
             $curr='COP';
             $currencies['COP'] = array(0, '.', '.');
-
+            $total = array("total" => $DetalleTraslado["cant"],
+                            "cant" => $Traslado["cant"]);
                     $pre = number_format($DetalleTraslado["cant"], ...$currencies[$curr]);
                     $to = number_format($Traslado["cant"], ...$currencies[$curr]);
                 echo '
@@ -174,6 +175,30 @@ class TrasladoModelo
 
             $conexion->closeConexion();
             $conn = null;
+            return $total;
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public static function imprimirDatosObservacionesT($id_traslado){
+        try {
+            $conexion = new Conexion();
+            $conn = $conexion->getConexion();
+            $pst = $conn->prepare("SELECT observaciones FROM traslados  WHERE  id_t = ?");
+            $pst->execute([$id_traslado]);
+
+            $Traslado = $pst->fetchAll();
+            foreach ($Traslado as $tras) {
+                echo '
+                <tr>
+                    <td align="center">'.$tras["observaciones"].'</td>
+                </tr>';
+                    
+            }
+            $conexion->closeConexion();
+            $conn = null;
+
         } catch (PDOException $e) {
             return $e->getMessage();
         }

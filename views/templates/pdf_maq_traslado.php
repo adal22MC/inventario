@@ -53,7 +53,7 @@
   <br>
   <!-- Información del Traslado -->
   <?php
-
+  $t=0; $ct=0;
   foreach ($Id as $item) {
 
   ?>
@@ -104,18 +104,42 @@
       <tfoot>
           <?php
             if( $_SESSION['tipo_usuario']== "Administrador"){
-              TrasladoModelo::imprimirDatosSumaDetalle($item["id"]);
+              $total_t = TrasladoModelo::imprimirDatosSumaDetalle($item["id"]);
+              $t += $total_t["total"];
+              $ct += $total_t["cant"];
             }else{
               TrasladoModelo::imprimirDatosSuma($item["id"]);
             }           
           ?>
        
-      </tfoot>
-      
+      </tfoot>  
+    </table>
+    <br>
+    <table width="100%">
+      <thead style="background-color: lightgray;">
+        <tr>
+          <th>Observaciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        TrasladoModelo::imprimirDatosObservacionesT($item["id"]);
+        ?>
+      </tbody>
     </table>
     <br><br><br><br>
   <?php
   }
+  if($_SESSION['tipo_usuario']== "Administrador"){
+    if(isset($_GET['fechaInicial'])){
+      $currencies['COP'] = array(0, '.', '.');
+      $to = number_format($t, ...$currencies['COP']);
+      $can = number_format($ct, ...$currencies['COP']);
+      echo "<h3 align='center'>TOTAL CANTIDAD = ". $can ."</h3>";
+      echo "<h3 align='center'>TOTAL EFECTIVO = ". $to ."</h3>";
+    }
+  }
+  
   ?>
 </body>
 
