@@ -83,8 +83,12 @@ class TrazabilidadModelo
             $DetalleM = $pst->fetchAll();
             if($DetalleM != null){
                 $curr='COP';
+                $CANTIDAD = 0; $TOTAL = 0;
                 foreach ($DetalleM as $Dtras) {
                     $currencies['COP'] = array(0, '.', '.');
+
+                    $CANTIDAD += $Dtras["cant"];
+                    $TOTAL += $Dtras["total"];
 
                     $pre = number_format($Dtras["p_compra"], ...$currencies[$curr]);
                     $to = number_format($Dtras["total"], ...$currencies[$curr]);
@@ -99,15 +103,17 @@ class TrazabilidadModelo
                     </tr>';
                 }
             }else{
+                $CANTIDAD = 0; $TOTAL = 0;
                 echo '
                 <tr>
                 <td align="center"colspan="7">El Material no tiene entradas</td>
                 </tr>';
             }
-            
+            $total = array("cant" => $CANTIDAD,
+                                "total" => $TOTAL);
             $conexion->closeConexion();
             $conn = null;
-
+            return $total;
         } catch (PDOException $e) {
             return $e->getMessage();
         }
@@ -125,7 +131,10 @@ class TrazabilidadModelo
             $DetalleD = $pst->fetchAll();
             if($DetalleD != null){
                 $curr='COP';
+                $CANTIDAD = 0;
                 foreach ($DetalleD as $Ddes) {
+                    
+                    $CANTIDAD += $Ddes["cant"];
                     $currencies['COP'] = array(0, '.', '.');
                     $cant = number_format($Ddes["cant"], ...$currencies[$curr]);
                     echo '
@@ -137,15 +146,16 @@ class TrazabilidadModelo
                     </tr>';
                 }
             }else{
+                $CANTIDAD = 0;
                 echo '
                 <tr>
                 <td align="center"colspan="7">El Material no tiene Despachos</td>
                 </tr>';
             }
-            
+            $total = array("cant" => $CANTIDAD);
             $conexion->closeConexion();
             $conn = null;
-
+            return $total;
         } catch (PDOException $e) {
             return $e->getMessage();
         }
@@ -163,7 +173,10 @@ class TrazabilidadModelo
             $DetalleM = $pst->fetchAll();
             if($DetalleM != null){
                 $curr='COP';
+                $CANTIDAD = 0; $TOTAL = 0;
                 foreach ($DetalleM as $Dtras) {
+                    $CANTIDAD += $Dtras["cant"];
+                    $TOTAL += $Dtras["total"];
                     $currencies['COP'] = array(0, '.', '.');
 
                     $pre = number_format($Dtras["p_compra"], ...$currencies[$curr]);
@@ -179,15 +192,18 @@ class TrazabilidadModelo
                     </tr>';
                 }
             }else{
+                $CANTIDAD = 0; $TOTAL = 0;
                 echo '
                 <tr>
                 <td align="center"colspan="7">El Material no tiene Traslados</td>
                 </tr>';
             }
+            $total = array("cant" => $CANTIDAD,
+                                "total" => $TOTAL);
             
             $conexion->closeConexion();
             $conn = null;
-
+            return $total;
         } catch (PDOException $e) {
             return $e->getMessage();
         }

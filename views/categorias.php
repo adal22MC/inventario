@@ -39,11 +39,11 @@ if (
                                     <i class="fab fa-cuttlefish"></i>
                                 </span>
                             </div>
-                            <select class="form-control" name="categoria" id="selectCategoria">
+                            <select class="form-control" name="categoria" id="selectCategoriaM">
                                 <option value="show" selected="selected">Seleccione una categoria</option>
 
                             </select>
-                            <button title="Reporte Por Categoria" class='btn btn-danger btn-sm btnSucursal ml-3'><i class='fas fa-file-pdf'></i>
+                            <button title="Reporte Por Categoria" class='btn btn-danger btn-sm btnC ml-3'><i class='fas fa-file-pdf'></i>
                             </button>
                         </div>
                     </div>
@@ -215,7 +215,7 @@ if (
 
     </div>
     <!-- ./wrapper -->
-
+    
     <?php include("include/scripts.php"); ?>
     <script src="dist/js/pages/categoria.js"></script>
 

@@ -29,7 +29,35 @@ require_once "../models/MaterialModel.php";
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+            <?php
+            if (
+                $_SESSION['tipo_usuario'] == "Almacenista Por Unidad" ||
+                $_SESSION['tipo_usuario'] == "Almacenista Multisucursal"
+              ){
+            ?>
+              <div class="container-fluid pt-4">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-10">
+                        <!-- ENTRADA PARA EL TIPO DE CATEGORIA -->
+                        <div class="input-group pt-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fab fa-cuttlefish"></i>
+                                </span>
+                            </div>
+                            <select class="form-control" name="categoria" id="selectCatM">
+                                <option value="show" selected="selected">Seleccione una categoria</option>
 
+                            </select>
+                            <button title="Reporte Por Categoria" class='btn btn-danger btn-sm btnCM ml-3'><i class='fas fa-file-pdf'></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <?php
+             }
+             ?>
             <!-- TABLA MATERIAL -->
             <div class="container-fluid pt-4">
                 <div class="row">
@@ -344,6 +372,7 @@ require_once "../models/MaterialModel.php";
             echo '<script src="dist/js/pages/material.js"></script>';
         }else{
             echo '<script src="dist/js/pages/material_unidad.js"></script>';
+            echo '<script src="dist/js/pages/categoria_material.js"></script>';
         }
     ?>
 

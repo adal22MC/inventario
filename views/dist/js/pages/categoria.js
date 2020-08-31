@@ -4,7 +4,7 @@ const formEditCategoria = document.getElementById('formEditCategoria');
 var tablaCategoria;
 var idCategoria;
 
-function init(){
+async function init(){
 
     tablaCategoria = $("#categoria").DataTable({
         "responsive": true,
@@ -25,7 +25,28 @@ function init(){
     });
 
     // Llenar select categorias
+    try {
+        var datosC = new FormData();
+        datosC.append("obtenerCategorias","OK");
 
+        var peticion = await fetch('../controllers/CategoriaController.php',{
+            method : 'POST',
+            body : datosC
+        });
+
+        var resjson = await peticion.json();
+
+        let selectCategoriaM = document.getElementById('selectCategoriaM');
+        for(let item of resjson){
+            let option = document.createElement('option');
+            option.value = item.id_c;
+            option.text = item.descr;
+            selectCategoriaM.appendChild(option);
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
 }
 init();
 
@@ -172,3 +193,15 @@ function notificarError(mensaje){
 document.getElementById('altaCategoria').addEventListener('click', () => {
     formaddCategoria.reset();
 })
+
+/* Generar Reporte Materiales por Categoria*/ 
+$(document).on('click', '.btnC', function(){
+    const selectCategoriaM = document.getElementById('selectCategoriaM').value;
+    if(selectCategoriaM != "show"){
+
+        window.location = "templates/pdf_categoria.php?id_c="+selectCategoriaM;
+
+    }else{
+        notificarError("No has Seleccionado una Categoria!!");
+    }
+});

@@ -474,8 +474,9 @@
                 $pst->execute([$id_bodega]);
 
                 $material = $pst->fetchAll();
-
+                $stock = 0;
                 foreach($material  as $ma){
+                    $stock += $ma["stock"];
                     echo '
                     <tr>
                         <th scope="row">'.$ma["id"].'</th>
@@ -484,9 +485,10 @@
                         <td align="center">'.$ma["stock"].'</td>
                     </tr>';
                 }
+                $total = array("cant" => $stock);
                 $conexion->closeConexion();
                 $conn = null;
-
+                return $total;
             } catch (PDOException $e) {
                 return $e->getMessage();
             }
@@ -525,8 +527,9 @@
                 $pst->execute([$id_b, $id_m]);
 
                 $material = $pst->fetchAll();
-
+                $canT = 0;
                 foreach($material as $m){
+                    $canT += $m['s_total'];
                     echo"
                         <td><strong>Codigo:</strong> " . $id_m . " </td>
                         <td><strong>Material:</strong> " . $m['descr'] . " </td>
@@ -535,7 +538,7 @@
                 }
                 $conexion->closeConexion();
                 $conn = null;
-
+                return $canT;
             } catch (PDOException $e) {
                 return $e->getMessage();
             }
@@ -555,9 +558,10 @@
                 $curr='COP';
                 foreach($material  as $ma){
                     $currencies['COP'] = array(0, '.', '.');
-
+                  
                     $pre = number_format($ma["p_compra"], ...$currencies[$curr]);
                     $to = number_format($ma["total"], ...$currencies[$curr]);
+                    
                     echo '
                     <tr>
                         <td align="center">'.$ma["fecha"].'</td>
@@ -568,7 +572,7 @@
                 }
                 $conexion->closeConexion();
                 $conn = null;
-
+                
             } catch (PDOException $e) {
                 return $e->getMessage();
             }
@@ -585,9 +589,11 @@
     
                 $material = $pst->fetchAll();
                 $curr='COP';
+                $total =0;
                 foreach ($material as $ma) {
                     $currencies['COP'] = array(0, '.', '.');
                     $to = number_format($ma["total"], ...$currencies[$curr]);
+                    $total += $ma["total"];
                     echo '
                     <td colspan="2"></td>
                     <td align="right" >TOTAL: </td>
@@ -598,7 +604,7 @@
                 }
                 $conexion->closeConexion();
                 $conn = null;
-    
+                return $total;
             } catch (PDOException $e) {
                 return $e->getMessage();
             }
